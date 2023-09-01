@@ -1,0 +1,56 @@
+public class MinStack {
+    Stack<long> stack;
+    long min = int.MaxValue;
+
+    public MinStack() {
+        stack = new Stack<long>();        
+    }
+
+    public void Push(int val) { 
+         if(stack.Count==0)       {
+            min = val;
+            stack.Push(val);
+            return;
+        }
+        if(val>=min) {
+            stack.Push(val);
+        } else {
+            stack.Push(2L*val - min);
+        }
+        min = Math.Min(min, val);
+    }
+
+    public void Pop() {
+        if(stack.Count!=0) {
+            long value = stack.Pop();
+            if(value<min) {
+                min = 2*min - value;
+            }
+        }
+    }
+
+    public int Top() {
+            if (stack.Count != 0) {
+            long topValue = stack.Peek();
+            if (topValue < min) {
+                return (int)min;
+            } else {
+                return (int)topValue;
+            }
+        }
+        return 0;
+    }
+
+    public int GetMin() {
+        return (int)min;
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.Push(val);
+ * obj.Pop();
+ * int param_3 = obj.Top();
+ * int param_4 = obj.GetMin();
+ */

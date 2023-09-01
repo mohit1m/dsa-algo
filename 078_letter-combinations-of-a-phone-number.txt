@@ -1,0 +1,41 @@
+/*
+TC: O(4^n) In the worst case, the maximum number of recursive calls at each level is 4 
+SC: O(4^n) When all possible combinations are generated, the result list can contain a total of 4^N strings
+
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+*/
+public class Solution {
+    private void Solve(int index, string digits, Dictionary<char, string> mapping, string str, IList<string> result) {
+        if(index >= digits.Length) {
+            result.Add(str);
+            return;
+        }
+
+        char digit = digits[index];
+        foreach(char c in mapping[digit]) {
+            string s = String.Concat(str, c.ToString());
+            Solve(index+1, digits, mapping, s , result);
+        }
+    }
+
+    public IList<string> LetterCombinations(string digits) {
+        Dictionary<char, string> mapping = new Dictionary<char, string> {
+            { '2', "abc"},
+            { '3', "def"},
+            { '4', "ghi"},
+            { '5', "jkl"},
+            { '6', "mno"},
+            { '7', "pqrs"},
+            { '8', "tuv"},
+            { '9', "wxyz"}
+        };
+        IList<string> result = new List<string>();
+        if(String.IsNullOrWhiteSpace(digits)) {
+            return result;
+        }
+        int index = 0;
+        string str ="";
+        Solve(index, digits, mapping, str, result);
+        return result;
+    }
+}

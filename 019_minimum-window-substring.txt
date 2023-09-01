@@ -1,0 +1,59 @@
+/* 
+TC: O(n^2)
+SC: O(n)
+
+https://leetcode.com/problems/minimum-window-substring/description/
+*/
+public class Solution {
+    private void AddToDictionary(char ch, Dictionary<char,int> hashMap) {
+        if(hashMap.ContainsKey(ch)) {
+            hashMap[ch]++;
+        }
+        else {
+            hashMap[ch]=1;
+        }
+    }
+    public string MinWindow(string s, string t) {
+        if(String.IsNullOrWhiteSpace(t) || t.Length > s.Length) {
+            return String.Empty;
+        }
+        Dictionary<char, int> countCharinT = new Dictionary<char, int>();
+        Dictionary<char, int> countWindow =  new Dictionary<char, int>();
+        foreach(char c in t) {
+            AddToDictionary(c, countCharinT);
+        }
+
+        int[] res = new int []{-1,-1};
+        int left = 0;
+        int n = s.Length;
+        int neededCount = countCharinT.Count;
+        int currentCount = 0;
+        int minWindowSize = int.MaxValue;
+
+        for(int right = 0; right < n; right++) {
+            char ch = s[right];
+            AddToDictionary(ch, countWindow);
+
+            if(countCharinT.ContainsKey(ch) && countCharinT[ch] == countWindow[ch]) {
+                currentCount++;
+            }
+            while(neededCount == currentCount) {
+                int windowSize = right-left+1;
+                if(windowSize < minWindowSize){
+                    minWindowSize = windowSize; 
+                    res = new int[] { left, right };
+                }
+                char leftChar = s[left];
+                countWindow[leftChar]--;
+                if(
+                    countCharinT.ContainsKey(leftChar) && 
+                    countCharinT[leftChar] > countWindow[leftChar]) {
+                        currentCount--;
+                    }
+                left++;
+            }
+        }
+        return minWindowSize == int.MaxValue ? 
+        String.Empty : s.Substring(res[0],res[1]-res[0]+1);
+    }
+}

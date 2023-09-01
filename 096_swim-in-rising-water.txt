@@ -1,0 +1,40 @@
+/*
+TC: O(N^2 * log(N))
+SC: O(N^2)
+
+https://leetcode.com/problems/swim-in-rising-water/
+*/
+
+public class Solution {
+    public int SwimInWater(int[][] grid) {
+        int rows = grid.Length;
+        int cols =grid[0].Length;
+        PriorityQueue<(int,int,int), int> minHeap = new();
+        HashSet<(int,int)> visited = new();
+        minHeap.Enqueue((grid[0][0], 0 , 0), grid[0][0]);
+        visited.Add((0,0));
+
+        int[,] directions = new int[,] {{0,1}, {0,-1}, {1,0}, {-1,0}};
+
+        while(minHeap.Count!=0) {
+            var (depth, row, col) = minHeap.Dequeue();
+            if(row == rows-1 && col == cols-1) {
+                return depth;
+            }
+            for(int d=0; d<directions.GetLength(0); d++) {
+                int newRow = row + directions[d,0];
+                int newCol = col+ directions[d,1];
+                if(newRow<0 || newRow>=rows || newCol<0 || newCol>=cols) {
+                    continue;
+                } else if(!visited.Contains((newRow, newCol))) {
+                    int value = Math.Max(depth, grid[newRow][newCol]);
+                    minHeap.Enqueue((value, newRow, newCol), value);
+                    visited.Add((newRow,newCol));
+                }
+            }
+
+        }
+        return -1;
+        
+    }
+}

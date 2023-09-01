@@ -1,0 +1,56 @@
+/*
+TC: O(m*n) O(V+E) ~= O(m*n + 4*m*n) ~= O(m*n)
+SC: O(m*n)
+
+https://leetcode.com/problems/number-of-islands/description/
+*/
+public class Solution {
+    public void DFS(char[][] grid, int rows, int cols, int row, int col, HashSet<(int,int)> visited) {
+        if(row<0 || col<0 || row>=rows || col>=cols || grid[row][col] == '0' || visited.Contains((row,col))) {
+            return;
+        }
+        visited.Add((row, col));
+        DFS(grid, rows,  cols, row-1, col, visited);
+        DFS(grid, rows,  cols, row+1, col, visited);
+        DFS(grid, rows,  cols, row, col-1, visited);
+        DFS(grid, rows,  cols, row, col+1, visited);
+    }
+
+    public void BFS(char[][] grid, int rows, int cols, int row, int col, HashSet<(int,int)> visited) {
+        Queue<(int,int)> q  = new Queue<(int,int)>();
+        q.Enqueue((row,col));
+        visited.Add((row, col));
+        while (q.Count != 0) {
+            var (r,c) = q.Dequeue();
+            int[,] directions = new int[,] {
+                {-1,0}, {1,0}, {0,-1} ,{0, 1}
+            };
+            for(int i=0; i<directions.GetLength(0); i++) {
+                int newR = r + directions[i,0];
+                int newC = c + directions[i,1];            
+                if(newR<0 || newC<0 || newR>=rows || newC>=cols || grid[newR][newC] == '0' ||                   visited.Contains((newR,newC))) {
+                        continue;
+                }
+                q.Enqueue((newR, newC));
+                visited.Add((newR, newC));
+            }
+        }
+    }
+
+    public int NumIslands(char[][] grid) {
+        int rows = grid.Length;
+        int cols = grid[0].Length;
+        int noOfIslands = 0;
+        HashSet<(int,int)> visited = new();
+
+        for(int i=0; i<rows; i++) {
+            for(int j=0; j<cols; j++) {
+                if(!visited.Contains((i,j)) && grid[i][j] == '1') {
+                    DFS(grid, rows, cols, i, j, visited);
+                    noOfIslands++;
+                }
+            }            
+        }
+        return noOfIslands;
+    }
+}

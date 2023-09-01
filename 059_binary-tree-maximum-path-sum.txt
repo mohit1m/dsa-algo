@@ -1,0 +1,38 @@
+/*
+TC: O(n)
+SC: O(H)
+
+https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    int result = int.MinValue;
+    private int MaxPathSumHelper(TreeNode root) { 
+        if(root == null) {
+            return 0;
+        }
+        var left = MaxPathSumHelper(root.left);
+        var right = MaxPathSumHelper(root.right);
+        int max_node_with_without_left_or_right = Math.Max(root.val, root.val + Math.Max(left, right));
+        // Max of all possible paths 
+        result = Math.Max(result, Math.Max(max_node_with_without_left_or_right, root.val + left + right));
+        return  max_node_with_without_left_or_right;
+    }
+
+    public int MaxPathSum(TreeNode root) {        
+        MaxPathSumHelper(root);
+        return result;
+    }
+}

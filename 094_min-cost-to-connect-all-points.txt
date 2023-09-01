@@ -1,0 +1,49 @@
+/*
+TC: O((N+E)logN)
+SC: O(N)
+
+https://leetcode.com/problems/min-cost-to-connect-all-points/
+Prims MST algo
+*/
+public class Solution {
+    public int MinCostConnectPoints(int[][] points) {
+        int n = points.Length;
+        // neighbouring distance, node
+        Dictionary<int, List<(int, int)>> adjList = new();
+        // distance, node
+        PriorityQueue<(int, int), int> minHeap = new();
+        HashSet<int> visited = new();
+        for(int i=0; i<n; i++) {
+            adjList[i] = new List<(int, int)>();
+        }
+
+        for(int i=0; i<n; i++) {
+            int x1 = points[i][0];
+            int y1 = points[i][1];
+            for(int j=1; j<n; j++) {
+                int x2 = points[j][0];
+                int y2 = points[j][1];
+                int distance  = Math.Abs(x1-x2) + Math.Abs(y1-y2);
+                adjList[i].Add((distance, j));
+            }
+        }
+
+        minHeap.Enqueue((0,0), 0);
+        int cost = 0;
+        while(visited.Count!=n) {
+            var (distance, node) = minHeap.Dequeue();
+            // To avoid visiting node with diff distance
+            if (visited.Contains(node)) {
+                continue;
+            }
+            cost += distance;            
+            visited.Add(node);
+            foreach(var (dist,nei) in adjList[node]) {
+                if(!visited.Contains(nei)) {
+                    minHeap.Enqueue((dist, nei), dist);
+                }
+            }
+        }
+        return cost;        
+    }
+}

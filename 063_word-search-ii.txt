@@ -1,0 +1,72 @@
+/*
+TC: O(4^(m*n)*m*n)
+SC: O(no of letters in the word)
+
+https://leetcode.com/problems/word-search-ii/description/
+*/
+public class Solution {
+    public class TrieNode {
+      public Dictionary<char,TrieNode> ChildrenMap {get;set;}
+      public bool IsTerminalWord {get;set;}
+
+      public TrieNode() {
+          ChildrenMap = new Dictionary<char,TrieNode>();
+      }
+    }
+
+    TrieNode root;
+    public Solution() {
+        root = new TrieNode();
+    }
+
+    public void AddToTrie(string word)  {
+            var current = root;
+            foreach(char c in word) {
+                if(!current.ChildrenMap.ContainsKey(c)) {
+                    current.ChildrenMap[c] = new TrieNode();
+                }
+                current = current.ChildrenMap[c];
+            }
+            current.IsTerminalWord = true;
+        }
+
+    private void DFS(int row, int col, TrieNode node, string word, 
+    int rows, int cols, char[][] board, HashSet<(int,int)> visited, HashSet<string> result) {
+        if(row<0 || col<0 || row>=rows || col>=cols || visited.Contains((row, col)) ||
+        !node.ChildrenMap.ContainsKey(board[row][col])) {
+            return;
+        }
+        visited.Add((row, col));
+
+        word += board[row][col];
+        node = node.ChildrenMap[board[row][col]];
+        if(node.IsTerminalWord) {
+            result.Add(word);
+        }
+
+        DFS(row-1, col, node, word, rows, cols, board, visited, result);
+        DFS(row+1, col, node, word, rows, cols, board, visited, result);
+        DFS(row, col-1, node, word, rows, cols, board, visited, result);
+        DFS(row, col+1, node, word, rows, cols, board, visited, result); 
+
+        visited.Remove((row, col));
+    }
+    
+    public IList<string> FindWords(char[][] board, string[] words) {
+         foreach (var word in words)
+            AddToTrie(word);
+
+         int rows = board.Length;
+         int cols = board[0].Length;
+         var result = new HashSet<string>();
+         //bool[,] visited = new bool[rows, cols];
+         HashSet<(int,int)> visited = new HashSet<(int,int)>();
+
+         for(int i=0; i<rows; i++) {
+             for(int j=0; j<cols; j++) {
+                 DFS(i ,j, root  ,"", rows, cols, board, visited, result);
+             }
+         }       
+         return result.ToList(); 
+    }
+}

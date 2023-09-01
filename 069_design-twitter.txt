@@ -1,0 +1,65 @@
+public class Twitter {
+    // follower following
+    Dictionary<int, HashSet<int>> followMap;
+    // userId and (tweetId, time)
+    Dictionary<int, List<(int, int)>> tweetMap;
+    // time, tweetId, followeeId, index
+    PriorityQueue<(int, int, int, int) ,int> maxHeap;
+    int time;
+
+    public Twitter() {
+        followMap = new();
+        tweetMap = new();
+        maxHeap = new PriorityQueue<(int, int, int, int) ,int>(Comparer<int>.Create((a, b) => b-a));
+        time = 0;        
+    }
+    
+    public void PostTweet(int userId, int tweetId) {
+        tweetMap.TryAdd(userId, new List<(int, int)>());
+        tweetMap[userId].Add((tweetId, time));
+        time++;        
+    }
+    
+    public IList<int> GetNewsFeed(int userId) {
+        maxHeap.Clear();
+        IList<int> result = new List<int>();
+        Follow(userId, userId);
+        foreach(var followeeId in followMap[userId]) {
+            if(tweetMap.ContainsKey(followeeId)) {
+                int index = tweetMap[followeeId].Count -1;          
+                var (tweetId, time) = tweetMap[followeeId][index];
+                maxHeap.Enqueue((time, tweetId, followeeId, index-1), time);
+            }
+        }
+
+        while(maxHeap.Count>0 && result.Count < 10) {
+            var (time, tweetId, followeeId, index) = maxHeap.Dequeue();
+            result.Add(tweetId);
+            if(index>=0) {
+              var (nextTweetId, nextTime) = tweetMap[followeeId][index];
+              maxHeap.Enqueue((nextTime, nextTweetId, followeeId, index-1), nextTime); 
+            }           
+        }
+        return result;
+    }
+    
+    public void Follow(int followerId, int followeeId) {
+        followMap.TryAdd(followerId, new HashSet<int>());
+        followMap[followerId].Add(followeeId);
+    }
+    
+    public void Unfollow(int followerId, int followeeId) {
+        if(followMap.ContainsKey(followerId)) {
+            followMap[followerId].Remove(followeeId);
+        }
+    }
+}
+
+/**
+ * Your Twitter object will be instantiated and called as such:
+ * Twitter obj = new Twitter();
+ * obj.PostTweet(userId,tweetId);
+ * IList<int> param_2 = obj.GetNewsFeed(userId);
+ * obj.Follow(followerId,followeeId);
+ * obj.Unfollow(followerId,followeeId);
+ */

@@ -1,0 +1,31 @@
+/* 
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+https://leetcode.com/problems/longest-consecutive-sequence/
+*/
+public class Solution {
+    public int LongestConsecutive(int[] nums) {
+      int n = nums.Length;
+      if(nums.Length == 0) {
+          return 0;
+      }
+      HashSet<int> hashSet = new HashSet<int>();  
+      int maxSequenceLength = 1;
+      foreach(var num in nums) {
+          hashSet.Add(num);
+      }
+      foreach(var num in nums) {
+          if(!hashSet.Contains(num-1)) {
+              int length = 1;
+              int nextNum= num+length;
+              while(hashSet.Contains(nextNum)) {
+                  length++;
+                  maxSequenceLength = Math.Max(length, maxSequenceLength);
+                  nextNum = num+length;
+              }
+          }
+      }
+      return maxSequenceLength;
+    }
+}

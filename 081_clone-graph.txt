@@ -1,0 +1,46 @@
+
+TC O(n) O(V+E) DFS
+SC O(n)
+
+httpsleetcode.comproblemsclone-graphdescription
+
+
+ Definition for a Node.
+public class Node {
+    public int val;
+    public IListNode neighbors;
+
+    public Node() {
+        val = 0;
+        neighbors = new ListNode();
+    }
+
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ListNode();
+    }
+
+    public Node(int _val, ListNode _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+}
+
+
+public class Solution {
+    DictionaryNode,Node hashMapOldToNew = new DictionaryNode,Node();
+    public Node CloneGraph(Node node) {
+        if(node == null) {
+            return null;
+        }
+        if(hashMapOldToNew.ContainsKey(node)) {
+            return hashMapOldToNew[node];
+        }
+        Node clone = new Node(node.val);
+        hashMapOldToNew[node] = clone;
+        foreach(var neighbor in node.neighbors) {
+            clone.neighbors.Add(CloneGraph(neighbor));
+        } 
+        return clone;      
+    }
+}

@@ -1,0 +1,42 @@
+/*
+TC: O(n^3)
+SC: O(n)
+https://leetcode.com/problems/palindrome-partitioning/
+*/
+public class Solution {
+    private bool IsPalindrome(string str) {
+        int left =0;
+        int right = str.Length-1;
+        while(left<right) {
+            if(str[left]!= str[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    private void Solve(int index, string s, IList<string> partition, IList<IList<string>> result) {
+        if(index>=s.Length) {
+            result.Add(new List<string>(partition));
+            return;
+        }
+
+        for(int j=index; j<s.Length; j++) {
+            string str = s.Substring(index, j-index+1);
+            if(IsPalindrome(str)) {
+                partition.Add(str);
+                Solve(j+1, s, partition, result);
+                partition.RemoveAt(partition.Count - 1);
+            }
+        }
+    }
+    public IList<IList<string>> Partition(string s) {
+        IList<IList<string>> result  = new List<IList<string>>();
+        IList<string> partition = new List<string>();
+        int index = 0;
+        Solve(index, s, partition, result);
+        return result;        
+    }
+}

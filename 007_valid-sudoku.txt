@@ -1,0 +1,35 @@
+/*
+TC: O(1)
+SC: O(n)
+
+https://leetcode.com/problems/valid-sudoku/
+*/
+public class Solution {
+    public bool IsValidSudoku(char[][] board) {
+        Dictionary<int, HashSet<char>> rowsDict = new();
+        Dictionary<int, HashSet<char>> colsDict = new();
+        // r/3 c/3
+        Dictionary<(int,int), HashSet<char>> squareDict = new();
+
+        for(int i=0; i<9; i++) {
+            rowsDict.TryAdd(i, new HashSet<char>());
+            for(int j=0; j<9; j++) {
+                colsDict.TryAdd(j, new HashSet<char>());
+                squareDict.TryAdd((i/3,j/3), new HashSet<char>());
+
+                if(board[i][j] == '.') {
+                    continue;
+                }
+                if(rowsDict[i].Contains(board[i][j]) || colsDict[j].Contains(board[i][j]) ||
+                squareDict[(i/3,j/3)].Contains(board[i][j])) {
+                    return false;
+                }
+                rowsDict[i].Add(board[i][j]);
+                colsDict[j].Add(board[i][j]);
+                squareDict[(i/3,j/3)].Add(board[i][j]);
+            }
+        }
+        return true;
+        
+    }
+}

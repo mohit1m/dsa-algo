@@ -1,0 +1,53 @@
+/*
+TC: O(N^2 * M) where 'N' is the number of words in wordList, and 'M' is the length of each word.
+SC: O(N * M^2)
+
+https://leetcode.com/problems/word-ladder/
+*/
+public class Solution {
+    public int LadderLength(string beginWord, string endWord, IList<string> wordList) {
+        if(!wordList.Contains(endWord)) {
+            return 0;
+        }
+        //if(!wordList.Contains(beginWord)) {
+            wordList.Add(beginWord);
+       // }
+
+        Dictionary<string, HashSet<string>> adjList = new();
+
+        foreach(var word in wordList) {
+            for(int i=0; i<word.Length; i++) {
+                string pattern = word.Substring(0, i) + "*" + word.Substring(i + 1);;
+                adjList.TryAdd(pattern, new HashSet<string>());
+                adjList[pattern].Add(word);
+            }
+        }
+
+        HashSet<string> visited = new HashSet<string>();
+        Queue<string> q = new Queue<string>();
+        q.Enqueue(beginWord);
+        visited.Add(beginWord);
+        int result = 1;
+        while(q.Count > 0) {
+            int size = q.Count;
+            for(int i=0; i<size; i++) {                
+                string word = q.Dequeue();
+                if(word == endWord) {
+                    return result;
+                }
+                
+                for(int j=0; j<word.Length; j++) {
+                    string pattern = word.Substring(0, j) + "*" + word.Substring(j + 1);
+                    foreach(var str in adjList[pattern]) {
+                        if(!visited.Contains(str)) {
+                            q.Enqueue(str);
+                            visited.Add(str);
+                        }
+                    }
+                }
+        }
+        result++;
+        }
+        return 0;
+    }
+}

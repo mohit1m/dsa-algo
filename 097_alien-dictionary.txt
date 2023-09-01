@@ -1,0 +1,91 @@
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+/*
+TC: O(V+E)
+SC: O(V)
+
+https://www.lintcode.com/problem/892/description
+*/
+
+namespace lintcode
+{
+    class Solution {
+        Stack<char> stack = new Stack<char>();
+        private bool DFSIsCyclic(char c, Dictionary<char,List<char>> hashMap, HashSet<int> visited, HashSet<int> dfsVisited) {
+            visited.Add(c);
+            dfsVisited.Add(c);
+            foreach(var ch in hashMap[c]) {
+                if(!visited.Contains(ch)) {
+                    bool isCyclic  = DFSIsCyclic(ch, hashMap, visited, dfsVisited);
+                    if(isCyclic) {
+                        return true;
+                    }
+                } else if (dfsVisited.Contains(ch)) {
+                    return true;
+                }
+            }
+            dfsVisited.Remove(c);    
+            Console.WriteLine("blala:"+c.ToString());    
+            stack.Push(c);
+            return false;
+        }
+        /**
+         * @param words: a list of words
+         * @return: a string which is correct order
+         */
+        public string AlienOrder(string[] words) {
+            // Write your code here
+            Dictionary<char,List<char>> hashMap = new Dictionary<char,List<char>>();
+            int n = words.Length;
+            foreach(string word in words) {
+                foreach(char c in word) {
+                    if(!hashMap.ContainsKey(c)){
+                        hashMap[c] = new List<char>();
+                    }
+                }
+            }
+            for(int i=0; i<n-1; i++) {
+                string str1 = words[i];
+                string str2= words[i+1];
+                int minLength = Math.Min(str1.Length, str2.Length);
+
+                if(str1.Length > str2.Length && str1.Substring(0, minLength) == str2) {
+                    return String.Empty;
+                }
+
+                for(int j=0; j<minLength; j++) {
+                    if(str1[j] != str2[j]) {
+                        hashMap[str1[j]].Add(str2[j]);
+                        break;
+                    }
+                }
+              
+            }
+
+            HashSet<int> visited = new HashSet<int>();
+            HashSet<int> dfsVisited = new HashSet<int>(); 
+            List<char> charList = new List<char>();
+            string result = String.Empty;
+            // Trick for getting the string combination in alphabetical order
+            // The letters in one string are of the same rank by default and are sorted in Human dictionary order.
+            for(char character='z'; character>='a'; character--) {
+               //foreach(char character in hashMap.Keys) {
+                 if(hashMap.ContainsKey(character) && !visited.Contains(character)) {
+                   // if(!visited.Contains(character)) {
+                    if(DFSIsCyclic(character, hashMap, visited, dfsVisited)) {
+                        return String.Empty;
+                    }                    
+                }                
+            }
+            while(stack.Count!=0) {
+               char c = stack.Pop();
+               charList.Add(c);
+            }
+            string str = new String(charList.ToArray());
+            result = string.Join("", str);
+            return result; 
+        }
+    }
+}

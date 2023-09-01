@@ -1,0 +1,47 @@
+/*
+// Definition for a Node.
+public class Node {
+    public int val;
+    public Node next;
+    public Node random;
+    
+    public Node(int _val) {
+        val = _val;
+        next = null;
+        random = null;
+    }
+}
+*/
+
+/*
+TC: O(n)
+SC: O(n)
+
+https://leetcode.com/problems/copy-list-with-random-pointer
+*/
+public class Solution {
+    public Node CopyRandomList(Node head) {
+        if(head == null) {
+            return null;
+        }
+        // Maintain a hashmap for old and new nodes
+        Dictionary<Node, Node> oldToNewHashMap = new();
+        Node curr = head;
+
+        // Create mapping of all nodes for copy nodes
+        while(curr != null) {
+            Node copy = new Node(curr.val);
+            oldToNewHashMap[curr] = copy;
+            curr = curr.next;
+        }
+
+        curr = head;
+        while(curr != null) {
+            Node copy = oldToNewHashMap[curr];
+            copy.next = curr.next != null ? oldToNewHashMap[curr.next] : null;
+            copy.random = curr.random != null ? oldToNewHashMap[curr.random] : null;
+            curr = curr.next;
+        }
+        return oldToNewHashMap[head];
+    }
+}

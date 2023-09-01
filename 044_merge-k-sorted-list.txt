@@ -1,0 +1,57 @@
+/*
+TC: O(n)
+SC: O(n) The size of mergeLists is roughly half the size of the previous lists array. So, we will have O(n/2) space in the first iteration, O(n/4) in the second, and so on. The total space complexity is the sum of these geometrically decreasing sizes, which is O(n).
+
+https://leetcode.com/problems/merge-k-sorted-lists/editorial/
+*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int val=0, ListNode next=null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode MergeLists(ListNode list1, ListNode list2) {
+        var dummy = new ListNode();
+        var tail = dummy;
+        while(list1 != null && list2 != null) {
+            if(list2.val > list1.val) {
+                tail.next = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                list2 = list2.next;
+            }
+            tail = tail.next;
+        }
+        if(list1 != null) {
+            tail.next = list1;
+        } else if(list2 != null) {
+            tail.next = list2;
+        }
+        return dummy.next;
+    }
+
+    public ListNode MergeKLists(ListNode[] lists) {
+        if(lists.Length == 0) {
+            return null;
+        }
+
+        while(lists.Length > 1) {
+            int n = lists.Length;     
+            var mergeLists = new ListNode[(n+1) / 2];
+            for(int i = 0; i < n; i = i+2) {
+                ListNode list1 = lists[i];
+                ListNode list2 = (i+1) <n ? lists[i+1] : null;
+                mergeLists[i/2] = MergeLists(list1, list2);
+            }
+            lists = mergeLists;
+        }        
+        return lists[0];
+    }
+}

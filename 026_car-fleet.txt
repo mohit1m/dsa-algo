@@ -1,0 +1,27 @@
+/*
+TC: O(nlogn)
+SC: O(n)
+
+https://leetcode.com/problems/car-fleet
+*/
+public class Solution {
+    public int CarFleet(int target, int[] position, int[] speed) {
+        int n = position.Length;
+        (int, int)[] arr = new (int, int)[n];
+        for(int i=0; i<n; i++) {
+          arr[i] = (position[i], speed[i]);
+        }
+
+        //Sort by distance in descending order
+        Array.Sort(arr, (a,b) => b.Item1.CompareTo(a.Item1));
+        Stack<double> stack = new Stack<double>();
+        foreach(var val in arr) {
+            double time = (double)(target - val.Item1) / val.Item2;
+            stack.Push(time);
+            if(stack.Count > 1 && stack.Peek() <= stack.Skip(1).First()) {
+                stack.Pop();
+            }           
+        }        
+        return stack.Count;       
+    }
+}

@@ -1,0 +1,54 @@
+/*
+TC: O((N+E)logN)
+SC: O(N)
+https://leetcode.com/problems/network-delay-time/
+Dijkistra's Algo for shortest path
+*/
+public class Solution {
+    public int NetworkDelayTime(int[][] times, int n, int k) {
+        int[] distance = new int[n+1];
+        Array.Fill(distance, int.MaxValue);
+
+        distance[k] = 0;
+
+        // distance, node
+        PriorityQueue<(int, int), int> minHeap = new();
+        Dictionary<int, List<(int, int)>> adjList = new();
+        HashSet<int> visited = new HashSet<int>();
+        minHeap.Enqueue((0, k), 0);
+
+        // Build the adjacency list
+        for (int i = 1; i <= n; i++) {
+            adjList[i] = new List<(int, int)>();
+        }
+
+        foreach (var time in times) {
+            int src = time[0];
+            int dest = time[1];
+            int w = time[2];
+            if (!adjList.ContainsKey(src))
+                adjList[src] = new List<(int, int)>();
+            adjList[src].Add((dest, w));
+        }
+
+        while(minHeap.Count != 0) {
+            var (distanceU, u ) = minHeap.Dequeue();
+           
+            foreach(var (v, w) in adjList[u]) {
+                if(!visited.Contains(v)) {
+                    if(distanceU != int.MaxValue && distanceU + w < distance[v]) {
+                        distance[v] = distanceU + w;
+                        minHeap.Enqueue((distance[v], v), distance[v]);                        
+                    }               
+                }
+            }
+            visited.Add(u);
+        }
+        
+        int maxDistance=0;
+        for( int i=1; i<=n; i++) {
+            maxDistance = Math.Max(maxDistance, distance[i]);
+        }
+        return maxDistance != int.MaxValue ? maxDistance : -1; 
+    }
+}

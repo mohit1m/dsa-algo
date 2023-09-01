@@ -1,0 +1,57 @@
+/*
+TC: O(n)
+SC: O(n)
+
+https://leetcode.com/problems/longest-repeating-character-replacement/description/
+*/
+public class Solution {
+    private int GetCharacterMaxFrequency(char ch, Dictionary<char,int> hashMap) {
+       if(hashMap.ContainsKey(ch)) {
+            hashMap[ch]++;
+        }
+        else {
+            hashMap[ch] = 1;
+        }
+        return hashMap.Values.Max();
+    }
+
+    private int GetFrequency(char ch, Dictionary<char,int> hashMap) {
+        int freq=0;
+        if(hashMap.ContainsKey(ch)) {
+            hashMap[ch]++;
+            freq = hashMap[ch];
+        }
+        else {
+            hashMap[ch] = 1;
+            freq=1;
+        }
+        return freq;
+    }
+
+    public int CharacterReplacement(string s, int k) {
+        int longestRepeatingCharacterCount = 0;
+        Dictionary<char,int> hashMap = new Dictionary<char,int>();
+        int left = 0, right = 0;
+        int n = s.Length;
+        int mostFrequentLetterCount = 0;
+        while(right<n) {
+            char ch = s[right];
+            mostFrequentLetterCount = GetCharacterMaxFrequency(ch, hashMap);
+
+            //Optimized to get maxFrequency without going through entire hashMap
+            //int freq = GetFrequency(ch, hashMap);            
+            //mostFrequentLetterCount = Math.Max(mostFrequentLetterCount, freq);
+            int lettersToChangeCount = (right-left+1) - mostFrequentLetterCount;
+            if(lettersToChangeCount > k) {
+                char leftMostCharacter = s[left];
+                hashMap[leftMostCharacter]--;
+                left++;  
+            } else{     
+                longestRepeatingCharacterCount=
+                Math.Max(longestRepeatingCharacterCount, right-left+1); 
+            }
+            right++; 
+        }
+        return longestRepeatingCharacterCount;
+    }
+}

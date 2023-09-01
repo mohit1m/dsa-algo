@@ -1,0 +1,52 @@
+/*
+TC: O(k + m * log(m) + time * log(m)) ~= time*log(m)
+    where k = all tasks
+          m = unique tasks
+SC: O(m + n), where m is the number of unique tasks and n is the input parameter.
+
+https://leetcode.com/problems/task-scheduler
+*/
+public class Solution {
+    public int LeastInterval(char[] tasks, int n) {
+        // task, count map
+        Dictionary<char, int> hashMap = new();
+        // task and count maxHeap
+        PriorityQueue<(char, int), int> maxHeap = new PriorityQueue<(char, int), int>(
+        Comparer<int>.Create((a, b) => (b - a)));
+        // task , count, available to pickup time
+        Queue<(char, int,  int)> q = new();
+        foreach(var task in tasks) {
+            if(hashMap.ContainsKey(task)) {
+                hashMap[task]++;
+            } else {
+                hashMap[task]=1;
+            }
+        }
+
+        foreach(var key in hashMap.Keys) {
+            int count = hashMap[key];
+            maxHeap.Enqueue((key, count), count);
+        }
+
+        int time = 0;
+        while(maxHeap.Count > 0 || q.Count>0) {
+            time++;
+            if(maxHeap.Count > 0) {
+                var (task, count) = maxHeap.Dequeue();
+                count--;
+                if(count!=0) {
+                    q.Enqueue((task, count, time+n));
+                }
+            }
+
+            if(q.Count> 0) {
+                var(task, count, timeToStart) = q.Peek();
+                if(timeToStart == time) {
+                    q.Dequeue();
+                    maxHeap.Enqueue((task, count), count);
+                }
+            }
+        }
+        return time;       
+    }
+}

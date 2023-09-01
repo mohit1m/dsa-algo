@@ -1,0 +1,47 @@
+public class LRUCache {
+    int capacity;
+    Dictionary<int, LinkedListNode<(int,int)>> cache;
+    LinkedList<(int, int)> deQueue;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        cache = new();
+        deQueue = new();     
+    }
+    
+    public int Get(int key) {
+        if(cache.ContainsKey(key)) {
+            // Move to most recently used and delete from rear
+            var node = cache[key];
+            deQueue.Remove(node);
+            deQueue.AddFirst(node);
+            return node.Value.Item2;
+        }
+        return -1;        
+    }
+    
+    public void Put(int key, int value) {
+        if(cache.ContainsKey(key)) {
+            // Move to most recently used and delete from rear
+            var node = cache[key];
+            deQueue.Remove(node);            
+        } 
+        deQueue.AddFirst((key, value));
+        cache[key] = deQueue.First;
+        
+        if(deQueue.Count> capacity) {
+            // Delete last from dequeue and cache
+            var nodeToBeDeleted  = deQueue.Last;
+            deQueue.Remove(nodeToBeDeleted);
+            cache.Remove(nodeToBeDeleted.Value.Item1);
+        }
+        
+    } 
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.Get(key);
+ * obj.Put(key,value);
+ */

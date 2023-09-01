@@ -1,0 +1,31 @@
+/*
+TC: O(nlogn)
+SC: O(n)
+
+https://leetcode.com/problems/kth-largest-element-in-a-stream/
+*/
+public class KthLargest {
+    PriorityQueue<int,int> minHeap = new();
+    int k;
+
+    public KthLargest(int k, int[] nums) {
+        this.k = k;
+        foreach(var num in nums) {
+            minHeap.Enqueue(num, num);
+        }        
+    }
+    
+    public int Add(int val) {
+        minHeap.Enqueue(val, val);   
+        while(minHeap.Count> k)    {
+            minHeap.Dequeue();
+        } 
+        return minHeap.Peek();
+    }
+}
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest obj = new KthLargest(k, nums);
+ * int param_1 = obj.Add(val);
+ */

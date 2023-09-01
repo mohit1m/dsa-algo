@@ -1,0 +1,52 @@
+/*
+TC: O(numCourses+prerequisites)
+SC: O(numOfCourses)
+
+https://leetcode.com/problems/course-schedule/description/
+Detect cycle in directed graph
+*/
+public class Solution {
+    private bool DFS(int course, int[][] prerequisites, HashSet<int> visited ,HashSet<int> dfsVisited, Dictionary<int, List<int>> preCoursesMap) {
+        visited.Add(course);
+        dfsVisited.Add(course);
+        foreach(var preCourse in preCoursesMap[course]) {
+            if(!visited.Contains(preCourse)) {
+                bool isCycleDetected = DFS(preCourse, prerequisites, visited, dfsVisited, preCoursesMap);
+                if(isCycleDetected) {
+                    return true;
+                }
+            } 
+            else if(dfsVisited.Contains(preCourse))
+            {
+                return true;
+            }
+        }
+        dfsVisited.Remove(course);
+        return false;
+    }
+
+    public bool CanFinish(int numCourses, int[][] prerequisites) {
+        Dictionary<int, List<int>> preCoursesMap = new();
+        for(int i=0; i<numCourses; i++) {
+            preCoursesMap[i] = new List<int>();
+        }
+        foreach(var pre in prerequisites) {
+            var courseToTake = pre[0];
+            var courseDependsOn = pre[1];
+            preCoursesMap[courseToTake].Add(courseDependsOn);
+        }
+
+        HashSet<int> visited = new HashSet<int>();
+        HashSet<int> dfsVisited = new HashSet<int>();
+
+        for(int i=0; i<numCourses; i++) {
+            if(!visited.Contains(i)) {
+                if(DFS(i,prerequisites, visited, dfsVisited, preCoursesMap)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+
+    }
+}

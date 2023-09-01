@@ -1,0 +1,31 @@
+/*
+TC : O(2^n) as height of decision tree can be max 2^n
+SC : O(2^n)
+
+https://leetcode.com/problems/combination-sum/
+*/
+public class Solution {
+    private void CombinationSumUtil(int index, int total, IList<int> current, IList<IList<int>> result, int[] candidates, int target) {
+        if(total == target) 
+        {
+            IList<int> temp = new List<int>(current);
+            result.Add(temp);
+            return;
+        }
+        if(index >= candidates.Length || total > target) {
+            return;
+        }
+        current.Add(candidates[index]);
+        CombinationSumUtil(index, total+candidates[index], current, result, candidates, target);
+        current.Remove(candidates[index]);
+        CombinationSumUtil(index+1, total ,current, result, candidates, target);
+    }
+
+    public IList<IList<int>> CombinationSum(int[] candidates, int target) {
+        IList<IList<int>> result = new List<IList<int>>();
+        int index = 0;
+        IList<int> current = new List<int>(); 
+        CombinationSumUtil(index, 0, current, result, candidates, target);
+        return result;
+    }
+}

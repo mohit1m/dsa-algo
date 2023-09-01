@@ -1,0 +1,46 @@
+/*
+TC: O(log(min(m, n))) 
+SC: O(1)
+https://leetcode.com/problems/median-of-two-sorted-arrays/
+*/
+public class Solution {
+    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.Length;
+        int n = nums2.Length;
+
+        // Making sure we get the right partition in case of odd nos
+        // eg:- [1, 3, 7, 8] | [9, 10, 11]
+        int half = (m+n+1)/2;
+
+        // Look for smallest length
+        if(m > n) {
+            return FindMedianSortedArrays(nums2, nums1);
+        }
+
+        int start = 0;
+        int end = m-1;
+        while(true) {
+            int i = start+(end-start)/2;
+            int j = half - i;
+            var left1 = (i > 0) ? nums1[i - 1] : int.MinValue;
+            var right1 = (i < m) ? nums1[i] : int.MaxValue;
+            var left2 = (j > 0) ? nums2[j - 1] : int.MinValue;
+            var right2 = (j < n) ? nums2[j] : int.MaxValue;
+
+            if(right2>=left1 && right1>=left2) {
+                if((m + n) % 2 == 0) {
+                    return (Math.Max(left1, left2) + Math.Min(right1, right2)) / 2.0;
+                }
+                else {
+                     return Math.Max(left1, left2);
+                }
+            }            
+            else if(left1>right2) {
+                end = i-1;
+            } else {
+                start = i+1;
+            }
+        }
+        return 0.0;
+    }
+}

@@ -1,0 +1,57 @@
+public class Trie {
+    public class TrieNode {
+        public Dictionary<char,TrieNode> ChildrenMap {get;set;}
+        public bool IsTerminalWord {get;set;}
+
+        public TrieNode() {
+            ChildrenMap = new Dictionary<char,TrieNode>();
+        }        
+    }
+
+    TrieNode root;
+    public Trie() {
+        root = new TrieNode();        
+    }
+    
+    public void Insert(string word) {
+        TrieNode current = root;
+        foreach(char c in word) {
+            if(!current.ChildrenMap.ContainsKey(c)) {
+                current.ChildrenMap[c] = new TrieNode();
+            }
+            current = current.ChildrenMap[c];
+        }
+        current.IsTerminalWord = true;
+    }
+    
+    public bool Search(string word) {
+        TrieNode current = root;
+        foreach(char c in word) {
+            if(!current.ChildrenMap.ContainsKey(c)) {
+                return false;
+            }
+            current = current.ChildrenMap[c];
+        }
+        return current.IsTerminalWord;
+        
+    }
+    
+    public bool StartsWith(string prefix) {
+        TrieNode current = root;
+        foreach(char c in prefix) {
+            if(!current.ChildrenMap.ContainsKey(c)) {
+                return false;
+            }
+            current = current.ChildrenMap[c];
+        }
+        return true;
+    }
+}
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie obj = new Trie();
+ * obj.Insert(word);
+ * bool param_2 = obj.Search(word);
+ * bool param_3 = obj.StartsWith(prefix);
+ */

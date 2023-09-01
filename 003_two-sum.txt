@@ -1,0 +1,19 @@
+/*
+Time Complexity: O(n)
+Space Complexity: O(n)
+
+https://leetcode.com/problems/two-sum/description/
+*/
+public class Solution {
+    public int[] TwoSum(int[] nums, int target) {
+        Dictionary<int,int> prevNumberWithIndex = new Dictionary<int,int>();
+        for(int i=0; i<nums.Length; i++) {
+            int diff = target - nums[i];
+            if(prevNumberWithIndex.ContainsKey(diff)) {
+                return new int[] {prevNumberWithIndex[diff], i};
+            }
+            prevNumberWithIndex[nums[i]] = i;
+        }
+        return new int[] {0,0};
+    }
+}

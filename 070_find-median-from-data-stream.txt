@@ -1,0 +1,61 @@
+/*
+TC: O(logn) for single add
+SC: O(n)
+
+https://leetcode.com/problems/find-median-from-data-stream/
+*/
+public class MedianFinder {
+    PriorityQueue<int,int> maxHeap = new PriorityQueue<int,int>(
+        Comparer<int>.Create((a, b) => b.CompareTo(a)));
+   
+    PriorityQueue<int,int> minHeap = new PriorityQueue<int, int>();
+    public MedianFinder() {
+        
+    }
+    
+    public void AddNum(int num) {
+        // Put single or greater element in minHeap
+        if(maxHeap.Count==0 || num > maxHeap.Peek()){
+            minHeap.Enqueue(num,num);
+        }
+        else {
+           maxHeap.Enqueue(num,num); 
+        }        
+
+        // Checking for condition <= after adding to maxHeap
+       /*
+       maxHeap.Enqueue(num,num); 
+       if(minHeap.Count > 0 && maxHeap.Count > 0 && maxHeap.Peek() > minHeap.Peek()) {
+            int value = maxHeap.Dequeue();
+            minHeap.Enqueue(value,value); 
+        }*/
+        
+        // Balancing if size exceeds by 1
+        if(maxHeap.Count > 1 + minHeap.Count)  {
+            int value = maxHeap.Dequeue();
+            minHeap.Enqueue(value,value);
+        }
+
+        if(minHeap.Count > 1 + maxHeap.Count)  {
+            int value = minHeap.Dequeue();
+            maxHeap.Enqueue(value,value);
+        }
+   
+    }
+    
+    public double FindMedian() {
+        if(maxHeap.Count > minHeap.Count) {
+            return maxHeap.Peek();
+        } else if (minHeap.Count > maxHeap.Count) {
+            return minHeap.Peek();
+        }
+        return (maxHeap.Peek() + minHeap.Peek()) / 2.0;        
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.AddNum(num);
+ * double param_2 = obj.FindMedian();
+ */

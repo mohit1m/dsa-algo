@@ -1,0 +1,37 @@
+/*
+TC: O(4^(m*n)*m*n)
+SC: O(m*n)
+*/
+public class Solution {
+    private bool DFS(int index, char[][] board, string word, int rows, int cols, int row, int col, HashSet<(int,int)> visited) {
+        if (index == word.Length){
+            return true;
+        }
+
+        if(row <0 || col<0 || row>=rows  || col>=cols || visited.Contains((row,col)) ||
+        word[index] != board[row][col]) {
+           return false;
+        }
+
+        visited.Add((row,col));
+        bool result = DFS(index+1, board, word, rows, cols, row-1, col, visited)
+        || DFS(index+1, board, word, rows, cols, row+1, col, visited)
+        || DFS(index+1, board, word, rows, cols, row, col-1, visited)
+        || DFS(index+1, board, word, rows, cols, row, col+1, visited);
+        visited.Remove((row,col));
+        return result;
+    }
+    public bool Exist(char[][] board, string word) {
+        int rows = board.Length;
+        int cols = board[0].Length;
+        HashSet<(int,int)> visited = new HashSet<(int,int)>();
+        for(int i=0;i<rows;i++) {
+            for(int j=0;j<cols; j++) {
+                if(DFS(0, board, word, rows, cols, i, j, visited)) {
+                    return true;
+                }
+            }
+        }
+        return false;        
+    }
+}

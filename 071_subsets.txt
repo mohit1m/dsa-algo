@@ -1,0 +1,25 @@
+/*
+TC: O(2^n)
+SC: O(2^n)
+
+https://leetcode.com/problems/subsets/description/
+*/
+public class Solution {
+    private void DFS(int index,int[] nums, IList<int> subset, IList<IList<int>> result) {
+        if(index>= nums.Length) {
+            result.Add(new List<int>(subset));
+            return;
+        }
+        subset.Add(nums[index]);
+        DFS(index+1, nums, subset, result);
+        subset.Remove(nums[index]);
+        DFS(index+1, nums, subset, result);
+    }
+    public IList<IList<int>> Subsets(int[] nums) {
+        IList<IList<int>> result = new List<IList<int>>();
+        IList<int> subset = new List<int>();
+        int index = 0;
+        DFS(index, nums, subset, result);  
+        return result;      
+    }
+}

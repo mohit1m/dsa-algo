@@ -1,0 +1,57 @@
+/*
+TC: O(n^2)
+SC: O(n)
+
+https://leetcode.com/problems/largest-rectangle-in-histogram
+*/
+public class Solution {
+    private int[] GetNextSmallestElement(int[] heights) {
+        int n = heights.Length;
+        Stack<int> stack = new Stack<int>();
+        stack.Push(-1);
+        int[] ans = new int[n];
+
+        for(int i=n-1; i>=0 ; i--) {
+            int curr = heights[i];
+            while(stack.Peek() !=-1 && heights[stack.Peek()] >= curr) {
+                stack.Pop();
+            }
+            ans[i] = stack.Peek();
+            stack.Push(i);
+        }
+        return ans;
+    }
+
+    private int[] GetPreviousSmallestElement(int[] heights) {
+        int n = heights.Length;
+        Stack<int> stack = new Stack<int>();
+        stack.Push(-1);
+        int[] ans = new int[n];
+
+        for(int i=0; i<n ; i++) {
+            int curr = heights[i];
+            while(stack.Peek() !=-1  && heights[stack.Peek()] >= curr) {
+                stack.Pop();
+            }
+            ans[i] = stack.Peek();
+            stack.Push(i);
+        }
+        return ans;
+    }
+
+    public int LargestRectangleArea(int[] heights) {
+        int n = heights.Length;
+        int[] prevSmallest = GetPreviousSmallestElement(heights);
+        int[] nextSmallest = GetNextSmallestElement(heights);
+        int result = int.MinValue;
+        for(int i=0; i<n ;i++) {
+            if(nextSmallest[i]==-1) {
+                nextSmallest[i]= n;
+            }
+            int length = heights[i];
+            int breadth = nextSmallest[i] - prevSmallest[i] - 1;
+            result = Math.Max(result, length*breadth);
+        }
+        return result;        
+    }
+}

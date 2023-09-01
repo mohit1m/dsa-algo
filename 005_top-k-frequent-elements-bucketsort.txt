@@ -1,0 +1,43 @@
+/*
+Time Complexity: O(n) Bucket Sort
+Space Complexity: O(n)
+
+https://leetcode.com/problems/top-k-frequent-elements/description/
+*/
+public class Solution {
+    public int[] TopKFrequent(int[] nums, int k) {
+        Dictionary<int,int> hashMapCounts = new Dictionary<int,int>();
+        int[] ans = new int[k];
+        foreach(var num in nums) {
+            if(!hashMapCounts.ContainsKey(num)) {
+                hashMapCounts.Add(num, 1);
+            } else {
+                hashMapCounts[num]++;
+            }
+        }
+
+     // Bucket Sort
+     // Keep List of integers with count as index from map values
+     // and iterate in reverse order
+      int n = nums.Length;
+      List<int>[] freq = new List<int>[n+1];
+      for(int i=0; i<n+1; i++) {
+          freq[i] = new List<int>();
+      }
+
+      foreach(var kvPair in hashMapCounts) {
+          freq[kvPair.Value].Add(kvPair.Key);
+      }
+
+      for(int i=n; i>=0; i--) {
+          for(int j=0; j<freq[i].Count; j++) {
+              ans[k-1] = freq[i][j];
+              k--;
+              if(k==0) {
+                  return ans;
+              }              
+          }
+      }
+      return ans;
+    }
+}

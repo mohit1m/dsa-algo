@@ -1,0 +1,51 @@
+/*
+TC: O(n+E)
+SC: O(n)
+
+https://www.lintcode.com/problem/178/description
+*/
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace lintcode
+{
+    class Solution {
+        private bool DFS(int node, Dictionary<int, List<int>> hashMapAdjList, HashSet<int>  visited, int parent) {
+            visited.Add(node);
+            foreach(var neighbor in hashMapAdjList[node]) {
+                if(!visited.Contains(neighbor)) {
+                    bool isCyclic = DFS(neighbor, hashMapAdjList, visited, node);
+                    if(isCyclic) {
+                        return true;
+                    }
+                } else if (neighbor!=parent) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        /**
+         * @param n: An integer
+         * @param edges: a list of undirected edges
+         * @return: true if it's a valid tree, or false
+         */
+        public bool ValidTree(int n, int[][] edges) {
+            // write your code here
+            Dictionary<int, List<int>> hashMapAdjList = new Dictionary<int, List<int>>();
+            for(int i=0; i<n; i++) {
+                hashMapAdjList.Add(i, new List<int>());
+            }
+            foreach(var edge in edges) {
+                int n1 =  edge[0];
+                int n2 = edge[1];
+                hashMapAdjList[n1].Add(n2);
+                hashMapAdjList[n2].Add(n1);
+            }
+                HashSet<int> visited = new HashSet<int>();
+                int parent = -1;
+                bool isCyclic = DFS(0, hashMapAdjList, visited, parent);
+                return !isCyclic && n==visited.Count;
+            }
+        }
+    }

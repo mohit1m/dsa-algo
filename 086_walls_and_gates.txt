@@ -1,0 +1,65 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+/*
+TC: O(m*n)
+SC: O(m*n)
+
+https://www.lintcode.com/problem/663/
+*/
+namespace lintcode
+{
+    class Solution {
+        /**
+         * @param rooms: m x n 2D grid
+         * @return: nothing
+         */
+        public void WallsAndGates(int[][] rooms) {
+            // write your code here
+            int rows = rooms.Length;
+            int cols = rooms[0].Length;
+           // HashSet<(int, int)> visited = new HashSet<(int, int)>();
+            Queue<(int, int)> q = new Queue<(int,int)>();
+
+            for(int i=0; i<rows; i++) {
+                for(int j=0; j<cols; j++) {
+                    if(rooms[i][j] == 0) {
+                        q.Enqueue((i,j));
+                        //visited.Add((i,j));
+                    }
+                }
+            }
+
+            int distance = 0;
+              int[][] directions = {
+                        new int[] {0, 1}, 
+                        new int[] {0, -1}, 
+                        new int[] {1, 0}, 
+                        new int[] {-1, 0}
+                    };
+
+            while(q.Count != 0) {
+                int size = q.Count;
+                for(int i=0; i<size; i++) {
+                    var (row, col) = q.Dequeue();
+                    distance = rooms[row][col] + 1;               
+                    foreach (var direction in directions){
+                        int newRow = row + direction[0];
+                        int newCol = col + direction[1];
+
+                        if(newRow<0 || newRow>=rows || newCol<0 || newCol>=cols ||
+                        rooms[newRow][newCol] == -1 || rooms[newRow][newCol] != Int32.MaxValue) {
+                            continue;
+                        } else {
+                            q.Enqueue((newRow, newCol));
+                            rooms[newRow][newCol] = distance;
+                            //visited.Add((newRow, newCol));
+                        }
+                    }                    
+                }   
+                distance++;             
+            }
+        }
+    }
+}

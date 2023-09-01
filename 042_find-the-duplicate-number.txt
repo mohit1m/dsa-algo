@@ -1,0 +1,27 @@
+/*
+TC: O(n)
+SC: O(1)
+
+Floyd's Tortoise and Hare
+https://leetcode.com/problems/find-the-duplicate-number/
+*/
+public class Solution {
+    public int FindDuplicate(int[] nums) {
+        int slow = 0, fast = 0;
+
+        while(true) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+            if(slow == fast) {
+                break;
+            }
+        }
+
+        int slow1 = 0;
+        while(slow != slow1) {
+            slow = nums[slow];
+            slow1 = nums[slow1];
+        }
+        return slow;
+    }
+}

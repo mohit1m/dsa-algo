@@ -1,0 +1,31 @@
+/*
+TC: O(n)
+SC: O(n)
+*/
+public class Solution {
+    public int EvalRPN(string[] tokens) {
+        Stack<int> s = new Stack<int>();
+        foreach(var token in tokens) {
+            if(token == "+") {
+                int a = s.Pop();
+                int b = s.Pop();
+                s.Push(a+b);
+            } else if(token == "-") {
+                int a = s.Pop();
+                int b = s.Pop();
+                s.Push(b-a);
+            } else if(token == "*") {
+               int a = s.Pop();
+                int b = s.Pop();
+                s.Push(a*b);
+            } else if(token == "/") {
+                int a = s.Pop();
+                int b = s.Pop();
+                s.Push(b/a);
+            } else {
+                s.Push(int.Parse(token));
+            }                
+        }
+        return s.Peek();
+    }
+}

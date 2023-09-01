@@ -1,0 +1,65 @@
+/*
+TC: O(n!) as we explore n-1, n-2.. columns for every row
+SC: O(n*n)
+
+https://leetcode.com/problems/n-queens/
+*/
+public class Solution {
+    private void Solve(int row, int n, char[,] board, HashSet<int> colsHashSet,
+     HashSet<int> positiveDiagHashSet, HashSet<int> negativeDiagHashSet,
+     IList<IList<string>> result) {
+         if(row == n) {
+              IList<string> status = new List<string>();
+             for(int i=0; i<n; i++) {
+                 string str = String.Empty;
+                 for(int j=0; j<n ; j++) {
+                    str += board[i,j].ToString();
+                 }
+                 status.Add(str);
+             }
+            result.Add(status);
+            return;
+         }
+
+         for(int col=0; col<n; col++) {
+            if(colsHashSet.Contains(col) || 
+              positiveDiagHashSet.Contains(row-col) ||
+              negativeDiagHashSet.Contains(row+col)) {
+                  continue;
+            }
+             colsHashSet.Add(col);
+             positiveDiagHashSet.Add(row-col);
+             negativeDiagHashSet.Add(row+col);
+            
+             board[row, col] = 'Q';
+            Solve(row+1, n, board, colsHashSet, positiveDiagHashSet, negativeDiagHashSet, result);
+            board[row, col] = '.'; 
+             colsHashSet.Remove(col);
+             positiveDiagHashSet.Remove(row-col);
+             negativeDiagHashSet.Remove(row+col);
+                       
+         }
+        }
+
+    public IList<IList<string>> SolveNQueens(int n) {
+        IList<IList<string>> result = new List<IList<string>>();
+        char [,] board = new char[n, n];
+        char fillValue = '.';
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                board[i, j] = fillValue;
+            }
+        }
+        HashSet<int> colsHashSet = new HashSet<int>();
+        // r-c
+        HashSet<int> positiveDiagHashSet = new HashSet<int>();
+        // r+c
+        HashSet<int> negativeDiagHashSet = new HashSet<int>();
+
+        int row = 0;
+        Solve(row, n, board, colsHashSet, positiveDiagHashSet, negativeDiagHashSet, result);
+        return result;        
+    }
+}

@@ -1,0 +1,36 @@
+/*
+TC: O(2^n)
+SC: O(n)
+
+https://leetcode.com/problems/combination-sum-ii
+*/
+public class Solution {
+    private void Solve(int index, int[] candidates, IList<int> subset, int target, IList<IList<int>> result) {
+        if(target == 0) {
+            result.Add(new List<int>(subset));
+            return;
+        }
+        
+        if(index >= candidates.Length || target<0) {
+            return;
+        }
+        
+        subset.Add(candidates[index]);
+        Solve(index+1, candidates, subset, target-candidates[index], result);
+        subset.Remove(candidates[index]);
+
+        while(index+1 < candidates.Length && candidates[index] == candidates[index+1]) {
+            index++;
+        }
+        Solve(index+1, candidates, subset, target, result);      
+    }
+
+    public IList<IList<int>> CombinationSum2(int[] candidates, int target) {
+        Array.Sort(candidates);
+        IList<IList<int>> result = new List<IList<int>>();
+        IList<int> subset = new List<int>();
+        int index = 0;
+        Solve(index, candidates, subset, target, result);
+        return result;
+    }
+}

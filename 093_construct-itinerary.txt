@@ -1,0 +1,52 @@
+/*
+TC: O(nlogn) because of sorting
+SC: O(n)
+
+https://leetcode.com/problems/reconstruct-itinerary/
+*/
+public class Solution {
+    private bool DFS(string source, Dictionary<string, List<string>> adjList,
+    IList<string> result, int n) {
+        if(result.Count == n+1) {
+            return true;
+        }
+        if(!adjList.ContainsKey(source)) {
+            return false;
+        }
+
+       List<string> temp = new List<string>(adjList[source]);
+        foreach(var city in temp) {            
+            result.Add(city);
+            adjList[source].Remove(city);
+            if(DFS(city, adjList, result, n)) {
+                return true;
+            }
+           result.RemoveAt(result.Count - 1);
+           adjList[source].Add(city);
+        }
+        return false;
+    }
+
+    public IList<string> FindItinerary(IList<IList<string>> tickets) {
+        Dictionary<string, List<string>> adjList = new ();
+        IList<string> result = new List<string>();
+        result.Add("JFK");
+        int n = tickets.Count;
+         // Sort tickets by destination airport
+        //tickets = tickets.OrderBy(t => t[1]).ToList();
+
+        foreach(var ticket in tickets) {
+            string source = ticket[0];
+            string destination = ticket[1];
+            adjList.TryAdd(source, new List<string>());
+            adjList[source].Add(destination);            
+        }
+        //Sort the values in adjacency list
+        foreach (var key in adjList.Keys) {
+            adjList[key].Sort();
+        }
+
+        DFS("JFK", adjList, result, n);
+        return result;
+    }  
+}

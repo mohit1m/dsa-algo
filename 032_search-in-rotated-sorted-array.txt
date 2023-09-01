@@ -1,0 +1,81 @@
+/*
+TC: O(logn)
+SC: O(1)
+
+https://leetcode.com/problems/search-in-rotated-sorted-array/description/
+*/
+public class Solution {
+    private int FindPivot(int[] nums) {
+        int start = 0;
+        int end = nums.Length - 1;
+        // We don't equals condition
+        while (start < end) {
+            int mid = start + (end - start)/2;
+            if(nums[mid] >= nums[0]) {
+                start = mid + 1;
+            }
+            else {
+                // Set end to mid
+                end = mid;
+            }
+        }
+        return start;
+    }
+
+    private int BinarySearch(int start, int end, int[] nums, int target) {
+        while(start <= end) {
+            int mid = start + (end-start)/2;
+            if(target == nums[mid]) {
+                return mid;
+            } else if(target > nums[mid]) {
+                start = mid+1;
+            } else {
+                end = mid-1;
+            }
+        }
+        return -1;
+    }
+    public int Search(int[] nums, int target) {
+        int pivot = FindPivot(nums);
+        int n = nums.Length;
+        Console.WriteLine(pivot);
+        if(target >= nums[pivot] && target <= nums[n-1]) {
+            return BinarySearch(pivot, n-1, nums, target);
+        } else {
+            return BinarySearch(0, pivot-1, nums, target);
+        }
+        //return SearchInRotatedSortedArray(nums,target);
+        
+    }
+    private int SearchInRotatedSortedArray(int[] nums, int target) {
+    int start = 0;
+    int end = nums.Length - 1;
+
+    while (start <= end) {
+        int mid = start + (end - start) / 2;
+
+        if (nums[mid] == target) {
+            return mid;
+        }
+
+        // Check which side of the pivot the mid element is on
+        if (nums[mid] >= nums[start]) {
+            // Left side is sorted
+            if (target >= nums[start] && target < nums[mid]) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        } else {
+            // Right side is sorted
+            if (target > nums[mid] && target <= nums[end]) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+    }
+
+    return -1; // Target not found
+}
+}

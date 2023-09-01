@@ -1,0 +1,33 @@
+/*
+TC: O(n)
+SC: O(n)
+
+https://leetcode.com/problems/sliding-window-maximum/
+*/
+public class Solution {
+    public int[] MaxSlidingWindow(int[] nums, int k) {
+        int n = nums.Length;
+        List<int> result = new();
+        int left = 0, right = 0;
+        LinkedList<int> deQueue = new();
+        while(right < n) {
+            // remove from last
+            while(deQueue.Any() && nums[deQueue.Last.Value] < nums[right]) {
+                deQueue.RemoveLast();
+            }
+            // remove left val from the window
+            if (deQueue.Count> 0 && left > deQueue.First.Value){
+                deQueue.RemoveFirst();
+            }
+            // add last 
+            deQueue.AddLast(right);
+
+            if(right+1 >= k) {
+                result.Add(nums[deQueue.First.Value]);
+                left++;
+            }
+            right++;
+        }
+        return result.ToArray();        
+    }
+}

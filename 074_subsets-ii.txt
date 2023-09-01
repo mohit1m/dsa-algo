@@ -1,0 +1,31 @@
+/*
+TC: O(2^n)
+SC: O(2^n)
+
+https://leetcode.com/problems/subsets-ii/
+*/
+public class Solution {
+    private void Solve(int index, int[] nums, IList<int> subset, IList<IList<int>> result) {
+        if(index >= nums.Length) {
+            result.Add(new List<int>(subset));
+            return;
+        }
+        subset.Add(nums[index]);
+        Solve(index+1, nums, subset, result);
+        subset.Remove(nums[index]);
+
+        while(index+1 < nums.Length && nums[index] == nums[index+1]) {
+            index++;
+        }
+        Solve(index+1, nums, subset, result);
+    }
+
+    public IList<IList<int>> SubsetsWithDup(int[] nums) {
+        Array.Sort(nums);
+        IList<IList<int>> result = new List<IList<int>>();
+        IList<int> subset = new List<int>();
+        int index = 0;
+        Solve(index, nums, subset, result);
+        return result;
+    }
+}

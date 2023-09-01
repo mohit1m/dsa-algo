@@ -1,0 +1,60 @@
+/*
+TC: O(n^2)
+SC: O(H)
+
+Optimized
+TC: O(n)
+SC: O(H)
+https://leetcode.com/problems/balanced-binary-tree/
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    private int height(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        return 1+ Math.Max(height(root.left),height(root.right));
+    }
+
+    private bool Solve(TreeNode root) {
+        if(root == null) {
+            return true;
+        }
+        int left = height(root.left);
+        int right = height(root.right);
+        if(Math.Abs(left-right) <= 1 && Solve(root.left) && Solve(root.right)) {
+            return true;
+        }
+        return false;
+    }
+
+    private (bool, int) SolveOpt(TreeNode root) {
+        if(root == null) {
+            return (true,0);
+        }
+        var left = SolveOpt(root.left);
+        var right = SolveOpt(root.right);
+        if(left.Item1 && right.Item1 && Math.Abs(left.Item2 - right.Item2) <= 1) {
+            return (true, 1 + Math.Max(left.Item2, right.Item2));
+        }
+        return (false, 1 + Math.Max(left.Item2, right.Item2));
+    }
+
+    public bool IsBalanced(TreeNode root) {
+        //return Solve(root);
+        return SolveOpt(root).Item1;
+    }
+}

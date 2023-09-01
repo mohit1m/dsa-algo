@@ -1,0 +1,69 @@
+/*
+https://leetcode.com/problems/design-add-and-search-words-data-structure/
+*/
+public class WordDictionary {
+    public class TrieNode {
+     public Dictionary<char,TrieNode> ChildrenMap {get;set;}
+        public bool IsTerminalWord {get;set;}
+
+        public TrieNode() {
+            ChildrenMap = new Dictionary<char,TrieNode>();
+        }    
+    }
+    TrieNode root;
+    public WordDictionary() {
+        root = new TrieNode();        
+    }
+    
+    /*
+    TC: O(len(word))
+    SC: O(len(word))
+    */
+    public void AddWord(string word) {
+        TrieNode current = root;
+        foreach(char c in word) {
+         if(!current.ChildrenMap.ContainsKey(c)) {
+                current.ChildrenMap[c] = new TrieNode();
+            }
+            current = current.ChildrenMap[c];
+        }
+        current.IsTerminalWord = true;        
+    }
+
+    public bool Search(TrieNode root, string word, int index) {
+        var current = root;
+        int wordLength = word.Length;
+        
+        for(int i = index; i<wordLength; i++) {
+            char letter = word[i];
+            if(letter == '.') {
+                i++;
+                foreach(var kv in current.ChildrenMap) {
+                    if(Search(kv.Value, word, i)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else {
+                char ch = word[i];
+                if(!current.ChildrenMap.ContainsKey(letter)) {                
+                    return false;
+                } 
+                current = current.ChildrenMap[letter];
+            }
+        }
+        return current.IsTerminalWord;
+    }
+    
+    public bool Search(string word) {
+       return Search(root, word, 0);   
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.AddWord(word);
+ * bool param_2 = obj.Search(word);
+ */

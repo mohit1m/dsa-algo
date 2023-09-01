@@ -1,0 +1,59 @@
+/*
+TC: O(n)
+SC: O(n)
+
+https://leetcode.com/problems/permutation-in-string
+*/
+public class Solution {
+    private void AddToDictionary(char ch, Dictionary<char,int> hashMap) {
+        if(hashMap.ContainsKey(ch)) {
+            hashMap[ch]++;
+        }
+        else {
+            hashMap[ch]=1;
+        }
+    }
+
+    public bool CheckInclusion(string s1, string s2) {
+        if (s1.Length > s2.Length) {
+            return false;
+        }
+        
+        Dictionary<char, int> hashMapS1 = new Dictionary<char, int>();
+        Dictionary<char, int> hashMapWindow = new Dictionary<char, int>();      
+        
+        foreach (char c in s1) {
+            AddToDictionary(c, hashMapS1);
+        }
+
+        int left = 0;
+        int right = 0;
+        int countS1 = hashMapS1.Count;
+        int countN = 0;
+
+        while (right < s2.Length) {
+            AddToDictionary(s2[right], hashMapWindow);
+                        
+            if (hashMapS1.ContainsKey(s2[right]) 
+            && hashMapS1[s2[right]] == hashMapWindow[s2[right]]) {
+                countN++;
+            }
+
+            // Adjust the window size to be the same as s1.
+            if (right - left + 1 == s1.Length) {
+                if (countS1 == countN) {
+                    return true;
+                }
+                char leftChar = s2[left];
+                if (hashMapS1.ContainsKey(leftChar) 
+                        && hashMapS1[leftChar] == hashMapWindow[leftChar]) {
+                    countN--;
+                }
+                hashMapWindow[leftChar]--;
+                left++;
+            }
+            right++;
+        }
+        return false;
+    }
+}

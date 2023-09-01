@@ -1,0 +1,59 @@
+/*
+Time: O(n)
+Space: O(n)
+
+https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    int index;
+    public int FindPosition(int element, int[] inorder, int inorderStart, int inorderEnd) {
+        for(int i=0; i <= inorder.Length; i++) {
+            if(inorder[i] == element) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public TreeNode BuildTreeHelper(
+        int[] preorder, int[] inorder, int inorderStart, int inorderEnd, int n,
+        Dictionary<int,int> hashMapforNodesPosition
+    ) {
+            if(index>=n || inorderStart>inorderEnd) {
+                return null;
+            }
+            int element = preorder[index];
+            index++;
+            TreeNode root = new TreeNode(element);            
+           // int position  = FindPosition(element, inorder, inorderStart, inorderEnd);
+           int position = hashMapforNodesPosition[element];
+            root.left = BuildTreeHelper(preorder, inorder, inorderStart, position-1, n, hashMapforNodesPosition);
+            root.right = BuildTreeHelper(preorder, inorder, position+1, inorderEnd, n, hashMapforNodesPosition);
+            return root;
+    }
+
+    public TreeNode BuildTree(int[] preorder, int[] inorder) {
+        int n = preorder.Length;
+        int inorderStart = 0;
+        int inorderEnd = n-1;
+        Dictionary<int,int> hashMapforNodesPosition = new Dictionary<int,int>();
+        for(int i=0;i<n;i++) {
+             hashMapforNodesPosition[inorder[i]] =i;
+        }
+        return BuildTreeHelper(preorder, inorder, inorderStart, inorderEnd, n, hashMapforNodesPosition);
+    }
+}

@@ -1,0 +1,26 @@
+/*
+TC: O (n)
+SC: O(n)
+
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+*/
+public class Solution {
+    public int LengthOfLongestSubstring(string s) {
+        int n = s.Length;
+        int maxLength=0;
+        int left=0;
+        int right=0;
+        HashSet<char> hashSet = new HashSet<char>();
+        while(right < n) {
+            if(hashSet.Contains(s[right])) {
+               hashSet.Remove(s[left]);
+               left++;
+            } else {
+                hashSet.Add(s[right]);
+                maxLength = Math.Max(maxLength, right-left+1);
+                right++;                   
+            }
+        }
+        return maxLength;
+    }
+}

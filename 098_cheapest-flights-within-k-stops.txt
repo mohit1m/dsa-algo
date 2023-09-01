@@ -1,0 +1,32 @@
+/*
+TC: O(k*n)
+SC: O(n)
+Bellman Ford variation
+We usually run it k-1 times, but for this problem we will use k+1 times
+as there are k stops and we will also maintain a separate 
+distance array and will not overwrite the original array
+and use a temp array to store intermediate values basedon computed values
+
+https://leetcode.com/problems/cheapest-flights-within-k-stops
+*/
+public class Solution {
+      public int FindCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+          int[] distance = new int[n];
+          int[] temp = new int[n];
+          Array.Fill(distance, int.MaxValue);
+          distance[src] = 0;
+          Array.Copy(distance, temp, n);
+          for(int i=0;i<k+1; i++) {
+              foreach(var flight in flights) {
+                  int u = flight[0];
+                  int v = flight[1];
+                  int price = flight[2];
+                  if(distance[u]!=int.MaxValue && distance[u]+ price < temp[v]) {
+                      temp[v] = distance[u] + price;
+                  }
+              }
+              Array.Copy(temp, distance, n);
+          }
+          return distance[dst] != int.MaxValue ? distance[dst] : -1 ;
+      }
+}

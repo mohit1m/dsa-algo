@@ -1,0 +1,23 @@
+/*
+TC: O(n)
+SC: O(1)
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
+*/
+public class Solution {
+    public int MaxProfit(int[] prices) {
+        int maxProfit=0;
+        int left=0, right=1;
+        int n = prices.Length;
+        while(right<n) {
+            if(prices[left] < prices[right]) {
+                int profit = prices[right] - prices[left];
+                maxProfit = Math.Max(maxProfit, profit);
+            } else {
+                left=right;
+            }
+            right++;
+        }
+        return maxProfit;
+    }
+}

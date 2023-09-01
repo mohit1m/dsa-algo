@@ -1,0 +1,31 @@
+/*
+Time Complexity: O(klogn)
+Space Complexity: O(n)
+https://leetcode.com/problems/top-k-frequent-elements/description/
+*/
+public class Solution {
+    public int[] TopKFrequent(int[] nums, int k) {
+        Dictionary<int,int> hashMapCounts = new Dictionary<int,int>();
+        int[] ans = new int[k];
+        foreach(var num in nums) {
+            if(!hashMapCounts.ContainsKey(num)) {
+                hashMapCounts.Add(num,1);
+            } else {
+                hashMapCounts[num]++;
+            }
+        }
+
+      PriorityQueue<int,int> minHeap = new PriorityQueue<int,int>();
+      foreach(var kvPair in hashMapCounts) {
+          minHeap.Enqueue(kvPair.Key,kvPair.Value);
+          if(minHeap.Count > k) {
+              minHeap.Dequeue();
+          }
+       }
+        while(minHeap.Count > 0) {
+             ans[k-1] = minHeap.Dequeue();
+             k--;
+          }
+          return ans;
+    }
+}

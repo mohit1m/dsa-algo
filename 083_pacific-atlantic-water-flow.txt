@@ -1,0 +1,47 @@
+
+/*
+TC: O((m + n) * m * n)
+SC: O(m*n)
+
+https://leetcode.com/problems/pacific-atlantic-water-flow/description/
+*/
+public class Solution {
+    private void DFS(int[][] heights, int rows, int cols, int row, int col,
+    HashSet<(int,int)> visited, int previousValue) {
+        if(row<0 || col<0 || row>=rows || col>=cols || visited.Contains((row,col)) ||
+            heights[row][col] < previousValue) {
+            return;
+        }
+        visited.Add((row, col));
+        DFS(heights, rows, cols, row -1, col, visited, heights[row][col]);
+        DFS(heights, rows, cols, row+1 , col, visited, heights[row][col]);
+        DFS(heights, rows, cols, row, col+1, visited, heights[row][col]);
+        DFS(heights, rows, cols, row, col-1, visited, heights[row][col]);
+    }
+
+    public IList<IList<int>> PacificAtlantic(int[][] heights) {
+        int rows = heights.Length;
+        int cols = heights[0].Length;
+        IList<IList<int>> result = new List<IList<int>>();
+        HashSet<(int,int)> pacificVisited = new();
+        HashSet<(int,int)> atlanticVisited = new();
+        for(int i=0; i<cols; i++) {
+            DFS(heights, rows, cols, 0, i, pacificVisited, heights[0][i]);
+            DFS(heights, rows, cols, rows-1, i, atlanticVisited, heights[rows-1][i]);
+        }
+
+        for(int i=0; i<rows; i++) {
+            DFS(heights, rows, cols, i, 0, pacificVisited, heights[i][0]);
+            DFS(heights, rows, cols, i, cols-1, atlanticVisited, heights[i][cols-1]);
+        }
+
+        for(int i=0; i<rows; i++) {
+          for(int j=0; j<cols; j++)  {
+              if(pacificVisited.Contains((i,j)) && atlanticVisited.Contains((i,j))) {
+                result.Add(new List<int> { i, j });
+              }
+          }  
+        }
+        return result;
+    }
+}
