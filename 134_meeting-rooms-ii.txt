@@ -1,0 +1,59 @@
+/**
+ * Definition of Interval:
+ * public class Interval {
+ *     public int start, end;
+ *     Interval(int start, int end) {
+ *         this.start = start;
+ *         this.end = end;
+ *     }
+ * }
+ */
+/*
+TC: O(nlogn)
+SC: O(n)
+https://www.lintcode.com/problem/919/
+*/
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace lintcode
+{
+    class Solution {
+        /**
+         * @param intervals: an array of meeting time intervals
+         * @return: the minimum number of conference rooms required
+         */
+        public int MinMeetingRooms(List<Interval> intervals) {
+            // Write your code here
+            if(intervals == null || intervals.Count == 0) {
+                return 0;
+            }
+            List<int> startList = new List<int>();
+            List<int> endList = new List<int>();
+            foreach(var interval in intervals) {
+                startList.Add(interval.start);
+                endList.Add(interval.end);
+            }
+
+            startList.Sort();
+            endList.Sort();
+            int count = 0;
+            int maxCount = 0;
+            int start = 0 ,end =0;
+            int n = startList.Count;
+            while(start < n) {
+                if(startList[start] < endList[end]) {
+                    count++;
+                    start++;
+                } else {
+                    count--;
+                    end++;
+                }
+                maxCount = Math.Max(maxCount, count);
+            }
+            return maxCount;
+
+        }
+    }
+}

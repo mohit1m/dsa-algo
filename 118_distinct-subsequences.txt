@@ -1,0 +1,93 @@
+
+httpsleetcode.comproblemsdistinct-subsequences
+
+public class Solution {
+    
+    TC O(mn)
+    SC O(mn)
+    
+    public int Solve(int index1, int index2, string s, string t, int m , int n, int[,] dp)      {    
+         String 2 is complete, eg- a ,  delete all characters   
+         if(index2 == n) {
+            return 1;
+        }
+         String 1 is complete , eg-  a no way exists to make it match to other string
+         if(index1 == m) {
+            return 0;
+        }
+
+        if(dp[index1,index2]!=-1) {
+            return dp[index1,index2];
+        }
+
+        int ways = 0;
+        if(s[index1] == t[index2]) {
+            ways = Solve(index1+1, index2+1 ,s, t, m ,n, dp)
+            + Solve(index1+1, index2, s, t, m, n, dp);
+        } else {
+            ways = Solve(index1+1, index2, s, t, m, n, dp);
+        }
+        return dp[index1,index2] = ways;
+    }
+
+    public int SolveTab(string s, string t, int m , int n) {
+        int[,] dp = new int[m+1,n+1];
+        for(int index1 = 0; index1=m; index1++) {
+            dp[index1, n] = 1;
+        }
+        for(int index1 = m-1; index1=0; index1--) {
+            for(int index2= n-1; index2=0; index2--) {
+                int ways = 0;
+                if(s[index1] == t[index2]) {
+                    ways = dp[index1+1, index2+1] + dp[index1+1, index2];
+                } else {
+                    ways = dp[index1+1, index2];
+                }
+                dp[index1, index2] = ways;
+            }
+        }
+        return dp[0,0];
+    }
+
+    
+    TC O(mn)
+    SC O(n)
+    
+    public int SolveTabOptimized(string s, string t, int m , int n) {
+        int[] curr = new int[n+1];
+        int[] next = new int[n+1];
+        curr[n] =1;
+        next[n]=1;
+        for(int index1 = m-1; index1=0; index1--) {
+            for(int index2 = n-1; index2=0; index2--) {
+                int ways = 0;
+                if(s[index1] == t[index2]) {
+                    ways = next[index2+1] + next[index2];
+                } else {
+                    ways = next[index2];
+                }
+                curr[index2] = ways;
+            }
+            Array.Copy(curr, next,n+1);
+        }
+        return next[0];
+    }
+
+    public int NumDistinct(string s, string t) {
+        int m = s.Length;
+        int n = t.Length;
+
+        int index1=0;
+        int index2=0;
+        int[,] dp = new int[m,n];
+        for(int i=0; im; i++) {
+            for(int j=0;jn;j++) {
+                dp[i,j] =-1;
+            }
+        }
+        return Solve(index1,index2, s, t, m ,n,dp);
+        return SolveTab(s, t, m ,n);
+        return SolveTabOptimized(s,t,m,n);
+        
+    }
+}

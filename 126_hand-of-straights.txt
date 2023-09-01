@@ -1,0 +1,41 @@
+/*
+TC: O(nlogn)
+SC: O(n)
+
+https://leetcode.com/problems/hand-of-straights/
+*/
+public class Solution {
+    public bool IsNStraightHand(int[] hand, int groupSize) {
+        Dictionary<int,int> hashMap = new();
+        PriorityQueue<int,int> minHeap = new();
+        foreach(var h in hand) {
+            if(hashMap.ContainsKey(h)) {
+                hashMap[h]++;
+            } else {
+                hashMap[h] = 1;
+            }
+        }
+        
+        foreach(var key in hashMap.Keys) {
+            minHeap.Enqueue(key, key);
+        }
+        int n = hand.Length;
+         
+         while(minHeap.Count > 0) {
+             int min = minHeap.Peek();
+             for(int i = min; i< min + groupSize; i++) {
+                 if(!hashMap.ContainsKey(i)) {
+                     return false;
+                 }
+                 hashMap[i]--;
+                 if(hashMap[i] == 0) {
+                    if(minHeap.Peek() != i) {
+                     return false;
+                    }
+                    minHeap.Dequeue();
+                 }
+             }
+         }
+         return true;        
+    }
+}

@@ -1,0 +1,31 @@
+/*
+TC: O(n^2)
+SC: O(1)
+*/
+public class Solution {
+    string res = String.Empty;  
+    int resLength = 0;
+    public string MaxLengthString(string s, int left, int right) { 
+        int n = s.Length;
+        while(left>=0 && right<n && s[left] == s[right]) {
+                int length = right-left+1;
+                if(length > resLength) {
+                    resLength = length;
+                    res = s.Substring(left, right-left+1);                    
+                }
+                left--;
+                right++;
+            }    
+            return res;
+    }
+    public string LongestPalindrome(string s) {
+        int n = s.Length;
+        for(int i = 0; i < n; i++) {
+            // Odd Length
+            MaxLengthString(s, i, i);
+            // Even Length
+            MaxLengthString(s, i, i+1);            
+        }
+        return res;
+    }
+}

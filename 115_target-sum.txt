@@ -1,0 +1,27 @@
+
+TC O(n  target)
+SC O(n  target)
+
+httpsleetcode.comproblemstarget-sum
+
+public class Solution {
+    private int Solve(int index, int[] nums, int target, int n, Dictionary(int, int), int dp) {
+        if(index == n) {
+            return target==0  1  0;
+        }
+        if(dp.ContainsKey((index, target))) {
+            return dp[(index, target)];
+        }
+
+        dp[(index, target)] = Solve(index+1 , nums, target-nums[index], n, dp) +
+        Solve(index+1 , nums, target+nums[index], n, dp);
+        return dp[(index, target)];
+    }
+
+
+    public int FindTargetSumWays(int[] nums, int target) {
+        int n = nums.Length;
+        int index = 0;
+        Dictionary(int,int), int dp = new Dictionary(int, int), int();
+        return Solve(index, nums, target, n, dp);        
+    }

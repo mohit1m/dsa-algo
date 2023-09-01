@@ -1,0 +1,21 @@
+/*
+TC: O(n)
+SC: O(1)
+
+https://leetcode.com/problems/maximum-subarray/
+*/
+public class Solution {
+    public int MaxSubArray(int[] nums) {
+        int max = nums[0];
+        int currentSum = nums[0];
+        int n = nums.Length;
+        for(int i=1; i<n; i++) {
+            if(currentSum < 0) {
+                currentSum = 0;
+            }
+            currentSum += nums[i];
+            max = Math.Max(max, currentSum);
+        }
+        return max;        
+    }
+}

@@ -1,0 +1,29 @@
+/*
+TC: O(n)
+SC: O(n)
+
+https://leetcode.com/problems/partition-labels/
+*/
+public class Solution {
+    public IList<int> PartitionLabels(string s) {
+        Dictionary<char,int> hashMapLastIndex = new();
+        int n = s.Length;
+        for(int i=0; i<n ;i++) {
+            hashMapLastIndex[s[i]] =i;
+        }
+
+        IList<int> result  = new List<int>();
+        int size = 0;
+        int end = 0;
+        
+        for(int i=0; i<n ;i++) {
+            size++;
+            end = Math.Max(hashMapLastIndex[s[i]], end);
+            if(i==end) {
+                result.Add(size);
+                size=0;
+            }
+        }
+        return result;
+    }
+}

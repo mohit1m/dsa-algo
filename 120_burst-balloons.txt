@@ -1,0 +1,60 @@
+/*
+TC: O(n^3)
+SC: O(n^2)
+https://leetcode.com/problems/burst-balloons/submissions/
+*/
+public class Solution {
+    private int Solve(int[] nums, int left, int right , int[,] dp) {
+        if(left > right) {
+            return 0;
+        }
+        if(dp[left, right] != -1) {
+            return dp[left, right];
+        }
+        int maxCoins = 0;
+        for(int i=left; i<=right; i++) {
+            int coins = nums[left-1] * nums[i] * nums[right+1];
+            coins += Solve(nums, left, i-1, dp) + Solve(nums, i+1, right, dp);
+            maxCoins = Math.Max(maxCoins, coins);
+        }
+       return dp[left, right] = maxCoins;
+    }
+
+    private int SolveTab(int[] nums) {
+        int n = nums.Length;
+        int [,] dp = new int[n+1, n+1];
+        for(int left=n-2 ; left>=1; left--) {
+            for(int right=1; right<=n-2; right++) {
+                int maxCoins = 0;
+                for(int i=left; i<=right; i++) {
+                    int coins = nums[left-1] * nums[i] * nums[right+1];
+                    coins += dp[left, i-1] + dp[i+1, right];
+                    maxCoins = Math.Max(maxCoins, coins);    
+                    dp[left,right]  = maxCoins;
+                }
+            }
+        }
+        return dp[1, n-2];
+    }
+
+    public int MaxCoins(int[] nums) {
+        int n = nums.Length;
+        int[] newNums = new int[n+2];
+        newNums[0] = 1;
+        newNums[n+1] = 1;
+        for(int i=0; i<n; i++) {
+            newNums[i+1] = nums[i];
+        }
+
+        int left = 1;
+        int right = newNums.Length-2;
+        int [,] dp = new int[n+1, n+1];
+        for( int i=0; i<=n; i++) {
+            for( int j=0; j<=n; j++) {
+                dp[i,j] =-1;
+            }
+        }
+        //return Solve(newNums, left , right, dp);  
+        return SolveTab(newNums);      
+    }
+}

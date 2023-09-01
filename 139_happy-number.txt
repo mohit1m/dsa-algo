@@ -1,0 +1,63 @@
+/*
+TC: O(n*logn)
+SC: O(n)
+
+https://leetcode.com/problems/happy-number/
+*/
+public class Solution {
+    public int GetSumOfSquares(int num) {
+        int sumOfSquares = 0;
+        while(num != 0) {
+            int digit = num%10;
+            sumOfSquares += digit*digit;
+            num = num /10;
+        }
+        return sumOfSquares;
+    }
+
+    /*
+    TC: O(n*logn)
+    SC: O(n)
+    */
+    public bool IsHappy(int n) {
+        int sumOfSquares = 0;
+        HashSet<int> hashSet = new HashSet<int>();
+        while(!hashSet.Contains(n)) {
+            hashSet.Add(n);
+            n = GetSumOfSquares(n);
+            if(n == 1) {
+                return true;
+            }
+        }
+        return false;        
+    }
+    
+    /*
+    TC: O(n*logn)
+    SC: O(1)
+    */
+    /*
+    public bool IsHappy(int n) {
+        int sumOfSquares = 0;
+       int slow, fast;
+ 
+    // initialize slow and
+    // fast by n
+    slow = fast = n;
+    slow = GetSumOfSquares(slow);
+    fast = GetSumOfSquares(GetSumOfSquares(fast));
+    while (slow != fast)
+    {
+         
+        // move slow number
+        // by one iteration
+        slow = GetSumOfSquares(slow);
+ 
+        // move fast number
+        // by two iteration
+        fast = GetSumOfSquares(GetSumOfSquares(fast));
+ 
+    }
+    return slow == 1;        
+    }*/
+}

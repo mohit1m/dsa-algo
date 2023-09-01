@@ -1,0 +1,39 @@
+/*
+TC: O(n^2)
+SC: O(1)
+
+https://leetcode.com/problems/rotate-image/
+*/
+public class Solution {
+    private void Swap(int[][] matrix, int row, int col) {
+        int temp = matrix[row][col];
+        matrix[row][col] = matrix[col][row];
+        matrix[col][row] = temp;
+    }
+
+    private void Swap(int[][] matrix, int row, int left, int right) {
+        int temp = matrix[row][left];
+        matrix[row][left] = matrix[row][right];
+        matrix[row][right] = temp;
+    }
+
+    public void Rotate(int[][] matrix) { 
+        int n = matrix.Length;
+        // Swap wrt diagonal
+        for(int i = 0; i < n ; i++) {
+            for(int j = 0; j < i; j++) {
+                Swap(matrix, i, j);
+            }
+        }
+        // Swap wrt to middle column
+        for(int i=0; i<n; i++) {
+            int left = 0;
+            int right = matrix[0].Length-1;
+            while(left<right) {
+                Swap(matrix, i,left, right);
+                left++;
+                right--;
+            }
+        }        
+    }
+}

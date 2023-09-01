@@ -1,0 +1,57 @@
+/*
+TC: O((m + n) * log(max(m, n))), where 'm' is the number of queries, 'n' is the number of intervals, and 'max(m, n)' represents the maximum of 'm' and 'n'
+SC: O(n)
+
+https://leetcode.com/problems/minimum-interval-to-include-each-query/
+*/
+public class Solution {
+    public int[] MinInterval(int[][] intervals, int[] queries) {       
+        int m = queries.Length;
+        int[] answer = new int[m];
+
+        Array.Sort(intervals, (a, b) => (a[0]-b[0]));
+
+        //HashMap is used to maintain order of queries
+        Dictionary<int,int> hashMap = new Dictionary<int,int>();
+        //Item1 species size of query and Items2 end of interval
+        PriorityQueue<(int, int), int> minHeap = new PriorityQueue<(int, int), int>();
+
+        int[] copyQueries = new int[m];
+        Array.Copy(queries, copyQueries , m);
+        //Don't sort original queries as answer is dependent on its order
+        Array.Sort(copyQueries, (a, b) => (a-b));
+
+        int index = 0;   
+        int result = -1;     
+
+        int n = intervals.Length;
+
+        foreach(var q in copyQueries) {     
+            // Look for intervals before or equal to start of current interval       
+            while(index < n && intervals[index][0] <= q) {
+                int l = intervals[index][0];
+                int r = intervals[index][1];
+                int querySize = r-l+1;
+                minHeap.Enqueue((querySize , r), querySize);
+                index++;
+            }
+            
+            //Remove intervals where end is less than current start 
+            while(minHeap.Count>0 && minHeap.Peek().Item2 < q) {
+                minHeap.Dequeue();
+            }
+
+            result = minHeap.Count > 0 ?  minHeap.Peek().Item1 : -1;
+
+            hashMap[q] = result;        
+        }
+        
+        //Convert HashMap back to array.
+        index=0;
+        foreach(var query in queries) {
+            answer[index] = hashMap[query];
+            index++;
+        }
+        return answer;
+    }
+}

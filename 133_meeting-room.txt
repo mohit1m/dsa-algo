@@ -1,0 +1,65 @@
+/**
+ * Definition of Interval:
+ * public class Interval {
+ *     public int start, end;
+ *     Interval(int start, int end) {
+ *         this.start = start;
+ *         this.end = end;
+ *     }
+ * }
+ */
+/*
+TC: O(nlogn)
+SC: O(1)
+https://www.lintcode.com/problem/920/description
+*/
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace lintcode
+{
+    class Solution {
+        /**
+         * @param intervals: an array of meeting time intervals
+         * @return: if a person could attend all meetings
+         */
+        public bool CanAttendMeetings(List<Interval> intervals) {
+            // Write your code here
+            if(intervals == null || intervals.Count == 0) {
+                return true;
+            }
+            
+            intervals.Sort((a,b) => (a.start-b.start));
+            int n = intervals.Count;
+            for(int i=1; i<n; i++) {
+                int previousEndTime = intervals[i-1].end;
+                int currentStartTime = intervals[i].start;
+                if(previousEndTime > currentStartTime) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        /*public bool CanAttendMeetings(List<Interval> intervals) {
+            // Write your code here
+            if(intervals == null || intervals.Count == 0) {
+                return true;
+            }
+            
+            intervals.Sort((a,b) => (a.start-b.start));
+            int n = intervals.Count;
+            
+            int previousEndTime = intervals[0].end;
+            for(int i=1; i<n; i++) {
+                int currentStartTime = intervals[i].start;
+                int currentEndTime = intervals[i].end;
+                if(previousEndTime > currentStartTime) {
+                    return false;
+                }
+                previousEndTime = currentEndTime;
+            }
+            return true;
+        }*/
+    }
+}

@@ -1,0 +1,79 @@
+/*
+https://leetcode.com/problems/coin-change-ii/
+*/
+public class Solution {
+    /*
+    TC: O(amount*n)
+    SC: O(amount*n)
+    */
+    private int Solve(int index, int amount, int[] coins, int n , int[,] dp) {
+        if(index >= n) {
+            return 0;
+        }
+        if(amount == 0) {
+            return 1;
+        }
+        if(amount < 0) {
+            return 0;
+        }
+        if(dp[index, amount]!= -1) {
+            return dp[index, amount];
+        }
+        dp[index, amount] = 
+        Solve(index, amount - coins[index], coins, n, dp) +
+        Solve(index+1, amount, coins, n, dp);
+        return dp[index, amount];
+    }
+
+    private int SolveTab(int amount, int[] coins, int n) {
+        int [,] dp = new int[n+1, amount+1];
+        for(int i=0; i<=n ; i++) {
+            dp[i, 0] = 1;
+        }
+        for(int index = n-1; index >= 0; index--) {
+            for(int a=0; a<=amount; a++) {
+                dp[index, a] =  dp[index+1, a];
+                if(a-coins[index]>=0) {
+                    dp[index, a] += dp[index, a - coins[index]]; 
+                }
+            }
+        }
+        return dp[0, amount];
+    }
+
+    /*
+    TC: O(amount*n)
+    SC: O(amount)
+    */
+    private int SolveTabOptimized(int amount, int[] coins, int n) {
+        //int [,] dp = new int[n+1, amount+1];
+        int[] curr = new int[amount+1];
+        int[] next = new int[amount+1];
+        curr[0] = 1;
+        next[0] = 1;
+        for(int index = n-1; index >= 0; index--) {
+            for(int a=0; a<=amount; a++) {
+                curr[a] =  next[a];
+                if(a-coins[index]>=0) {
+                    curr[a] += curr[a - coins[index]]; 
+                }
+            }
+            Array.Copy(curr, next, amount+1);
+        }
+        return next[amount];
+    }
+
+    public int Change(int amount, int[] coins) {
+        int index = 0;
+        int n = coins.Length;
+        int [,] dp = new int[n, amount+1];
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<amount+1; j++) {
+                dp[i,j] = -1;
+            }
+        }
+        // return Solve(index, amount, coins, n, dp);
+        // return SolveTab(amount, coins, n);
+        return SolveTabOptimized(amount, coins, n);
+    }
+}

@@ -1,0 +1,31 @@
+/*
+TC: O(n^2)
+SC: O(1)
+https://leetcode.com/problems/palindromic-substrings/description/
+*/
+
+public class Solution {
+    private int FindMaxPlaindromicStringsLength(string s, int left, int right) {
+        int res = 0;   
+        int n = s.Length;     
+        while(left>=0 && right<n && s[left] == s[right]) {
+          res++;
+          left--;
+          right++;
+        }
+        return res;
+    }
+    public int CountSubstrings(string s) {
+        int res = 0;        
+        int n = s.Length;
+        //Odd length
+        for(int i = 0; i < n; i++) {
+            res += FindMaxPlaindromicStringsLength(s, i , i);
+
+            // Even Length
+            res += FindMaxPlaindromicStringsLength(s, i , i+1);
+        }
+
+        return res;
+    }
+}

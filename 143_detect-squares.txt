@@ -1,0 +1,45 @@
+/*
+TC: O(n)
+SC: O(n)
+
+https://leetcode.com/problems/detect-squares/
+*/
+public class DetectSquares {
+    Dictionary<(int,int), int> hashMap;    
+    public DetectSquares() {
+        hashMap = new Dictionary<(int,int), int>();        
+    }
+    
+    public void Add(int[] point) {
+        int x = point[0];
+        int y = point[1];
+        if(hashMap.ContainsKey((x,y))) {
+            hashMap[(x, y)]++;
+        } else {
+            hashMap[(x, y)] = 1;
+        }  
+        Console.WriteLine(hashMap.Count);      
+    }
+    
+    public int Count(int[] point) {
+        int pX = point[0];
+        int pY = point[1];
+        int result = 0;
+        foreach(var kvPair in hashMap) {
+            int x = kvPair.Key.Item1;
+            int y = kvPair.Key.Item2;
+            if(Math.Abs(x-pX) == Math.Abs(y-pY) && x!=pX && y!=pY) {
+                result += hashMap.GetValueOrDefault((pX, y),0) 
+                * hashMap.GetValueOrDefault((x, pY),0) * kvPair.Value;
+            }
+        }
+        return result;        
+    }
+}
+
+/**
+ * Your DetectSquares object will be instantiated and called as such:
+ * DetectSquares obj = new DetectSquares();
+ * obj.Add(point);
+ * int param_2 = obj.Count(point);
+ */

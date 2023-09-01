@@ -1,0 +1,24 @@
+/*
+TC: O(nlogn)
+SC: O(1)
+https://leetcode.com/problems/non-overlapping-intervals/description/
+*/
+public class Solution {
+    public int EraseOverlapIntervals(int[][] intervals) {        
+        Array.Sort(intervals,((a,b) => a[0]-b[0]));
+        int prevEnd = intervals[0][1];
+        int n = intervals.Length;
+        int result = 0;
+        for(int i=1; i<n; i++) {
+            int currentStart = intervals[i][0];
+            int currentEnd =  intervals[i][1];
+            if(currentStart < prevEnd) {
+                result++;
+                prevEnd = Math.Min(prevEnd, currentEnd);
+            } else {
+                prevEnd = currentEnd;
+            }
+        }
+        return result;
+    }
+}

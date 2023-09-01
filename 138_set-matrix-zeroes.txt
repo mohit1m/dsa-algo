@@ -1,0 +1,47 @@
+/*
+TC: O(m*n)
+SC: O(1)
+
+https://leetcode.com/problems/set-matrix-zeroes/description/
+*/
+public class Solution {
+    public void SetZeroes(int[][] matrix) {
+        int m = matrix.Length;
+        int n = matrix[0].Length;
+        bool isTopRowZero = false;
+
+        for(int row = 0; row < m; row++) {
+            for(int col = 0; col < n ; col++) {                
+                if(matrix[row][col] == 0) {
+                   matrix[0][col] = 0;                
+                   if(row == 0) {
+                       isTopRowZero = true;
+                    }
+                    else {
+                        matrix[row][0] = 0;  
+                    }
+                }
+            }
+        }
+        
+       for(int row=1; row<m; row++) {
+           for(int col=1; col<n; col++) {
+               if(matrix[0][col] == 0 || matrix[row][0] == 0) {
+                   matrix[row][col] = 0;
+               }
+           }
+      }
+
+      if(matrix[0][0] == 0) {
+          for(int row=0; row<m; row++) {
+              matrix[row][0] = 0;
+          }
+      }
+
+      if(isTopRowZero) {          
+          for(int col=0; col<n ; col++) {
+              matrix[0][col] = 0;
+          }
+      }
+    }
+}

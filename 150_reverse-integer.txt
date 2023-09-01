@@ -1,0 +1,21 @@
+/*
+TC: O(log10n)
+SC: O(1)
+
+https://leetcode.com/problems/reverse-integer/
+*/
+public class Solution {
+    public int Reverse(int x) {
+        int answer = 0;
+        while(x!=0) {
+            int digit = x%10;
+            Console.WriteLine(digit);
+            if(answer > int.MaxValue/10 || answer < int.MinValue/10) {
+                return 0;
+            }
+            answer = answer*10 + digit;
+            x= x/10;
+        }
+        return answer;
+    }
+}

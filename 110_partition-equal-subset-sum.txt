@@ -1,0 +1,104 @@
+/*
+https://leetcode.com/problems/partition-equal-subset-sum/
+*/
+
+public class Solution {
+    /*
+    TC: O(N*target)
+    SC: O(N*target)
+    */
+    private int Solve(int index, int[] nums, int target , int n, int[,] dp ) {
+        if(index >=n) {
+            return 0;
+        }
+        if(target == 0) {
+            return 1;
+        }
+        if(target < 0) {
+            return 0;
+        }
+        if(dp[index, target]!=-1) {
+            return dp[index, target]; 
+        }
+        if(
+        Solve(index+1, nums, target-nums[index], n , dp) == 1 || 
+        Solve(index+1, nums, target, n, dp) == 1) {
+            dp[index, target] = 1;
+        } else {
+            dp[index, target] = 0;
+        }
+        return dp[index, target];
+    }
+
+      private int SolveTab(int[] nums, int t , int n) {
+        int[,] dp = new int[n+1, t+1];
+        for(int i=0; i<=n; i++){
+            dp[i, 0] = 1;
+        }
+        for(int index = n-1; index >= 0; index--) {
+            for(int target = 0 ; target <= t ; target++) {
+                if(
+                (target - nums[index]>=0 && dp[index+1, target - nums[index]] == 1) || 
+                dp[index+1, target] == 1) {
+                    dp[index, target] = 1;
+                } else {
+                    dp[index, target] = 0;
+                }
+            }        
+        }
+        return dp[0, t];
+      }
+
+    /*
+    TC: O(N*target)
+    SC: O(target)
+    */
+    private int SolveTabOptimized(int[] nums, int t , int n) {
+        int[] curr = new int[t+1];
+        int[] next = new int[t+1];
+        curr[0] = 1;
+        next[0] = 1;
+        for(int index = n-1; index >= 0; index--) {
+            for(int target = 0 ; target <= t ; target++) {
+                if(
+                (target - nums[index]>=0 && next[target - nums[index]] == 1) || 
+                next[target] == 1) {
+                    curr[target] = 1;
+                } else {
+                    curr[target] = 0;
+                }
+            } 
+            Array.Copy(curr, next, t+1);       
+        }
+        return next[t];
+      }
+
+
+
+    public bool CanPartition(int[] nums) {
+        int n = nums.Length;
+        int sum = 0;
+        for( int i=0; i<n; i++) {
+            sum+=nums[i];
+        }
+
+        if(sum%2==1) {
+            return false;
+        }
+
+        int target = sum/2;
+        int index = 0;
+
+        int[,] dp = new int[n, target+1];
+        for( int i=0; i<n; i++) {
+            for(int j=0; j<=target;j++){
+                dp[i,j] =-1;
+            }
+        }
+        //Array.Fill(dp,-1);
+
+        //return Solve(index, nums, target, n, dp) == 1;   
+        //return SolveTab(nums, target, n) == 1 ;    
+        return SolveTabOptimized(nums, target, n) == 1;
+    }
+}
