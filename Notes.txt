@@ -1,0 +1,108 @@
+
+1 Use .toList() to convert dict values to list
+2 Count for collection property
+3 .Length return rows*column
+4 .GetLength(0) return no of rows
+5 .GetLength(1) return no of columns
+int rows = board.Length;
+int cols = board[0].Length;
+6 Remember to check out of range condition like left<right with while loops
+7 Window length = right-left+1;
+8 Substring( start , Length);  abc   (1,2) => bc
+9 in pivot use ,while start<end , = not there ;but is there with arr[mid]>=arr[0]
+10 Slow and fast pointer to find middle slow+1 when fast reaches end or is out of boundary will return second part of the list.
+Need to check for null codition for fast and fast.next
+
+
+11 Trie : use recursion for . match and remember to return false. Use Dictionary<char,TrieNode> for keeping track of all children nodes.
+
+12.    PriorityQueue<int,int> maxHeap = new PriorityQueue<int,int>(
+        Comparer<int>.Create((a, b) => b - a));
+13 Remember to add deep copy of list using new operator for combination sum
+14 Union and find remember for connected components
+No of connected components = n -( No. of unions)
+15 Adj list can be created as dictionary with list of neighbors
+ 	Dictionary<int, List<int>> preCoursesMap = new();
+        for(int i=0; i<numCourses; i++) {
+            preCoursesMap[i] = new List<int>();
+        }
+        foreach(var pre in prerequisites) {
+            var courseToTake = pre[0];
+            var courseDependsOn = pre[1];
+            preCoursesMap[courseToTake].Add(courseDependsOn);
+        }
+15 Set dp[0]=0 for min no of ways for coin change
+16 For word break problem
+dp[i] = dp[i + word.Length];                    
+17 Set default max to 1 for LIS
+18 LCS answer will be dp[m,n]
+19 For rotate right by 90 , rotate diagonal and then by column
+For rotate left by 90, rotate by column and then by diagonal
+20 No of counting bits in a range, remember
+
+	if(2*offset == i)  {
+                offset = i;
+            }
+        dp[i] = 1 + dp[i-offset];
+21 Remember
+Set bit    (bit>>i) | 1     Get bit  (n>>i) & 1
+22 Plus 1 , Better reverse or start from end, remember 9 and carry, only carry and no carry
+23 Matrix multiplication - Always reverse. Set(i+j)th position  and carry in (i+j+1)
+var reversedNum1 = new string(num1.Reverse().ToArray());
+	for(int i=0; i<m; i++) {
+            for(int j=0; j<n ; j++) {
+                int digit = (reversedNum1[i]-'0') * (reversedNum2[j]-'0');
+                int temp = result[i+j] + digit;
+                result[i+j+1] += temp/10;
+                result[i+j] = temp%10;
+            }
+        }
+24 With dictionary we can use hashMap.GetValueOrDefault((pX, y),0) like this.
+25 For hand of straight remove only if count is 0.
+26 For valid parenthesis maintain leftMin and leftMax, if leftMax<0 break. If finally, leftMin == 0 return true;
+27 While changing array in dp solution , remember to use Array.Copy(source, destination,length);
+28 With interleaving check this condition s1[index1] == s3[index1+index2]
+29 Redundant connection - Use union and find
+30 Use dictionary.TryAdd if not sure that key in dict exists
+31 Itineary reconstruction. While backtracking , remove the price from n-1 index
+32 BellmanFord n-1 times distance[v] = min(distance[v], distance[u] + weight(u, v))
+K stops remember to copy the temp array
+33 For edges return -1 for leaf and 2+height(left)+height(right)
+34 2 step approach with hashmap for copying random pointers
+35 LRU Cache = Doubly ended queue with hashMap
+LinkedList can be used for doubly ended queue
+AddFirst() -> add at front , Propertied Last -> rear and First-> front.
+36 Min Stack Push -> Pushed value = 2*current- min => if min<curr
+and popped value = 2*min - value
+37 Remove last charcater stringbuilder sb.Remove(index-1,1);
+38 For car fleet, check if 2nd time car <= 1st time of car. Sort by position in reverse order.
+if(stack.Count > 1 && stack.Peek() <= stack.Skip(1).First()) {
+                stack.Pop();
+            }     
+39 Remember for histogram
+Area = height[i]*(next-prev-1)
+ if(nextSmallest[i]==-1) {
+                nextSmallest[i]= n;
+            }
+40 No of total combination of pairs n*(n-1)/2
+41 Burst balloons. Remember to add 1 at each boundary
+42 Interleaving string check for either string is str[i+j]
+
+Setting a Bit:
+===============
+To set a particular bit n in a number x, you can use the expression x |= (1 << n).
+Clearing a Bit:
+===============
+To clear a particular bit n in a number x, you can use the expression x &= ~(1 << n).
+Toggling a Bit:
+===============
+To toggle (flip) a particular bit n in a number x, you can use the expression x ^= (1 << n).
+Checking if a Bit is Set:
+=========================
+To check if a particular bit n is set in a number x, you can use the expression (x & (1 << n)) != 0. This will evaluate to true if the bit is set and false if it's not
+Getting the rightmost set digit
+================================
+Either x & -x    or we can use 
+x & ~(x - 1) 
+
+Use CompareTo instead of a-b with sorting.
