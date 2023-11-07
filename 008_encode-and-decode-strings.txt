@@ -1,0 +1,88 @@
+/* https://www.lintcode.com/problem/659 */
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+public class Solution
+{
+    /*
+     * @param strs: a list of strings
+     * @return: encodes a list of strings to a single string.
+     */
+    public string Encode(List<string> strs)
+    {
+        // write your code here
+        StringBuilder sb = new StringBuilder();
+        foreach (string str in strs)
+        {
+            sb.Append(str.Length).Append("#").Append(str);
+        }
+        return sb.ToString();
+    }
+
+    /*
+     * @param str: A string
+     * @return: decodes a single string to a list of strings
+     */
+    public List<string> Decode(string str)
+    {
+        // write your code here
+        int i = 0;
+        List<string> list = new List<string>();
+        while (i < str.Length)
+        {
+            int j = i;
+            while (str[j] != '#')
+            {
+                j++;
+            }
+            string hashPart = str.Substring(i, j - i);
+            int length = int.Parse(hashPart);
+            i = j + length + 1;
+            string strPart = str.Substring(j + 1, length);
+            list.Add(strPart);
+        }
+        return list;
+    }
+}
+
+
+/*
+public class Solution {
+    /*
+     * @param strs: a list of strings
+     * @return: encodes a list of strings to a single string.
+     */
+    public String encode(List<String> strs) {
+        // write your code here
+        StringBuilder sb = new StringBuilder();
+        for(String str : strs) {
+            sb.append(str.length()).append("#").append(str);
+        }
+        return sb.toString();
+    }
+
+    /*
+     * @param str: A string
+     * @return: decodes a single string to a list of strings
+     */
+    public List<String> decode(String str) {
+        // write your code here
+        int i = 0;
+        List<String> list = new ArrayList<String>();
+        while(i < str.length()) {
+            int j = i;
+            while(str.charAt(j) != '#') {
+                j++;
+            }
+            String hashPart =  str.substring(i, j);
+            int length = Integer.valueOf(hashPart);
+            i = j+length+1;
+            String strPart = str.substring(j+1, i);
+            list.add(strPart);            
+        }
+        return list;
+    }        
+}
+    // 4#lint4#code4#love3#you
+*/
