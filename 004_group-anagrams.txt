@@ -18,6 +18,10 @@ public class Solution {
            }
            dict[key].Add(strs[i]);
        }
+       /* foreach(var key in dict.Keys) {
+         ans.Add(dict[key]);
+       }
+       return ans; */
        return dict.Values.ToList();
     }
 }
