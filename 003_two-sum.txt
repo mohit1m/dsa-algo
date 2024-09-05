@@ -6,14 +6,14 @@ https://leetcode.com/problems/two-sum/description/
 */
 public class Solution {
     public int[] TwoSum(int[] nums, int target) {
-        Dictionary<int,int> prevNumberWithIndex = new Dictionary<int,int>();
+        Dictionary<int,int> hashMap = new Dictionary<int, int>();
         for(int i=0; i<nums.Length; i++) {
-            int diff = target - nums[i];
-            if(prevNumberWithIndex.ContainsKey(diff)) {
-                return new int[] {prevNumberWithIndex[diff], i};
+            int difference = target - nums[i];
+            if(hashMap.ContainsKey(difference)) {
+                return new int[] { hashMap[difference], i};
             }
-            prevNumberWithIndex[nums[i]] = i;
+            hashMap.Add(nums[i], i);
         }
-        return new int[] {0,0};
+        return null;
     }
 }
