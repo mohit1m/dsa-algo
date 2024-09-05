@@ -1,6 +1,10 @@
 
 1 Use .toList() to convert dict values to list
 2 Count for collection property
+MinHeap is default implementation of PriorityQueue in C#.
+Lowest no has highest priority. The lowest priority element will be removed first.
+So, minimum frequency element will be removed first on dequeuing.
+For i = any no. ,  str[i] = 'c', use single codes.
 3 .Length return rows*column
 4 .GetLength(0) return no of rows
 5 .GetLength(1) return no of columns
@@ -8,7 +12,7 @@ int rows = board.Length;
 int cols = board[0].Length;
 6 Remember to check out of range condition like left<right with while loops
 7 Window length = right-left+1;
-8 Substring( start , Length);  abc   (1,2) => bc
+8 Substring() -> str.Substring(startIndex, length);    Substring( start , Length);  abc   (1,2) => bc
 9 in pivot use ,while start<end , = not there ;but is there with arr[mid]>=arr[0]
 10 Slow and fast pointer to find middle slow+1 when fast reaches end or is out of boundary will return second part of the list.
 Need to check for null codition for fast and fast.next
