@@ -31,10 +31,12 @@ public class Solution
         int left = 0;
         while(left < s.Length) {
             int right = left;
-            while(s[right]!='#') {
+            while(s[right] != '#') {
                 right++;
             }
+            // Get the length for the string eg:- lint from 4#lint4#code4#love3#you
             int length = int.Parse(s.Substring(left, right-left));
+            // Start from right+1 till length of the string
             ans.Add(s.Substring(right+1, length));
             left = right+length+1;
         }
