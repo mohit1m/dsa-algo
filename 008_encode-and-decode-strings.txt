@@ -27,22 +27,18 @@ public class Solution
     public List<string> Decode(string str)
     {
         // write your code here
-        int i = 0;
-        List<string> list = new List<string>();
-        while (i < str.Length)
-        {
-            int j = i;
-            while (str[j] != '#')
-            {
-                j++;
+        List<string> ans = new List<string>();
+        int left = 0;
+        while(left < s.Length) {
+            int right = left;
+            while(s[right]!='#') {
+                right++;
             }
-            string hashPart = str.Substring(i, j - i);
-            int length = int.Parse(hashPart);
-            i = j + length + 1;
-            string strPart = str.Substring(j + 1, length);
-            list.Add(strPart);
+            int length = int.Parse(s.Substring(left, right-left));
+            ans.Add(s.Substring(right+1, length));
+            left = right+length+1;
         }
-        return list;
+        return ans;
     }
 }
 
