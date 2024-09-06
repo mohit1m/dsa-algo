@@ -14,6 +14,16 @@ For trying to add HashSet for first time, use TryAdd eg:-
       rowsHashMap.TryAdd(i, new HashSet<char>());
 Remember: Cannot modify num in a for each loop
 6 Remember to check out of range condition like left<right with while loops and also user char.ToLower(str[i]) for lowercase conversion
+For 3 sums unique, we will need to add conditions to avoid duplicates:-
+a)   if(i>0 && nums[i-1] == nums[i])   {
+               continue;
+            } 
+b)    if(a+b+c == target) { 
+	left ++;
+	while(left<right && nums[left] == nums[left-1]) {
+                left++;
+       	    }
+	}
 7 Window length = right-left+1;
 8 Substring() -> str.Substring(startIndex, length);    Substring( start , Length);  abc   (1,2) => bc
 9 in pivot use ,while start<end , = not there ;but is there with arr[mid]>=arr[0]
