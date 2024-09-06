@@ -24,6 +24,7 @@ b)    if(a+b+c == target) {
                 left++;
        	    }
 	}
+For tapping rainwater, for setting boundaries left++ or right-- needs to be executed as first condition.
 7 Window length = right-left+1;
 8 Substring() -> str.Substring(startIndex, length);    Substring( start , Length);  abc   (1,2) => bc
 9 in pivot use ,while start<end , = not there ;but is there with arr[mid]>=arr[0]
