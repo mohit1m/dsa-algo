@@ -24,3 +24,21 @@ public class Solution {
         return maxLength;
     }
 }
+
+/*  Probably more easy to understand
+public int LengthOfLongestSubstring(string s) {
+        int left = 0;
+        HashSet<char> hashSet = new();
+        int maxSubstringLength = 0;
+        for(int right=0; right<s.Length; right++) {
+            //if the string contains the right character, reduce the sliding window size
+            while(hashSet.Contains(s[right])) {
+                hashSet.Remove(s[left]);
+                left++;
+            }
+            hashSet.Add(s[right]);
+            maxSubstringLength = Math.Max(right-left+1, maxSubstringLength);
+        }  
+        return maxSubstringLength;      
+    }
+*/
