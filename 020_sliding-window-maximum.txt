@@ -10,23 +10,24 @@ public class Solution {
         List<int> result = new();
         int left = 0, right = 0;
         LinkedList<int> deQueue = new();
-        while(right < n) {
-            // remove from last
+        for(int right=0; right<nums.Length; right++) {
+            // r all elements lesser than current element
             while(deQueue.Any() && nums[deQueue.Last.Value] < nums[right]) {
                 deQueue.RemoveLast();
-            }
-            // remove left val from the window
-            if (deQueue.Count> 0 && left > deQueue.First.Value){
-                deQueue.RemoveFirst();
-            }
+            }           
             // add last 
             deQueue.AddLast(right);
 
+            // remove left val from the window - remove out of bound elements from window
+            if (left > deQueue.First.Value){
+                deQueue.RemoveFirst();
+            }
+
+            // If window size is >= add the first element to result
             if(right+1 >= k) {
                 result.Add(nums[deQueue.First.Value]);
                 left++;
             }
-            right++;
         }
         return result.ToArray();        
     }
