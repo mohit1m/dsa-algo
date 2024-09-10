@@ -5,6 +5,66 @@ SC: O(n)
 https://leetcode.com/problems/permutation-in-string
 */
 public class Solution {
+    public bool CheckInclusion(string s1, string s2) { 
+        if(s1.Length > s2.Length) {
+            return false;
+        }
+
+        Dictionary<char, int> hashMapS = new();
+        Dictionary<char, int> hashMapWindow = new();
+        for(int i=0; i<s1.Length; i++) {
+            if(hashMapS.ContainsKey(s1[i])) {
+                hashMapS[s1[i]]++;
+            }
+            else {
+                hashMapS[s1[i]] = 1;
+            }
+            if(hashMapWindow.ContainsKey(s2[i])) {
+                hashMapWindow[s2[i]]++;
+            }
+            else {
+                  hashMapWindow[s2[i]] = 1;
+            }
+        }
+
+        int countNeeded = hashMapS.Count;
+        int countCurrent = 0;
+        foreach(var key in hashMapS.Keys) {
+            if(hashMapWindow.ContainsKey(key) && hashMapS[key] == hashMapWindow[key]) {
+                countCurrent++;
+            }
+        }
+
+        int left = 0;
+        for(int right=s1.Length; right<s2.Length; right++) {
+            if(countNeeded  == countCurrent){
+                return true;
+            }
+            if(hashMapWindow.ContainsKey(s2[right])) {
+                hashMapWindow[s2[right]]++;
+            }
+            else {
+                 hashMapWindow[s2[right]]=1;
+            }
+            if(hashMapS.ContainsKey(s2[right]) && (hashMapWindow[s2[right]] == hashMapS[s2[right]])) {
+                countCurrent++;
+            } else if (hashMapS.ContainsKey(s2[right]) && (hashMapS[s2[right]]+1  == hashMapWindow[s2[right]])) {
+                countCurrent--;
+            }
+            
+            hashMapWindow[s2[left]]--;
+            if(hashMapS.ContainsKey(s2[left]) && (hashMapWindow[s2[left]] == hashMapS[s2[left]])) {
+                countCurrent++;
+            } else if (hashMapS.ContainsKey(s2[left]) && (hashMapS[s2[left]]-1  == hashMapWindow[s2[left]])) {
+                countCurrent--;
+            }
+            left++;
+        }
+        return countNeeded  == countCurrent;		
+    }
+}
+
+/*public class Solution {
     private void AddToDictionary(char ch, Dictionary<char,int> hashMap) {
         if(hashMap.ContainsKey(ch)) {
             hashMap[ch]++;
@@ -56,4 +116,4 @@ public class Solution {
         }
         return false;
     }
-}
+}*/
