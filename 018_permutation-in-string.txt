@@ -35,6 +35,9 @@ public class Solution {
             }
         }
 
+        // We will increment both right and left in this case so that window size remains constant.
+        // Since, countNeeded  == countCurrent is checked as first statement we need to make this check after the last iteration 
+        // is complete as well
         int left = 0;
         for(int right=s1.Length; right<s2.Length; right++) {
             if(countNeeded  == countCurrent){
