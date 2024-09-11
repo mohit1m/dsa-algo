@@ -21,3 +21,23 @@ public class Solution {
         return result;        
     }
 }
+
+/*
+Probably more understandable
+We use a monotonically decreasing stack in this case
+Pop smaller element than current element and get their index
+public int[] DailyTemperatures(int[] temperatures) {
+        // index, temp
+        Stack<(int, int)> stack = new();
+        int[] result = new int[temperatures.Length];
+        for(int i=0;i<temperatures.Length; i++) {
+            while(stack.Count!=0 && stack.Peek().Item2 < temperatures[i])
+            {
+                var (index, temperature) = stack.Pop();
+                result[index] = i - index;
+            }       
+            stack.Push((i, temperatures[i]));
+        }
+        return result;
+    }
+*/
