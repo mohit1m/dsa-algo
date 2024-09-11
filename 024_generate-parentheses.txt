@@ -9,6 +9,11 @@ public class Solution {
      //Stack<string> ans, 
      StringBuilder ans,
      IList<string> result) {
+         /*
+        Check if openCount == closeCount and openCount==n, add to answer
+        If openCount < n , add openCount and backtrack
+        If closedCount < openCount , add closedCount nd backtrack
+        */
         if(openParenCount == n && closeParenCount == n) {
             result.Add(ans.ToString());
         //    result.Add(String.Join("",ans.Reverse()));
