@@ -1,17 +1,17 @@
+/*
+TC: O(logn)
+SC: O(n)
 
-TC O(logn)
-SC O(n)
-
-httpsleetcode.comproblemstime-based-key-value-store
-
+https://leetcode.com/problems/time-based-key-value-store/
+*/
 public class TimeMap {
-    Dictionarystring, List(string, int) hashMap;
+    Dictionary<string, List<(string, int)>> hashMap;
     public TimeMap() {
         hashMap = new();
     }
     
     public void Set(string key, string value, int timestamp) {
-        hashMap.TryAdd(key, new List(string,int)());
+        hashMap.TryAdd(key, new List<(string,int)>());
         hashMap[key].Add((value, timestamp));
     }
     
@@ -24,13 +24,13 @@ public class TimeMap {
         int end = value.Count-1;
   
         string result = String.Empty;
-        while(start=end) {
-            int mid = start + (end-start)  2;
+        while(start<=end) {
+            int mid = start + (end-start) / 2;
             if(value[mid].Item2 == timestamp) {
                 result = value[mid].Item1;
                 return result;
             }
-            if(value[mid].Item2  timestamp) {
+            if(value[mid].Item2 < timestamp) {
                 result = value[mid].Item1;
                 start = mid+1;
             } else {
@@ -42,9 +42,9 @@ public class TimeMap {
     }
 }
 
-
-  Your TimeMap object will be instantiated and called as such
-  TimeMap obj = new TimeMap();
-  obj.Set(key,value,timestamp);
-  string param_2 = obj.Get(key,timestamp);
- 
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap obj = new TimeMap();
+ * obj.Set(key,value,timestamp);
+ * string param_2 = obj.Get(key,timestamp);
+ */
