@@ -8,7 +8,7 @@ public class Solution {
     private int FindPivot(int[] nums) {
         int start = 0;
         int end = nums.Length - 1;
-        // We don't equals condition
+        // We don't use equals condition
         while (start < end) {
             int mid = start + (end - start)/2;
             if(nums[mid] >= nums[0]) {
