@@ -73,6 +73,7 @@ Need to check for null codition for fast and fast.next
             first = temp1;
             second = temp2;
 10a To remove nth , we need a dummy node in front of head, so that we can first move right by n and then move left untill right is null.
+10b For random pointer copy, remember for base condition if head==null, return null.Keep a hashMap for new copyNode List.
 11 Trie : use recursion for . match and remember to return false. Use Dictionary<char,TrieNode> for keeping track of all children nodes.
 
 12.    PriorityQueue<int,int> maxHeap = new PriorityQueue<int,int>(
