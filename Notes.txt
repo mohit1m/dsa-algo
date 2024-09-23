@@ -51,6 +51,7 @@ Remember, if nextSmallest[i]=-1, we should set to nextSmallest[i]=n, to avoid ar
 8f For 2d, binary search think rows 0 to n-1 first, consider; for greater cols = cols-1 and smaller cols=0.
 8g For koko eating bananas, the start=1 and not start=0 as hour will start from 1 and end=piles.Max();
 9 in pivot use ,while start<end , = not there ;but is there with arr[mid]>=arr[0]
+Better is to use minmum in an array but with index approach without any issues.
 9a To find minimum in rotated array   3 4 | 5 | 1 2, if arr[mid]>=arr[start], set start = mid+1
 Store the min for mid and result value. If arr[start]<arr[end], set result to Math.min(result,start);
 9b Use minimum in an array algo as given above in 9a, and use conditions with pivot.
@@ -62,7 +63,7 @@ Always run binary search on smaller array. Take start as 0 and end as len(smalla
 	int i = start+(end-start)/2;
 	int j = half - i;
 	If left1>right2 we need to set end = i-1, otherwise start=i+1
-9e Reorder List. Remember the linking part
+9e Reorder List. Remember to set  slow.next =null; and the linking part
 first=head, second=prev,  we can go till second is null.It will always be >= length of first part.
 10 Slow and fast pointer to find middle slow+1 when fast reaches end or is out of boundary will return second part of the list.
 Need to check for null codition for fast and fast.next
