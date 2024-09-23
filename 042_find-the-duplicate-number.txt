@@ -7,7 +7,7 @@ https://leetcode.com/problems/find-the-duplicate-number/
 */
 public class Solution {
     public int FindDuplicate(int[] nums) {
-        int slow = 0, fast = 0;
+        int slow = nums[0], fast = nums[0];
 
         while(true) {
             slow = nums[slow];
@@ -17,7 +17,9 @@ public class Solution {
             }
         }
 
-        int slow1 = 0;
+        // As per the algo, fast is moved to the first element and moved one step at a time,
+        // using slow1 to avoid confusion
+        int slow1 = nums[0];
         while(slow != slow1) {
             slow = nums[slow];
             slow1 = nums[slow1];
