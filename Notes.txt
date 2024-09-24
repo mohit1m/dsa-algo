@@ -78,7 +78,11 @@ Need to check for null codition for fast and fast.next
 10c For merge k sorted list, use i+2 increment in for loop.
  	ListNode[] mergedLists = new ListNode[(lists.Length+1)/2];
   	mergedLists[i/2] = MergeLists(list1,list2);
-10d For reversing in group k, return head if cannot iterate till k, while reversing have an extra condition to keep track of count
+10d For LRU Cache
+    GET - Return -1 if not in cache. If in cache, REMOVE from deque , ADDFIRST to dequeue, return value
+    PUT - If in cache already, remove from cache and dequeue, ADDFIRST to dequeue and add FIRST to cache. If capacity exceeds remove 	 
+          from LAST pointer of deque and remove from cache.
+10e For reversing in group k, return head if cannot iterate till k, while reversing have an extra condition to keep track of count
 and then set head.next = RecursiveFunction(next,k) and return prev.
 11 Trie : use recursion for . match and remember to return false. Use Dictionary<char,TrieNode> for keeping track of all children nodes.
 
