@@ -15,15 +15,7 @@
  https://leetcode.com/problems/reverse-nodes-in-k-group/
  */
 public class Solution {
-    private ListNode FindKthnode(ListNode curr, int k) {
-        while(curr!=null && k>0) {
-            curr= curr.next;
-            k--; 
-        }
-        return curr;
-    }
-
-    public ListNode ReverseKGroup(ListNode head, int k) {
+      public ListNode ReverseKGroup(ListNode head, int k) {
         if(head == null) {
             return null;
         }
@@ -54,7 +46,15 @@ public class Solution {
         }
         return prev; 
     }
-       /* ListNode dummy = new ListNode(0, head);
+       /* 
+       private ListNode FindKthnode(ListNode curr, int k) {
+        while(curr!=null && k>0) {
+            curr= curr.next;
+            k--; 
+        }
+        return curr;
+       }
+      ListNode dummy = new ListNode(0, head);
         ListNode groupPrev = dummy;
 
         while(true) {
