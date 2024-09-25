@@ -19,7 +19,20 @@
  */
 
 public class Solution {
+
    int maxDiameter = 0;
+     /* More intuitive */
+     public int Solve(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        int leftHeight = Solve(root.left);
+        int rightHeight = Solve(root.right);
+        max = Math.Max(max, leftHeight+rightHeight);
+        return 1 + Math.Max(leftHeight,rightHeight);
+    }
+
+    /*
     private int Solve(TreeNode root) {
         if (root == null) {
             return -1;
@@ -28,7 +41,7 @@ public class Solution {
         int right = Solve(root.right);
         maxDiameter = Math.Max(maxDiameter, left + right + 2);
         return 1 + Math.Max(left, right);
-    }
+    } */
 
     public int DiameterOfBinaryTree(TreeNode root) {
         Solve(root);
