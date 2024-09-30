@@ -84,6 +84,14 @@ Need to check for null codition for fast and fast.next
           from LAST pointer of deque and remove from cache.
 10e For reversing in group k, return head if cannot iterate till k, while reversing have an extra condition to keep track of count
 and then set head.next = RecursiveFunction(next,k) and return prev.
+10f In subtree of a tree if (subtree == null) return true, as null is also a subtree of any tree.
+We check for sameTree for a node and return true , otherwise we check SubTree for left or right side.
+10g For LCA if both left and right values are less than root search in left side and vice versa.
+10h In binary order traversal, we  need an inner loop till size of the queue
+10i For right size we can check if list.Count == level for adding right side view
+10j For valid BST, adjust limits [-inf,root,val] [root.val,inf]
+10k For kth smallest element return left if it is -1, i.e. if solution is found on the left side.
+10l index>=n && start>end
 11 Trie : use recursion for . match and remember to return false. Use Dictionary<char,TrieNode> for keeping track of all children nodes.
 
 12.    PriorityQueue<int,int> maxHeap = new PriorityQueue<int,int>(
