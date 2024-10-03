@@ -22,3 +22,29 @@ public class Solution {
         return result.ToArray();
     }
 }
+
+
+/* Using max heap
+public int[][] KClosest(int[][] points, int k) {
+        PriorityQueue<(int,int,int), int> maxHeap = 
+        new PriorityQueue<(int,int,int), int>(Comparer<int>.Create((a,b) => b.CompareTo(a)));
+
+        int rows  = points.Length;
+        int cols = points[0].Length;
+        List<int[]> result = new List<int[]>();
+        for(int i=0; i<rows; i++) {
+            int x = points[i][0];
+            int y = points[i][1];
+            int distance = (x*x) + (y*y);
+            maxHeap.Enqueue((x,y,distance), distance);
+            if(maxHeap.Count > k) {
+                maxHeap.Dequeue();
+            }            
+        }
+        for(int i=0; i<k; i++) {
+            var (x,y, distance) = maxHeap.Dequeue();
+            result.Add(new int[] {x, y});
+        }
+        return result.ToArray();
+    }
+*/
