@@ -22,14 +22,17 @@ public class MedianFinder {
            maxHeap.Enqueue(num,num); 
         }        
 
-        // Checking for condition <= after adding to maxHeap
-       /*
-       maxHeap.Enqueue(num,num); 
-       if(minHeap.Count > 0 && maxHeap.Count > 0 && maxHeap.Peek() > minHeap.Peek()) {
-            int value = maxHeap.Dequeue();
-            minHeap.Enqueue(value,value); 
-        }*/
-        
+        /*
+        if(maxHeap.Count == 0) {
+           maxHeap.Enqueue(num,num);
+        } 
+        else if(num > maxHeap.Peek()) {
+            minHeap.Enqueue(num, num);
+        } else {
+            maxHeap.Enqueue(num,num);
+        }
+        */
+       
         // Balancing if size exceeds by 1
         if(maxHeap.Count > 1 + minHeap.Count)  {
             int value = maxHeap.Dequeue();
