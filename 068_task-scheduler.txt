@@ -12,7 +12,7 @@ public class Solution {
         Dictionary<char, int> hashMap = new();
         // task and count maxHeap
         PriorityQueue<(char, int), int> maxHeap = new PriorityQueue<(char, int), int>(
-        Comparer<int>.Create((a, b) => (b - a)));
+        Comparer<int>.Create((a, b) => (b.CompareTo(a)));
         // task , count, available to pickup time
         Queue<(char, int,  int)> q = new();
         foreach(var task in tasks) {
