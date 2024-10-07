@@ -1,4 +1,5 @@
 1 Use .toList() to convert dict values to list
+Priority Queues first parameter can have local variables defined.
 2 Count for collection property
 MinHeap is default implementation of PriorityQueue in C#.
 Lowest no has highest priority. The lowest priority element will be removed first.
