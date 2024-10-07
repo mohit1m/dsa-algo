@@ -95,6 +95,7 @@ We check for sameTree for a node and return true , otherwise we check SubTree fo
 10l index>=n && start>end, return null for constructing tree fom preorder and inorder
 10m For kth largest use minHeap and for kth smallest use maxhHeap of size k.
 10n For task scheduler, use a queue and add tasks with timePassed+coolOffTime alongwith maxHeap
+10o For twitter, we use maxHeaps and when we dequeue , we add from 2nd last tweet from the followee to queue, so it like merge sort
 11 Trie : use recursion for . match and remember to return false. Use Dictionary<char,TrieNode> for keeping track of all children nodes.
 11a For subset, take or not take and the alsways add a new list to result  result.Add(new List<int>(subset));
 11b For combination sum, 2 cases arise:-
