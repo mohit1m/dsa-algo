@@ -18,7 +18,7 @@ a)   if(i>0 && nums[i-1] == nums[i])   {
                continue;
             } 
 b)    if(a+b+c == target) { 
-	left ++;
+	left++;
 	while(left<right && nums[left] == nums[left-1]) {
                 left++;
        	    }
@@ -97,7 +97,18 @@ We check for sameTree for a node and return true , otherwise we check SubTree fo
 11b For combination sum, 2 cases arise:-
 1. Reduce target and use same index
 2. Keep same target and increment index by 1
-Add if target == 0 and return if target<0 || index>=n.
+Add if target == 0 and return if target<0 || index>=n
+11c For subsets, we take one index, fix it and swap the no at that index.
+        for(int i=index; i<nums.Length; i++) {
+            Swap(nums, i, index);
+            Solve(index+1, nums, permutation, result);
+            Swap(nums,i, index);
+        }
+11d For unique combination , first sort and then use for the right side tree to avoid duplicates
+  while(index+1 <nums.Length && nums[index] == nums[index+1]) {
+    index++;
+  } 
+and then pass index+1 in recursion calls.
 11 Trie : use recursion for . match and remember to return false. Use Dictionary<char,TrieNode> for keeping track of all children nodes.
 
 12.    PriorityQueue<int,int> maxHeap = new PriorityQueue<int,int>(
