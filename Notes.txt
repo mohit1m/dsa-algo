@@ -91,8 +91,10 @@ We check for sameTree for a node and return true , otherwise we check SubTree fo
 10i For right size we can check if list.Count == level for adding right side view
 10j For valid BST, adjust limits [-inf,root,val] [root.val,inf]
 10k For kth smallest element return left if it is -1, i.e. if solution is found on the left side.
-10l index>=n && start>end
-
+10l index>=n && start>end, return null for constructing tree fom preorder and inorder
+10m For kth largest use minHeap and for kth smallest use maxhHeap of size k.
+10n For task scheduler, use a queue and add tasks with timePassed+coolOffTime alongwith maxHeap
+11 Trie : use recursion for . match and remember to return false. Use Dictionary<char,TrieNode> for keeping track of all children nodes.
 11a For subset, take or not take and the alsways add a new list to result  result.Add(new List<int>(subset));
 11b For combination sum, 2 cases arise:-
 1. Reduce target and use same index
@@ -109,10 +111,8 @@ Add if target == 0 and return if target<0 || index>=n
     index++;
   } 
 and then pass index+1 in recursion calls.
-11 Trie : use recursion for . match and remember to return false. Use Dictionary<char,TrieNode> for keeping track of all children nodes.
-
 12.    PriorityQueue<int,int> maxHeap = new PriorityQueue<int,int>(
-        Comparer<int>.Create((a, b) => b - a));
+        Comparer<int>.Create((a, b) => b.CompareTo(a));
 13 Remember to add deep copy of list using new operator for combination sum
 14 Union and find remember for connected components
 No of connected components = n -( No. of unions)
