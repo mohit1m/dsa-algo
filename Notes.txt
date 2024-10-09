@@ -116,6 +116,10 @@ and then pass index+1 in recursion calls.
 12.    PriorityQueue<int,int> maxHeap = new PriorityQueue<int,int>(
         Comparer<int>.Create((a, b) => b.CompareTo(a));
 13 Remember to add deep copy of list using new operator for combination sum
+13.1 Use a foor loop for index in recursion and use str.Substring(i, i-index+1) for palindrome partition 
+13.2 For letter combination create a new string for recursion and to remove use RemoveAt(str.Length-1)
+13.3 For n queen, use hashMap for cols, +ve diagonal(row+cols) and -ve diagonal(row-cols).
+Add to result if rows>=n
 14 Union and find remember for connected components
 No of connected components = n -( No. of unions)
 15 Adj list can be created as dictionary with list of neighbors
