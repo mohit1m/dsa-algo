@@ -120,6 +120,9 @@ and then pass index+1 in recursion calls.
 13.2 For letter combination create a new string for recursion and to remove use RemoveAt(str.Length-1)
 13.3 For n queen, use hashMap for cols, +ve diagonal(row+cols) and -ve diagonal(row-cols).
 Add to result if rows>=n
+	For jagged array , use 	int[][] jagged_arr = new int[n][];
+	Initialize the elements
+        jagged_arr[0] = new int[n] 
 14 Union and find remember for connected components
 No of connected components = n -( No. of unions)
 15 Adj list can be created as dictionary with list of neighbors
