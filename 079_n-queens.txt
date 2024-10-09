@@ -8,7 +8,7 @@ public class Solution {
     private void Solve(int row, int n, char[,] board, HashSet<int> colsHashSet,
      HashSet<int> positiveDiagHashSet, HashSet<int> negativeDiagHashSet,
      IList<IList<string>> result) {
-         if(row == n) {
+         if(row >= n) {
               IList<string> status = new List<string>();
              for(int i=0; i<n; i++) {
                  string str = String.Empty;
