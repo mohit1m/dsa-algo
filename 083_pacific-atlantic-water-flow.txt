@@ -13,10 +13,10 @@ public class Solution {
             return;
         }
         visited.Add((row, col));
-        DFS(heights, rows, cols, row -1, col, visited, heights[row][col]);
-        DFS(heights, rows, cols, row+1 , col, visited, heights[row][col]);
-        DFS(heights, rows, cols, row, col+1, visited, heights[row][col]);
-        DFS(heights, rows, cols, row, col-1, visited, heights[row][col]);
+        DFS(heights, rows, cols, row -1, col, visited, -1);
+        DFS(heights, rows, cols, row+1 , col, visited, -1);
+        DFS(heights, rows, cols, row, col+1, visited, -1);
+        DFS(heights, rows, cols, row, col-1, visited, -1);
     }
 
     public IList<IList<int>> PacificAtlantic(int[][] heights) {
