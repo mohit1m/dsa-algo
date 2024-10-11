@@ -1,0 +1,50 @@
+/*
+TC: O(m*n)
+SC: O(m*n)
+
+https://leetcode.com/problems/surrounded-regions/
+*/
+public class Solution {
+    private void DFS(char[][] board, int rows, int cols, int row, int col) {
+        if(row<0 || row>=rows || col<0 || col>=cols || board[row][col] != 'O') {
+            return;
+        }
+        board[row][col] = 'T';
+        DFS(board, rows, cols, row+1, col);
+        DFS(board, rows, cols, row-1, col);
+        DFS(board, rows, cols, row, col+1);
+        DFS(board, rows, cols, row, col-1);        
+    }
+
+    public void Solve(char[][] board) {
+        int rows = board.Length;
+        int cols = board[0].Length;
+        // Run DFS with boundary T
+
+        for(int row=0; row<rows; row++) {
+            for(int col=0; col<cols; col++) {
+                if((col==0 || col==cols-1 || row == 0 || row==rows-1) && board[row][col]== 'O')  {
+                    DFS(board, rows, cols, row, col);
+                }
+            }
+        }
+
+        // Change O to X
+        for(int row=0; row<rows; row++) {
+            for(int col=0; col<cols; col++) {
+                if(board[row][col] == 'O') {
+                    board[row][col] = 'X';
+                }
+            }
+        }
+
+        // Change T back to O
+        for(int row=0; row<rows; row++) {
+            for(int col=0; col<cols; col++) {
+                if(board[row][col] == 'T') {
+                    board[row][col] = 'O';
+                }
+            }
+        }        
+    }
+}
