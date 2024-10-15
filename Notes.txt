@@ -147,6 +147,15 @@ No of connected components = n -( No. of unions)
             var courseDependsOn = pre[1];
             preCoursesMap[courseToTake].Add(courseDependsOn);
         }
+15.1   Create adjacency list for words with patter as key and add beginWord to wordList if it does not contain it.
+Beter to use HashSet<string>(), List<string> also work though.
+	foreach(var word in wordList) {
+            for(int i=0; i<word.Length; i++) {
+                string pattern = word.Substring(0, i) + "*" + word.Substring(i + 1);;
+                adjList.TryAdd(pattern, new HashSet<string>());
+                adjList[pattern].Add(word);
+            }
+        }
 15 Set dp[0]=0 for min no of ways for coin change
 16 For word break problem
 dp[i] = dp[i + word.Length];                    
