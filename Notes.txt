@@ -123,7 +123,19 @@ Add to result if rows>=n
 	For jagged array , use 	int[][] jagged_arr = new int[n][];
 	Initialize the elements
         jagged_arr[0] = new int[n] 
-14 Union and find remember for connected components
+14 For max area of island use 1 + DFS1 + DFS2 + DF3 + DFS4
+14.1 For pacific atlantic ,  we can have DFS for pac,atl from row 0 and last row and then col 0 and col-1 and find union.
+14.2 For surrounded regions, run DFS from row 0, last row,col 0, last cols and set to T wherver we have O
+Set all other O to X
+Set all T to O 
+14.3 For walls and gates , use BFS from walls.
+14.4 Couse schedule course that has to be completed  first i spart of adj list.
+14.5 Couse schedule || - use topolgical sort, with 1st course completed added first in List
+14.6 Use union and find for redundant connection
+14.7 For valid graph if visitedHasSet.Count == n and there is no cycle starting from node 0.
+14.8 For cycle in directed graph, use DFSVisisted Set
+14.9 For cycle in undirected grpah, use parent=-1 and parent = node and see if there is abackedge to parent node from child nodes
+14.10 Union and find remember for connected components
 No of connected components = n -( No. of unions)
 15 Adj list can be created as dictionary with list of neighbors
  	Dictionary<int, List<int>> preCoursesMap = new();
