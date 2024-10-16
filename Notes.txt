@@ -166,6 +166,9 @@ iv) Create a copy of adjList[source] and then remove the visited city from copy
 v) Use backtracking, as we can goto a city, from where there is no path left to the origin to traverse other cities.
 15.3 Continue if visitedSet.Contains(node).
 Prim's algo uses a minHeap and visitedSet for finding a MST.
+Base condition: if(hashSetVisited.Count == points.Length) {
+                	return result;
+                }
 15 Set dp[0]=0 for min no of ways for coin change
 16 For word break problem
 dp[i] = dp[i + word.Length];                    
