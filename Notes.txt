@@ -149,7 +149,7 @@ No of connected components = n -( No. of unions)
             var courseDependsOn = pre[1];
             preCoursesMap[courseToTake].Add(courseDependsOn);
         }
-15.1   Create adjacency list for words with patter as key and add beginWord to wordList if it does not contain it.
+15.1   Create adjacency list for words with pattern as key and add beginWord to wordList if it does not contain it.
 Beter to use HashSet<string>(), List<string> also work though.
 	foreach(var word in wordList) {
             for(int i=0; i<word.Length; i++) {
@@ -158,6 +158,12 @@ Beter to use HashSet<string>(), List<string> also work though.
                 adjList[pattern].Add(word);
             }
         }
+15.2 For construct itineraray, we should:-
+i) Sort the adjList by keys for obtaining lexographical order.
+ii) Return true when result.Count == noOfTickets+1
+iii) Use boolean with return in DFS.
+iv) Create a copy of adjList[source] and then remove the visited city from copy
+v) Use backtracking, as we can goto a city, from where there is no path left to the origin to traverse other cities.
 15 Set dp[0]=0 for min no of ways for coin change
 16 For word break problem
 dp[i] = dp[i + word.Length];                    
