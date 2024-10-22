@@ -51,7 +51,7 @@ namespace lintcode
                 string str2= words[i+1];
                 int minLength = Math.Min(str1.Length, str2.Length);
 
-                if(str1.Length > str2.Length && str1.Substring(0, minLength) == str2) {
+                if(str1.Length > str2.Length && str1.StartsWith(str2)) {
                     return String.Empty;
                 }
 
@@ -70,10 +70,10 @@ namespace lintcode
             string result = String.Empty;
             // Trick for getting the string combination in alphabetical order
             // The letters in one string are of the same rank by default and are sorted in Human dictionary order.
-            for(char character='z'; character>='a'; character--) {
-               //foreach(char character in hashMap.Keys) {
-                 if(hashMap.ContainsKey(character) && !visited.Contains(character)) {
-                   // if(!visited.Contains(character)) {
+            // for(char character='z'; character>='a'; character--) {
+                // if(hashMap.ContainsKey(character) && !visited.Contains(character)) {
+               foreach(char character in hashMap.Keys) {
+                    if(!visited.Contains(character)) {
                     if(DFSIsCyclic(character, hashMap, visited, dfsVisited)) {
                         return String.Empty;
                     }                    
