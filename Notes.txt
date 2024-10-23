@@ -169,6 +169,19 @@ Prim's algo uses a minHeap and visitedSet for finding a MST.
 Base condition: if(hashSetVisited.Count == points.Length) {
                 	return result;
                 }
+15.4. For netwok delay, we will use Dijkstra's algorithm and will take account the max time to reach a point
+and while adding to ninHep will add time1+time2.
+15.5 Swim in rising water - Use minHeap and take maximum of already visited and current point and add.
+as swimming can be done only with higher depth.
+15.6 For alien dictionary, we figure out:-
+i). Length of 2 strings. 
+ii). Use minLength
+iii) if len(str1)>len(str2) and str2 is a prefix of str1 retun String.Empty
+iv) Till minLength, find the diff character , add to adj Likst and break.
+v) Add all the character of word to adjList
+vi) Use topolgical sort
+15.7 BellmanFord k+1 times distance[v] = min(distance[v], distance[u] + weight(u, v))
+At every stop, remember to copy the temp array
 15 Set dp[0]=0 for min no of ways for coin change
 16 For word break problem
 dp[i] = dp[i + word.Length];                    
@@ -201,11 +214,8 @@ var reversedNum1 = new string(num1.Reverse().ToArray());
 27 While changing array in dp solution , remember to use Array.Copy(source, destination,length);
 28 With interleaving check this condition s1[index1] == s3[index1+index2]
 29 Redundant connection - Use union and find
-30 Use dictionary.TryAdd if not sure that key in dict exists
-31 Itineary reconstruction. While backtracking , remove the price from n-1 index
-32 BellmanFord n-1 times distance[v] = min(distance[v], distance[u] + weight(u, v))
-K stops remember to copy the temp array
-33 For edges return -1 for leaf and 2+height(left)+height(right)
+30 Use dictionary.TryAdd(key, value) if not sure that key in dict exists
+31 Itineary reconstruction. While backtracking, remove the price from n-1 index
 34 2 step approach with hashmap for copying random pointers
 35 LRU Cache = Doubly ended queue with hashMap
 LinkedList can be used for doubly ended queue
