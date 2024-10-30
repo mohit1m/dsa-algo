@@ -15,7 +15,7 @@ public class Solution {
         int n = nums.Length;
         for(int i=1; i<n; i++) {
             int temp = currentMax * nums[i];
-            currentMax = Math.Max(currentMin * nums[i] , Math.Max(temp, nums[i]));
+            currentMax = Math.Max(temp , Math.Max(currentMin * nums[i], nums[i]));
             currentMin = Math.Min(temp , Math.Min(currentMin * nums[i], nums[i]));
             maxProduct = Math.Max(currentMax, maxProduct);
         }
