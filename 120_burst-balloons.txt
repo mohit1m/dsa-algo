@@ -29,9 +29,9 @@ public class Solution {
                 for(int i=left; i<=right; i++) {
                     int coins = nums[left-1] * nums[i] * nums[right+1];
                     coins += dp[left, i-1] + dp[i+1, right];
-                    maxCoins = Math.Max(maxCoins, coins);    
-                    dp[left,right]  = maxCoins;
+                    maxCoins = Math.Max(maxCoins, coins);
                 }
+                dp[left,right]  = maxCoins;
             }
         }
         return dp[1, n-2];
