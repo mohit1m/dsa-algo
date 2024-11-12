@@ -184,9 +184,46 @@ vi) Use topolgical sort
 At every stop, remember to copy the temp array
 15 Set dp[0]=0 for min no of ways for coin change
 16 For word break problem
-dp[i] = dp[i + word.Length];                    
-17 Set default max to 1 for LIS
-18 LCS answer will be dp[m,n]
+dp[i] = dp[i + word.Length]; 
+16.1 Set default max to 1 for LIS. 
+for(int i=nums.Length-1; i>=0; i--) {
+            for(int j = i+1; j<nums.Length; j++) {
+                if(nums[j] > nums[i]) {
+                    dp[i] = Math.Max(dp[i], 1+ dp[j]);
+                    max = Math.Max(max, dp[i]);
+                }
+            }
+        }
+17 For unique paths, set 1st row and 1st column to 1
+18 LCS answer will be dp[m,n]. Loops will run from 1 to m and to n inclusive.
+18.1 For Buy and sell with cooldown, use cooldown: index+1, buy:index+1, sell:inde+2
+18.2 For interleaving string 
+	if(index1<s1.Length && s1[index1]==s3[index1+index2] && Solve(index1+1, index2, s1, s2, s3)) {
+            return true;
+        }
+        if(index2<s2.Length && s2[index2]==s3[index1+index2] && Solve(index1, index2+1, s1, s2, s3)) {
+            return true;
+        }
+In dp with tabulation approach we have to start from index from s1.Length and s2.Length
+18.3 result = 1 and 1+Solve (for all directions) and take max for longest increasing path
+18.4  For count subsequence. Suppose a="a" and b="" . If b finishes return 1 as we can delete a
+if a="" b="a" there is no waty, so return 0;
+	if(index2 == t.Length) {
+            return 1;
+        }
+        if(index1 == s.Length) {
+            return 0;
+        }
+        if(s[index1] == t[index2]) {
+            result = Solve(index1+1, index2+1, s, t, dp) + Solve(index1+1, index2, s, t, dp);
+        } else {
+            result = Solve(index1+1, index2, s, t, dp);
+        }
+18.5 for burst balloon, we will try to burst i balloon at the last, so
+           for(int i=left; i<=right; i++) {
+            // Pop at the end
+            int amount = nums[left-1] * nums[i] * nums[right+1];
+            amount += Solve(left, i-1, nums, dp) + Solve(i+1, right, nums, dp);
 19 For rotate right by 90 , rotate diagonal and then by column
 For rotate left by 90, rotate by column and then by diagonal
 20 No of counting bits in a range, remember
