@@ -27,3 +27,16 @@ public class Solution {
         return result;
     }
 }
+
+/* Alternate approach
+ int start = 0;
+ int end = 0;
+ for(int i=0; i<s.Length; i++) {
+     int index = hashMap[s[i]];
+     end = Math.Max(end, index);
+     if(i == end) {
+        result.Add(end-start+1);
+        start = i+1;
+     }
+}
+*/
