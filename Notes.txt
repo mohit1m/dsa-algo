@@ -183,6 +183,7 @@ vi) Use topolgical sort
 15.7 BellmanFord k+1 times distance[v] = min(distance[v], distance[u] + weight(u, v))
 At every stop, remember to copy the temp array
 15 Set dp[0]=0 for min no of ways for coin change
+15.1 For house robber II, use base condition, if(n==1) {  return nums[0]; }
 16 For word break problem
 dp[i] = dp[i + word.Length]; 
 16.1 Set default max to 1 for LIS. 
