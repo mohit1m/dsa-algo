@@ -9,7 +9,7 @@ public class Solution {
         int m = queries.Length;
         int[] answer = new int[m];
 
-        Array.Sort(intervals, (a, b) => (a[0]-b[0]));
+        Array.Sort(intervals, (a, b) => (a[0].CompareTo(b[0])));
 
         //HashMap is used to maintain order of queries
         Dictionary<int,int> hashMap = new Dictionary<int,int>();
@@ -19,7 +19,7 @@ public class Solution {
         int[] copyQueries = new int[m];
         Array.Copy(queries, copyQueries , m);
         //Don't sort original queries as answer is dependent on its order
-        Array.Sort(copyQueries, (a, b) => (a-b));
+        Array.Sort(copyQueries);
 
         int index = 0;   
         int result = -1;     
