@@ -32,3 +32,22 @@ public class Solution {
         return ans.ToArray();
     }
 }
+
+
+/* Alternate solution
+public int[] PlusOne(int[] digits) {
+        List<int> result = new();
+        int carry = 1;
+        for(int i=digits.Length-1;i>=0;i--) {
+            int sum = digits[i]+carry;
+            carry = sum/10;
+            int digit = sum%10;
+            result.Add(digit);
+        }
+        if(carry==1) {
+            result.Add(carry);
+        }
+        result.Reverse();
+        return result.ToArray();        
+    }
+*/
