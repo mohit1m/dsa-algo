@@ -250,9 +250,23 @@ i) Add as first interval if end is before start of all interval
 ii) If start is after end of current interval, we add current interval
 iii) Otherwise in case of overlapping , we take min for start and max for end
 iv) We add the new interval at the end
-18.14
+18.14 We sort all the intervals. We start from index 1 and use it for prev and current interval.
+If lastIntervalEnd >= currentIntervalStart, we take the end as Max of 2 intervals,
+otherwise we add currenInterval
+18.15 We keep the min to remove the interval with max end while overlapping
+  if(currentStart < prevEnd) {
+                result++;
+                prevEnd = Math.Min(prevEnd, currentEnd);
+            } else {
+                prevEnd = currentEnd;
+            }
+18.16 If an overlap, we return false
+18.17 For meeting room II, we sort starts and ends. We increase count if something has started,
+and decrease if something has ended. We keep track of maximum room.
 19 For rotate right by 90 , rotate diagonal and then by column
 For rotate left by 90, rotate by column and then by diagonal
+19.1 For spiral matrix, get total, keep count and add count<total to every loop
+19.2 For plusone, keep carry=1 and add 1 at the end if caary=1.
 20 No of counting bits in a range, remember
 
 	if(2*offset == i)  {
