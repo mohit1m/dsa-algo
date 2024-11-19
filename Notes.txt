@@ -207,7 +207,7 @@ for(int i=nums.Length-1; i>=0; i--) {
         }
 In dp with tabulation approach we have to start from index from s1.Length and s2.Length
 18.3 result = 1 and 1+Solve (for all directions) and take max for longest increasing path
-18.4  For count subsequence. Suppose a="a" and b="" . If b finishes return 1 as we can delete a
+18.4 For count subsequence. Suppose a="a" and b="" . If b finishes return 1 as we can delete a
 if a="" b="a" there is no waty, so return 0;
 	if(index2 == t.Length) {
             return 1;
@@ -225,11 +225,32 @@ if a="" b="a" there is no waty, so return 0;
             // Pop at the end
             int amount = nums[left-1] * nums[i] * nums[right+1];
             amount += Solve(left, i-1, nums, dp) + Solve(i+1, right, nums, dp);
-18.6 fFor regular expression
+18.6 For regular expression
         // Add example: aaa    a*a         Delete example: aaab   aaaa*b
         if(index2+1<p.Length && p[index2+1]=='*') {
             return Solve(index1, index2+2, s, p) || (isMatch && Solve(index1+1, index2, s, p));
-        }    
+        }  
+18.7 For jump game 2 use , left and right and we will traverse like BFS and check for right<noOfIntervals-1
+18.8 For gas station, if balance <=0 , make it to 0 and set start= i+1, and add to deficit. If balance+deficit>=0 return start;
+18.9 For hand of straight,  we add count to hashmap, we will use minHeap. we look at the top of minHeap and reduce count by 1
+If count==0 , we remove it from minHeap. If peek of the minHeap is not equal to i, we return false.
+18.10 If any of triplets value is more , we continue , if any of the other match we add to count
+If count == 3 we return tue.
+18.11 For partition label, we get the last index of character in hashMap.
+We keep an end as maxEnd if maxEnd match the end of a word, we add to list and set start to i+1
+18.12 For valid parenthesis, either use DFS an dp or keep
+leftMin for ( and leftMax for )
+For *, it can be  "", (,) 
+so for ( leftMin++, leftMax++ ) leftMin-- leftMax-- else leftMin-- and leftMax++
+(*) ())
+If leftMin<0, we set it leftMin to 0
+()) - If leftMax<0 we return false
+18.13 For insert intervals
+i) Add as first interval if end is before start of all interval
+ii) If start is after end of current interval, we add current interval
+iii) Otherwise in case of overlapping , we take min for start and max for end
+iv) We add the new interval at the end
+18.14
 19 For rotate right by 90 , rotate diagonal and then by column
 For rotate left by 90, rotate by column and then by diagonal
 20 No of counting bits in a range, remember
