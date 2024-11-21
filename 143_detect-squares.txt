@@ -35,6 +35,20 @@ public class DetectSquares {
         }
         return result;        
     }
+    /*
+      public int Count(int[] point) {
+        int count = 0;
+        int x = point[0];
+        int y= point[1];
+        foreach(var (pX,pY) in hashMap.Keys) {
+            if(Math.Abs(x-pX) == Math.Abs(y-pY) && x!=pX && y!=pY && hashMap.ContainsKey((x,pY)) && hashMap.ContainsKey((pX,y))) {
+                count += hashMap[(pX,pY)] * (hashMap.GetValueOrDefault((x,y),1)) * 
+                hashMap[(x,pY)] *  hashMap[(pX,y)];
+            }
+        }
+        return count;        
+    }
+    */
 }
 
 /**
