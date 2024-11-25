@@ -51,6 +51,8 @@ and check if time for 1st <= 2nd last and pop. Resulting stack count will be the
 Remember, if nextSmallest[i]=-1, we should set to nextSmallest[i]=n, to avoid area from being -ve.
 8f For 2d, binary search think rows 0 to n-1 first, consider; for greater cols = cols-1 and smaller cols=0.
 8g For koko eating bananas, the start=1 and not start=0 as hour will start from 1 and end=piles.Max();
+8h For finding the next greater no for LIS, we need to set index=-1, if arr[mid]>=target , update it and return. If it is not -1,
+we should update the value. = is needed to overwrite same value
 9 in pivot use ,while start<end , = not there ;but is there with arr[mid]>=arr[0]
 Better is to use minmum in an array but with index approach without any issues.
 9a To find minimum in rotated array   3 4 | 5 | 1 2, if arr[mid]>=arr[start], set start = mid+1
