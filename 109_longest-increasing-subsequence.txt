@@ -22,3 +22,43 @@ public class Solution {
         return max;        
     }
 }
+
+/*Using Binary Search
+TC: O(nlogn)
+SC: O(n)
+public class Solution {
+    public int FindIndexUsingBinarySearch(int target, List<int> list) {
+        int start = 0;
+        int end = list.Count-1;
+        int index = -1;
+        while(start <= end) {
+          int mid = start+(end-start)/2;
+          if(list[mid] >= target) {
+            index = mid; 
+            end = mid-1;             
+          } else {
+            start = mid+1;            
+          }
+        }
+        return index;
+    }
+
+    public int LengthOfLIS(int[] nums) {
+        List<int> list = new List<int>();
+        list.Add(nums[0]);
+
+        for(int i=1; i<nums.Length; i++) {
+            if(nums[i] > list[list.Count-1]) {
+                list.Add(nums[i]);
+            } else {
+                int index = FindIndexUsingBinarySearch(nums[i], list);
+                if(index!=-1) {
+                list[index] = nums[i];
+                }
+            }
+        }
+        return list.Count;
+        
+    }
+}
+*/
