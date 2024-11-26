@@ -336,7 +336,7 @@ x & ~(x - 1)
 Use CompareTo instead of a-b with sorting.
 Min and max Heaps
 ==================
-Heapas are CBT
+Heaps are CBT
 Non leaf nodes = n/2-1 to 0, so run heapifyDown for them
 1. For building minHeap use heapifyDown
 a) Set smallestIndex=i, leftIndex=2*i+1, rightIndex=2*i+2. 
@@ -382,7 +382,7 @@ v) a[j+1] = temp;
 QS
 ===
 i) p 
-ii)QS st p-1
+ii) QS st p-1
 ii) QS p+1 end
 
 i) a) pivot =arr[s]
