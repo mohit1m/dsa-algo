@@ -334,3 +334,18 @@ Either x & -x    or we can use
 x & ~(x - 1) 
 
 Use CompareTo instead of a-b with sorting.
+Min and max Heaps
+==================
+Heapas are CBT
+Non leaf nodes = n/2-1 to 0, so run heapifyDown for them
+1. For building minHeap use heapifyDown
+a) Set smallestIndex=i, leftIndex=2*i+1, rightIndex=2*i+2. 
+b) Find smallestIndex with leftIndex<n && rightIndex<n checks
+c) If smallestIndex!=i, swap and call heapifyDown with smallest index
+2. For deletion, swap root with last element, and use heapifyDown with 0 index
+3. For insertion , use heapifyUp, while(index>0 && arr[parent(i)]>arr[i]) swap and set i= parent(i)
+where parent(i) return (i-1)/2
+4. For heap sort
+a) Build Max Heap
+b) Start from n-1, swap root element with ith element
+c) Heapify till ith index
