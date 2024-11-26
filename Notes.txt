@@ -349,3 +349,51 @@ where parent(i) return (i-1)/2
 a) Build Max Heap
 b) Start from n-1, swap root element with ith element
 c) Heapify till ith index
+
+Sorting
+=======
+BubbleSort
+==========
+i) i = 1 to <n
+ii) j = 0 to <n-i
+iii) Compare a[j] a[j+1]
+iv) Keep track of swap
+v) If no swap already sorted
+
+Selection Sort
+==============
+i)  0 to <n-1
+ii) minIndex=i
+ii) j i+1 to <n
+iv) update minIndex
+v) swap i,minIndex
+
+IS
+===
+i) i =1 to <n
+ii)temp = a[i]
+ii) j=i-1
+iii) while j>=0
+iv) a[j] > temp
+	a[j+1] =a[j]
+    else break;
+v) a[j+1] = temp;
+
+QS
+===
+i) p 
+ii)QS st p-1
+ii) QS p+1 end
+
+i) a) pivot =arr[s]
+      i = s+1  <=end
+      count++
+      swap arr[pivot] [s+count]
+
+MS
+==
+s mid
+mid+1 end
+merge(arr,s,e)
+len1 = mid-start+1
+len2 = end-mid
