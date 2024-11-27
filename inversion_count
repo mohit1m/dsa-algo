@@ -1,0 +1,56 @@
+class Solution {
+    
+    public int Merge(int[] nums, int start, int end) {
+        int mid = start+(end-start)/2;
+        int len1 = mid-start+1;
+        int len2 = end-mid;
+        int[] nums1 = new int[len1];
+        int[] nums2 = new int[len2];
+
+        int mainArrayIndex = start;
+        for(int i=0; i<len1; i++) {
+            nums1[i] = nums[mainArrayIndex++];
+        }
+
+        mainArrayIndex = mid+1;
+        for(int i=0; i<len2; i++) {
+            nums2[i] = nums[mainArrayIndex++];
+        }
+
+        mainArrayIndex=start;
+        int count = 0;
+        int index1=0;
+        int index2=0;
+        while(index1<len1 && index2<len2) {
+            if(nums1[index1]>nums2[index2]) {
+                nums[mainArrayIndex++] = nums2[index2++];
+                // Important condition
+                count += len1-index1;
+            } else {
+                nums[mainArrayIndex++] = nums1[index1++];              
+            }
+        }
+        while(index1<len1) {
+            nums[mainArrayIndex++] = nums1[index1++];
+        }
+        while(index2<len2) {
+            nums[mainArrayIndex++] = nums2[index2++];
+        }
+        return count;
+    }
+
+    public int MS(int[] nums, int start, int end) {
+        if(start>=end) {
+            return 0;
+        }
+        int mid = start+(end-start)/2;
+        int count = MS(nums, start, mid);
+        count += MS(nums, mid+1, end);
+        count += Merge(nums, start, end);
+        return count;
+    }
+    
+    public int countInversions(List<int> A) {
+        return MS(A.ToArray(), 0, A.Count-1);
+    }
+}
