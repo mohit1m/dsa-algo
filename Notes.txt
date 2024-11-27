@@ -397,3 +397,15 @@ mid+1 end
 merge(arr,s,e)
 len1 = mid-start+1
 len2 = end-mid
+
+InversionCount
+===============
+1. Count left MS
+2. Add right MS and merge count
+3. Count during merge, Remember not to conider = condition  
+ if(nums1[index1]>nums2[index2]) {
+     nums[mainArrayIndex++] = nums2[index2++];
+     // Important condition
+     count += len1-index1;
+} 
+
