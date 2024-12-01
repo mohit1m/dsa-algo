@@ -408,4 +408,11 @@ InversionCount
      // Important condition
      count += len1-index1;
 } 
-
+Pascal Trianglr
+================
+1. Any element in a row and column can be given by n-1 C r-1.
+int res = 1;
+res *= (n-i);
+res /= (i+1);
+2. The denominatror will have r multiplications and numerator will also have same no fo multiplications
+eg: - 4 C 2  = 4*3/1*2 = 6 
