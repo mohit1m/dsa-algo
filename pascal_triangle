@@ -1,0 +1,55 @@
+public class Solution {
+    public IList<int> GenerateRow(int n) {  
+        IList<int> list = new List<int>();
+        int res = 1;
+        list.Add(res);
+        Console.WriteLine(res);
+        for(int i=1; i<n; i++) {
+            res *= n-i;
+            res /= i;
+            list.Add(res);
+            Console.WriteLine(res);
+        }
+        return list;
+    }
+
+    public IList<IList<int>> Generate(int numRows) {
+        IList<IList<int>> list = new List<IList<int>>();
+        for(int i=1; i<=numRows; i++) {
+           list.Add(GenerateRow(i));
+        }
+        return list;
+    }
+
+
+    public IList<IList<int>> Generate1(int numRows) {
+        GenerateRow(5);
+        Console.WriteLine("4C2 = " + nCr(4,2));
+        IList<IList<int>> result = new List<IList<int>>();
+        IList<int> prevRow = new List<int>();
+       for(int i=0; i<numRows; i++) {
+            IList<int> row = new List<int>();
+            for(int j=0; j<=i; j++) {
+                if(j==0 || j==i) {
+                    row.Add(1);
+                } else 
+                {
+                    row.Add(prevRow[j-1]+ prevRow[j]);
+                }
+                
+            }
+            result.Add(row);
+            prevRow = row;
+        }
+        return result;
+    }
+
+    public int nCr(int n, int r) {
+        int result=1;
+        for(int i=0; i<r; i++) {
+            result *= (n-i);
+            result /= (i+1);
+        }
+        return result;
+    }
+}
