@@ -334,6 +334,7 @@ Getting the rightmost set digit
 Either x & -x    or we can use 
 x & ~(x - 1) 
 
+For array odd, we can use (arr.Length & 1) == 1 condition
 Use CompareTo instead of a-b with sorting.
 Min and max Heaps
 ==================
@@ -422,3 +423,16 @@ eg:- 7 row  6C0 = 1   6C1 = 6/1 6C2 = 6*5/1*2=6*(7-2)/(1*2) -> i=2
 res*=(n-i)
 res/=(i)
 so, Pascal Triangle can be created from 1 row to noOfRows
+Next smallest palindrome
+========================
+1. If arr length is 1 and it is between 0 and 8 inclusive return incremented value
+2. If palindrome, add 1
+3. If arr length is odd
+a) take left, mid and right
+b) if reverse(left)>right , mirror otherwise left+mid and then plus one and then mirror and take mirror from 1st index
+4. If arr length is even
+a) take left and right
+b) if reverse(left)>right, mirror otherwise left plus one and then mirror
+For String Comparison and PlusOne, extra methods to avoid ot of range exception
+
+
