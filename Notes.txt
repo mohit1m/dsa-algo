@@ -408,11 +408,16 @@ InversionCount
      // Important condition
      count += len1-index1;
 } 
-Pascal Trianglr
+Pascal Triangle
 ================
 1. Any element in a row and column can be given by n-1 C r-1.
 int res = 1;
 res *= (n-i);
 res /= (i+1);
-2. The denominatror will have r multiplications and numerator will also have same no fo multiplications
-eg: - 4 C 2  = 4*3/1*2 = 6 
+2. The denominator will have r multiplications and numerator will also have same no fo multiplications
+eg: - 4C2  = 4*3/1*2 = 6 
+3. If row, no starts from 1, and 1st element is 1,  subsequent element can be calculated as:
+eg:- 7 row  6C0 = 1   6C1 = 6/1 6C2 = 6*5/1*2=6*(7-2)/(1*2) -> i=2
+res*=(n-i)
+res/=(i)
+so, Pascal Triangle can be created from 1 row to noOfRows
