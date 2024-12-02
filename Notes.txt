@@ -434,5 +434,25 @@ b) if reverse(left)>right , mirror otherwise left+mid and then plus one and then
 a) take left and right
 b) if reverse(left)>right, mirror otherwise left plus one and then mirror
 For String Comparison and PlusOne, extra methods to avoid ot of range exception
+Frequency greater than N/3
+============================
+1. If arr[i]==a, countA++
+2  Else If arr[i]==b, countB++
+3. Else If countA==0 countA=1 a=arr[i]
+4. Else If countB==0 countB=1 b=arr[i]
+Count countA and countB again and return a orb if count>n/3
+Sum of hamming distance
+=======================
+i -> 1 to <=32
+j = 0 to <arr.Length
+ count0 => (1<<i)&A[j] ==0 => coun0t++
+else
+ count1++;
+result+= 2* count0*count1;
+Wave array
+==========
+For wave array,  sort the array
+Start from 1 with increment 2 and swap 1 and 2nd element and so on
+
 
 
