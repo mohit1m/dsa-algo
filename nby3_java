@@ -1,0 +1,46 @@
+public class Solution {
+	public int repeatedNumber(final List<Integer> a) {
+        int x = Integer.MIN_VALUE;
+        int countX = 0;
+        int y = Integer.MIN_VALUE;
+        int countY = 0;
+        
+        for(int i=0 ; i<a.size(); i++) {
+            if(x == a.get(i)) {
+                countX++;
+            }
+            else if (y == a.get(i)) {
+                countY++;
+            } else if(countX == 0) {
+                countX++;
+                x = a.get(i);
+            } else if(countY == 0){
+                countY++;
+                y = a.get(i);
+            }
+            else {
+                countX--;
+                countY--;
+            }
+        }
+        
+         countX = 0;
+         countY = 0;
+         for(int i=0 ; i<a.size(); i++) {
+             if(a.get(i) == x) {
+                 countX++;                 
+             } else if(a.get(i) == y) {
+                 countY++;
+             }
+         }
+         int n = a.size();
+         if(countX > n/3) {
+             return x;
+         } 
+         if(countY > n/3) {
+             return y;
+         }
+         return -1;
+         
+	}
+}
