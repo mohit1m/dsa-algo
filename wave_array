@@ -1,0 +1,19 @@
+class Solution {
+    public void Swap(List<int> arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    
+    public List<int> wave(List<int> A) {
+        
+        A.Sort();
+        if(A.Count==1) {
+            return A;
+        }
+        for(int i=1; i<A.Count; i=i+2) {
+            Swap(A, i-1, i);
+        }
+        return A;
+    }
+}
