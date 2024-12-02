@@ -1,4 +1,4 @@
-1 Use .toList() to convert dict values to list
+vers1 Use .toList() to convert dict values to list
 Priority Queues first parameter can have local variables defined.
 2 Count for collection property
 MinHeap is default implementation of PriorityQueue in C#.
@@ -278,7 +278,8 @@ For rotate left by 90, rotate by column and then by diagonal
 21 Remember
 Set bit    (bit>>i) | 1     Get bit  (n>>i) & 1
 22 Plus 1 , Better reverse or start from end, remember 9 and carry, only carry and no carry
-23 Matrix multiplication - Always reverse. Set(i+j)th position  and carry in (i+j+1)
+23 For reverse use:-  var reversedNum1 = new string(num1.Reverse().ToArray());
+Matrix multiplication - Always reverse. Set(i+j)th position  and carry in (i+j+1)
 var reversedNum1 = new string(num1.Reverse().ToArray());
 	for(int i=0; i<m; i++) {
             for(int j=0; j<n ; j++) {
