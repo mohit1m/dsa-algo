@@ -467,5 +467,12 @@ Min Max Min no of comparisons
 If array size is odd set min and max as a[0], set i=1
 else set proper max and min size, set i=2
 While i<n-1 check for A[i+1] and A[i] and inside condition determine min and max.
-
+Book allocation Problem
+=======================
+If noOfBook >student return -1
+Find Possible no of books and set the answer as mid
+Start with studentCount =0
+If arr[i]+noOfPages <=mid ; then noOfPages+=a[i] else studentCount++
+If studentCount> givenStudentCount || arr[i]>mid return false
+Return true otherwise
 
