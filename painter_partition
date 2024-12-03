@@ -1,0 +1,39 @@
+class Solution {
+    public bool IsPossible(int A, int B, List<int> C, int mid) {
+        int painterCount = 1;
+        int paintSum = 0;
+        int n = C.Count;
+        for(int i=0; i<n; i++) {
+            if(paintSum + C[i] <= mid) {
+                paintSum += C[i];
+            } else {
+                painterCount++;
+                if(painterCount > A || C[i] > mid) {
+                    return false;
+                }
+                paintSum = C[i];                
+            }            
+        }
+        return true;    
+    }
+    
+    public int paint(int A, int B, List<int> C) {
+        int start = 0;
+        int sum = 0;
+        foreach(var item in C) {
+            sum += item;
+        }
+        int end = sum;
+        int result = -1;
+        while(start <= end) {
+            int mid = start + (end-start)/2;
+            if(IsPossible(A, B, C, mid)) {
+                result = mid;
+                end = mid-1;                
+            } else {
+                start = mid+1;                
+            }
+        }
+        return (int)(((long)result*B)%10000003);
+    }
+}
