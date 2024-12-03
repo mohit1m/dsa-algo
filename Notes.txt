@@ -475,4 +475,11 @@ Start with studentCount =0
 If arr[i]+noOfPages <=mid ; then noOfPages+=a[i] else studentCount++
 If studentCount> givenStudentCount || arr[i]>mid return false
 Return true otherwise
+Painter Problem
+================
+Painter problem will follow the book allocation approach
+Search for a range
+===================
+Find first location - After an element is found set end=mid-1;
+Find last location - After an element is found set start = mid+1
 
