@@ -453,6 +453,15 @@ Wave array
 ==========
 For wave array,  sort the array
 Start from 1 with increment 2 and swap 1 and 2nd element and so on
+Min Max
+=======
+Use this to assign 0 to elements of list
+ List<int> Lmin = new List<int>(new int[A.Count]);
+or List<int> Lmin = Enumerbale.Repeat(0,5).ToList();
+We keep 2 arrays Lmin
+1. Set first element and for subsequent element set Lminvalue
+2. Set last element and for previous element compare and set RmaxValue
+Set pointers a and b at 0 and if(Lmin[a]<=Rmax[b]) b++ store the max result; else a++
 
 
 
