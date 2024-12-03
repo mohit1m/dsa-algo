@@ -1,0 +1,45 @@
+class Solution {
+    
+    public int GetFirstPosition(List<int> A, int B) {
+        int start = 0;
+        int end = A.Count -1;
+        int result = -1;
+        while(start <= end) {
+            int mid = start + (end-start)/2;
+            if(A[mid] == B) {
+                result = mid;
+                end = mid-1;
+            } else if(B > A[mid]) {
+                start = mid+1;
+            } else {
+                end = mid-1;
+            }
+        }
+        return result;
+    }
+    
+    public int GetLastPosition(List<int> A, int B) {
+        int start = 0;
+        int end = A.Count -1;
+        int result = -1;
+        while(start <= end) {
+            int mid = start + (end-start)/2;
+            if(A[mid] == B) {
+                result = mid;
+                start = mid+1;
+            } else if(B > A[mid]) {
+                start = mid+1;
+            } else {
+                end = mid-1;
+            }
+        }
+        return result;
+    }
+    
+    public List<int> searchRange(List<int> A, int B) {
+        int firstPosition  = GetFirstPosition(A, B);
+        int lastPosition = GetLastPosition(A, B);
+        return new List<int> { firstPosition, lastPosition};
+        
+    }
+}
