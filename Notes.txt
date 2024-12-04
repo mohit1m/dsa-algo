@@ -324,7 +324,7 @@ Area = height[i]*(next-prev-1)
 40 No of total combination of pairs n*(n-1)/2
 41 Burst balloons. Remember to add 1 at each boundary
 42 Interleaving string check for either string is str[i+j]
-
+For sorting a list with list1 we can use list.Sort();
 Setting a Bit:
 ===============
 To set a particular bit n in a number x, you can use the expression x |= (1 << n).
