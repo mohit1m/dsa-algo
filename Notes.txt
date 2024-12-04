@@ -507,5 +507,19 @@ Least common prefix
 Other option is to use Trie, and insert and maintain childCount.
 If childCount is equal to wordCount, add the char to result
 else break.Also break if we reach TerminalWrd.
+Justified Text
+===============
+1. Create a result, line list and a length for total length
+2. Check when totalLength+ lineListCount +currentstringLength > maxWidth
+3. Find no of spaces by totalSpaces = maxWidth - lineArrayLength
+4. For wordCount get count of words in line
+5. For spaces use totalSpaceDistribution = totalSpaces/Math.Ma(1,wordCount-1);
+Extra spaces = totalSpaces%Math.Max(1,wordCount-1);
+Start from 0 to Math.Max(1, wordCount-1), add spaces
+line += new String(' ',spaces)
+if(extraSpaces>0) line[j] += " "; extraSpaces--
+6. Handle last line separately
+For joining with space use , lastString =String.Join(" ", line.ToArray);
+Find maxWidth - lastString and add remaining trailing spaces.
 
 
