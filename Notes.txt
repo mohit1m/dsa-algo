@@ -491,4 +491,15 @@ If ( openCount++;
 If ) & openCount>0 openCount--
 else if ) closeCount++;
 return openCount + closeCount
+Least common prefix
+====================
+1. If single, return 
+2. Find minimum length of all string
+3. Traverse all the strings for min length
+4. if character does not match, return result
+5. Concat result with the characters within the loop
+Other option is to use Trie, and insert and maintain childCount.
+If childCount is equal to wordCount, add the char to result
+else break.Also break if we reach TerminalWrd.
+
 
