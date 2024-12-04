@@ -1,0 +1,85 @@
+class Solution 
+    /* TC : O(m*n)
+      SC:O(1)
+      */
+   public string longestCommonPrefix(List<string> A) {
+        if(A.Count==1) {
+            return A[0];
+        }
+        string str = A[0];
+        int minLength = int.MaxValue;
+        for(int i=0; i<A.Count; i++) {
+            minLength = Math.Min(minLength, A[i].Length);
+        }
+        string result = String.Empty;        
+            for(int i=0; i<minLength; i++) {
+                for(int j=1; j<A.Count; j++) {
+                    if(str[i]!=A[j][i]) {
+                        return result;
+                    }
+                }
+                result = String.Concat(result, str[i]);
+            }
+        return result;
+    }
+    /*
+    TC: O(m*n)
+    SC: O(m*n)
+    public class Trie {
+        public class TrieNode {        
+            public Dictionary<char, TrieNode> childrenMap;
+            public int childCount;
+            public bool isTerminalWord;
+            
+            public TrieNode() {
+              childrenMap = new();
+            }
+        }
+    
+        public TrieNode root;
+    
+        public Trie() {
+            root = new TrieNode();
+        }
+        
+        public void Insert(string str) {
+            TrieNode current = root;
+            foreach(var s in str) {                
+                if(current.childrenMap.ContainsKey(s)) {
+                    current.childrenMap[s].childCount++;
+                } else {
+                    current.childrenMap[s] = new TrieNode();
+                    current.childrenMap[s].childCount = 1;
+                }
+                current = current.childrenMap[s];
+            }
+            current.isTerminalWord = true;
+        }
+        
+         public string Prefix(string str, int n) {
+             TrieNode current = root;
+             String prefix = String.Empty;
+             foreach(var s in str) {                
+                if(current.childrenMap[s].childCount == n) {
+                    prefix = String.Concat(prefix, s);
+                }   
+                else {
+                    break;
+                } 
+                if(current.childrenMap[s].isTerminalWord)   {
+                    break;
+                }     
+                current = current.childrenMap[s];
+            }
+            return prefix;            
+         }
+    }
+    
+    public string longestCommonPrefix(List<string> A) {
+        Trie node = new Trie();
+        foreach(var str in A) {
+            node.Insert(str);
+        }
+        return node.Prefix(A[0], A.Count);        
+    }*/
+}
