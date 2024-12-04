@@ -57,7 +57,12 @@ we should update the value. = is needed to overwrite same value
 Better is to use minmum in an array but with index approach without any issues.
 9a To find minimum in rotated array   3 4 | 5 | 1 2, if arr[mid]>=arr[start], set start = mid+1
 Store the min for start and result value. If arr[start]<=arr[end] in the base case, return result
-otherwise return start
+	Another Approach
+	=================
+	1. If arr[start]<=arr[end] in the base case, return result
+	2. if arr[mid]>=arr[start], set start = mid+1
+	3. Else end = mid
+	4. Return start at the end
 9b Use minimum in an array algo as given above in 9a, and use conditions with pivot.
 9b.1 To find peak if(arr[mid]<arr[mid+1])  set start = mid+1
 Return start eventually
