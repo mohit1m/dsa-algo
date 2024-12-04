@@ -484,4 +484,11 @@ Search for a range
 ===================
 Find first location - After an element is found set end=mid-1;
 Find last location - After an element is found set start = mid+1
+Min Parenthesis
+===============
+Keep track of openCount and closeCount
+If ( openCount++;
+If ) & openCount>0 openCount--
+else if ) closeCount++;
+return openCount + closeCount
 
