@@ -534,6 +534,19 @@ Merge Sort List
 2. We find middle by keeping slow=head and fast=head.next and use the same base condition 1 here as well
 3. We find left= head and right=middle.next. We break the link by setting middle.next=null
 4. We sort the left part and then the right part and finally merge them.
+Insertion Sort List
+===================
+1. Add a dummy node add set next to head.
+2. If current.val >= prev.value, move prev= current ,current = current.next and continue;
+3. Set temp = dummy and check untill current.val > temp.next.val
+4. Break the link and insert the node between 2 nodes
+	    //Break link
+  	    prev.next = current.next;
+	    // Insert in between
+            current.next = temp.next;
+            temp.next = current;
+	    // Set current to newly linked node
+            current = prev.next;
 
 
 
