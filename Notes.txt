@@ -521,5 +521,19 @@ if(extraSpaces>0) line[j] += " "; extraSpaces--
 6. Handle last line separately
 For joining with space use , lastString =String.Join(" ", line.ToArray);
 Find maxWidth - lastString and add remaining trailing spaces.
+Array 3 pointers
+=================
+To find min of maximum difference between A,B ; B,C or C,A we use:-
+1. We determine min between A[i],B[j],C[k] and store as min
+2. We determine max between A[i],B[j],C[k] and find the diff
+3. We save the result of the minimum between result and diff values
+4. If min==A[i] we increment i, and if min==A[j] we increment j else k
+Merge Sort List
+===============
+1. If 0 element or 1 element - head is null or head.next is null we return head.
+2. We find middle by keeping slow=head and fast=head.next and use the same base condition 1 here as well
+3. We find left= head and right=middle.next. We break the link by setting middle.next=null
+4. We sort the left part and then the right part and finally merge them.
+
 
 
