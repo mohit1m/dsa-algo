@@ -1,0 +1,22 @@
+class Solution {
+    public int minimize(List<int> A, List<int> B, List<int> C) {
+        int i = 0;
+        int j = 0; 
+        int k = 0;
+        int result = int.MaxValue;
+        while(i<A.Count && j<B.Count && k<C.Count) {
+            int min = Math.Min(A[i], Math.Min(B[j], C[k]));
+            int max = Math.Max(A[i], Math.Max(B[j], C[k]));
+            int diff = max - min;
+            result = Math.Min(result, diff);
+            if(min == A[i]) {
+                i++;
+            } else if(min == B[j]) {
+                j++;
+            } else {
+                k++;
+            }
+        }
+        return result;
+    }
+}
