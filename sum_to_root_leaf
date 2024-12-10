@@ -1,0 +1,24 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int x) {this.val = x; this.left = this.right = null;}
+ * }
+ */
+class Solution {
+    public int Solve(TreeNode A, int sum) {
+        if(A==null) {
+            return 0;
+        }
+        int  updatedSum = (sum*10 + A.val)%1003;
+        if(A.left == null && A.right == null) {
+            return updatedSum;
+        }       
+        return (Solve(A.left, updatedSum)+ Solve(A.right, updatedSum))%1003;
+    }
+    public int sumNumbers(TreeNode A) {
+       return Solve(A, 0);
+    }
+}
