@@ -1,0 +1,49 @@
+public class Solution {
+    public int GCD(int x, int y) {
+        if(y == 0) {
+            return x;
+        }
+        return GCD(y, x%y);
+    }
+
+    public int MaxPoints(int[][] points) {
+        int result = 0;
+        int currentMax = 0;
+        int overlappingPoints = 0;
+        for(int i=0; i<points.Length; i++) {
+            overlappingPoints = 0;
+            int verticalPoints = 0;
+            Dictionary<(int, int), int> hashMapSlope = new();
+            for(int j=i+1; j<points.Length; j++) {
+                int x1 = points[i][0];
+                int y1 = points[i][1];
+                int x2 = points[j][0];
+                int y2 = points[j][1];
+                
+                if(x1 == x2  && y1 == y2) {
+                    overlappingPoints++;
+                } 
+                else if(x1 == x2) {
+                    verticalPoints++;
+                }
+                else {
+                    int x = x2-x1;
+                    int y = y2-y1;
+                    int gcd = GCD(x, y);
+                    x /= gcd;
+                    y /= gcd;
+                    if(hashMapSlope.ContainsKey((x,y))) {
+                        hashMapSlope[(x, y)]++;
+                    } else {
+                        hashMapSlope[(x, y)] = 1;
+                    }
+                    currentMax = Math.Max(currentMax, hashMapSlope[(x, y)]);
+                }
+            }
+            currentMax = Math.Max(currentMax, verticalPoints);
+            hashMapSlope.Clear();
+        }
+        result = Math.Max(result, currentMax+overlappingPoints+1);
+        return result;
+	}
+}
