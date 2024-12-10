@@ -547,6 +547,12 @@ Insertion Sort List
             temp.next = current;
 	    // Set current to newly linked node
             current = prev.next;
+Max Points on a line
+=====================
+1. Calculate overlapping points
+2. Calculate slope after taking gcd of x,y and storing it in a hashMap.
+3. Find currentMax as max of 1 and 2
+4. Eventually find max as the max of result and currentMax+(overlappingPoints+1)
 
 
 
