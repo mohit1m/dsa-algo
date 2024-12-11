@@ -1,0 +1,46 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int x) {this.val = x; this.left = this.right = null;}
+ * }
+ */
+class Solution {
+    public bool FindNode(TreeNode A, int value) {
+        if(A == null) {
+            return false;
+        }
+        if(A.val == value) {
+            return true;
+        }
+        return FindNode(A.left, value) || FindNode(A.right, value);
+    }
+    public TreeNode FindLCA(TreeNode root, int B, int C) {
+         if(root == null) {
+            return root; 
+        }
+        if(root.val == B || root.val == C) {
+            return root;
+        }
+        
+        TreeNode left = FindLCA(root.left, B, C);
+        TreeNode right = FindLCA(root.right, B, C);
+        if(left==null) {
+            return right;
+        }
+        else if(right==null) {
+            return left;
+        }  else {
+            return root;
+        }
+    }
+    public int lca(TreeNode A, int B, int C) {
+        if(!FindNode(A, B) || !FindNode(A, C)) {
+            return -1;
+        }
+        TreeNode node = FindLCA(A, B, C);
+        return node!=null ? node.val : -1;         
+    }
+}
