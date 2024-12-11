@@ -553,6 +553,12 @@ Max Points on a line
 2. Calculate slope after taking gcd of x,y and storing it in a hashMap.
 3. Find currentMax as max of 1 and 2
 4. Eventually find max as the max of result and currentMax+(overlappingPoints+1)
+LCA of a binary tree
+====================
+1. Find if node exists in tree. If not return -1. For this, use a helper function
+2. Return root if root.value == p || root.value ==q
+3. Return right if left==null; left if right==null else return root
+4. If both are not null , we return root as LCA
 
 
 
