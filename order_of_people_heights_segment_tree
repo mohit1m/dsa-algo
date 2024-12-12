@@ -1,0 +1,61 @@
+class Solution {    
+    public void BuildSegmentTree(int[] tree, int index, int start, int end) {
+        if(start == end) {
+           tree[index] = 1;
+           return;
+        }
+        int mid = start + (end-start)/2;
+        BuildSegmentTree(tree, 2*index+1, start, mid);
+        BuildSegmentTree(tree, 2*index+2, mid+1, end);
+        tree[index] = tree[2*index+1] + tree[2*index+2];        
+    }
+    
+    public int Query(int[] tree, int index, int start, int end, int k) {
+        if(start == end) {
+            return start;
+        }
+        int mid = start + (end-start)/2;
+        if(tree[2*index+1] >= k) {
+            return Query(tree, 2*index+1, start, mid, k);
+        } else {
+            return Query(tree, 2*index+2,  mid+1, end, k - tree[2*index+1]);
+        }
+    }
+    
+    public void Update(int[] tree, int index, int start, int end, int pos) {
+        if(start == end) {
+            tree[index] = 0;
+            return;
+        }
+        int mid = start + (end-start)/2;
+        if(pos <= mid) {
+            Update(tree, 2*index+1, start, mid, pos);
+        } else {
+            Update(tree, 2*index+2, mid+1, end, pos);
+        }
+        tree[index] = tree[2*index+1] + tree[2*index+2]; 
+    }     
+        
+    public List<int> order(List<int> A, List<int> B) {
+        int n = A.Count;
+        int[] tree = new int[4*n];      
+        int[] result = new int[n];
+        var combinedListPerson = A.Zip(B, (h, f) => new { Height = h, InFronts = f })
+                                  .OrderBy(p => p.Height).ToList();
+        
+        // Set freeSpot by setting it as 1
+        BuildSegmentTree(tree, 0, 0, n-1);
+        
+        foreach(var person in combinedListPerson) {
+            int k = person.InFronts;
+            // K+1th position
+            // Find free spot 
+            int freeSpotPosition = Query(tree, 0, 0, n-1, k+1);
+            // Set the height at freeSpot
+            result[freeSpotPosition] = person.Height;
+            // Reduce no of freeSpot by setting it as 0
+            Update(tree, 0 , 0, n-1, freeSpotPosition);            
+        }
+        return result.ToList();
+    }
+}
