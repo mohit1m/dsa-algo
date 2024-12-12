@@ -559,6 +559,14 @@ LCA of a binary tree
 2. Return root if root.value == p || root.value ==q
 3. Return right if left==null; left if right==null else return root
 4. If both are not null , we return root as LCA
-
+Order of People Heights - Segment Tree
+======================================
+1. All the leaf nodes specify the position of a person
+2. We build a segment tree with 4*n nodes and set tree[index]=1 if start == end
+3. We query for the K+1st spot as k people are larger for the query
+4. If tree[2*index+1]>=k , look in left half from start to mid otherwise go from mid+1 to end.
+If start==end return start
+5. set the result and update the index position to 0.If mid<=position, look in left half and vice versa
+Update the tree[index] = tree[2*index+1] + tree[2*index+2]
 
 
