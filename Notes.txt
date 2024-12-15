@@ -568,5 +568,16 @@ Order of People Heights - Segment Tree
 If start==end return start
 5. set the result and update the index position to 0.If mid<=position, look in left half and vice versa
 Update the tree[index] = tree[2*index+1] + tree[2*index+2]
+Majority element
+=================
+1. If not set, set it to current num and set count to 1
+2. Increment the count if match. If not decrement the count
+3. Use if else condition only
+Intersecting chords
+===================
+Catalon's no
+// Catalon No - Cn
+// Cn = C0*Cn-1+ C1*Cn-2 + C(n-1)C0
+// Cn = Sum from O to (n-1) = Ci*C(n-1-i)
 
 
