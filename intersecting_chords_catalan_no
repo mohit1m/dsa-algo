@@ -1,0 +1,24 @@
+class Solution {
+    // Catalon No - Cn
+    // Cn = C0Cn-1+ C1n-2 + (n-1)C0
+    // Cn = i=0 Sum  (n-1) = CiC(n-1-i)
+     public int chordCnt(int A) {
+        long[] dp = new long[A+1];   
+        if(A==0 || A==1) {
+            return 1;
+        }
+        dp[0] = 1;
+        dp[1] = 1;
+        dp[2] = 2;
+        int mod = 1000000007;
+        for(int n=3; n<=A; n++) {
+            long sum = 0;
+            for(int i=0; i<n; i++) {
+                sum = (sum + (dp[i]*dp[n-1-i])%mod)%mod;
+            }
+            dp[n] = sum;
+            
+        }
+        return (int)dp[A]%mod;
+    }
+}
