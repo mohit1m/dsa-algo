@@ -1,0 +1,19 @@
+class Solution {
+    public int majorityElement(List<int> A) {
+        int result = int.MinValue;
+        int count  = 0;
+        foreach(var num in A) {
+            if(result == num) {
+                count++;
+            } 
+            else if(count == 0) {
+                result = num;
+                count++;
+            }
+            else {
+                count--;
+            }
+        }
+        return result;
+    }
+}
