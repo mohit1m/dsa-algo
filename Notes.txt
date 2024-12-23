@@ -579,6 +579,7 @@ Catalon's no
 // Catalon No - Cn
 // Cn = C0*Cn-1+ C1*Cn-2 + C(n-1)C0
 // Cn = Sum from O to (n-1) = Ci*C(n-1-i)
+Use ling for storing th no
 Sum of mtrix equal to 0
 ========================
 1. We have to find each submatrix sum as 
@@ -592,3 +593,9 @@ currentSum = subMatrixSum[row2, col] - (row1>0 ? subMatrixSum[row1-1, col] : 0);
 If hashMap contains currentSum, we increment result with hashMapValue
 else set the currentSum count as 1.
 
+Max Operations 10^7
+====================
+n<20            2^n, n! (brute force, backtracking)
+n<3000          DP
+3000<n<10^6     2 pointers, greedy, heap, sorting
+n>10^6          Binary Search, Math
