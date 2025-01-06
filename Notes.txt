@@ -606,3 +606,23 @@ Repeating subsequence
     } else {
         lcs[i,j] = Math.Max(lcs[i-1,j], lcs[i,j-1]);
     }
+KMP algorithm
+=============
+For Pattern, we should create longest prefix suffix
+1. We set lps[0] = 0 as we don't consider full prefix suffix as string so 0.
+2. We set prevLps = 0 and i=1. We itearte till i<pattern.Length
+3. i) If pattern[i] == pattern[prevLps] , lps[i] = 1 + prevLps, prevLps++, i++
+   ii) Else if prevLps = 0, lps[i]=0 and i++
+   iii) Else prevLps = lps[prevLps-1];
+For matching pattern,
+1. We set i=0 for str, j= 0 for pattern. We iterate from i to str.Length
+2. i) If match, we increment i and j
+   ii) Else if j==0, we increment i
+  iii) Else j = prev[j-1], We set pointer to already matched prefix and suffix
+       eg:- aabaa, we set pointer to 2 to match aax, we will not start from 1 as aa is already matched
+3. If j==pattern.Length, we retrun i - pattern.Length
+4. Else return -1;
+This optimizes time complexity from O(m*n) to O(m+n)
+
+
+
