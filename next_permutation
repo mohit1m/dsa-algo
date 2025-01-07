@@ -1,0 +1,43 @@
+/*
+TC: O(n)
+SC: O(1)
+https://leetcode.com/problems/next-permutation/
+*/
+public class Solution {
+    public void Swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    
+    public void NextPermutation(int[] nums) {
+        int n = nums.Length;
+        int index = -1;
+
+        // Decreasing from increasing slope
+        for(int i=n-2; i>=0; i--) {
+            if(nums[i] < nums[i+1]) {
+                index = i;
+                break;
+            }
+        }
+
+        // If index is -1, just reverse
+        if(index==-1) {
+            Array.Reverse(nums);
+            return;
+        }
+
+        // Swap for just greater element
+        for(int i=n-1; i>index; i--) {
+            if(nums[index]<nums[i]) {
+                Swap(nums, index, i);
+                break;
+            }
+        }
+
+        // Reverse from index+1 to n-1
+        Array.Reverse(nums, index+1, ((n-1)-(index+1)+1));
+        return;
+    }
+}
