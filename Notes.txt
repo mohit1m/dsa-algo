@@ -625,6 +625,7 @@ For matching pattern,
 This optimizes time complexity from O(m*n) to O(m+n)
 Next Permutation
 ================
+BruteForse:- will take n!n to generate and search for next permutation
        i i+1
 eg:- 123 54100
          \
