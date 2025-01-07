@@ -637,7 +637,19 @@ eg:- 123 54100
 3. Find the next no greater than 3 starting from end eg:-4 and swap.
 4. Reverse the no starting from index+1 to n-1;
 USE Array.Reverse(array, int startIndex, int length) to reverse the array.
-
-
-
-
+Sort O12 Dutch National Flag
+=============================
+0  low-1 low    mid-1 mid       high high+1 n-1
+00000000  11111111111 02101020101010 22222222
+low
+ 02101020101010
+mid           high 
+1) arr[mid] == 0 
+   swap(arr[low],arr[mid]);
+   low++;
+   mid++;
+2) arr[mid] == 1
+	mid++;
+3) arr[mid] ==2
+  swap(arr[mid],arr[high]);
+   high--;
