@@ -1,0 +1,165 @@
+public class Solution {
+    public void Swap(int[] arr, int i, int j) {
+        int temp =arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public void BS(int[] nums) {
+        int n = nums.Length;        
+        for(int i=1; i<n; i++) {
+            bool swapped = false;
+            for(int j=0; j<n-i; j++) {
+                if(nums[j+1] < nums[j]) {
+                    Swap(nums,j, j+1);
+                    swapped =true;
+                }
+
+            }
+            if(!swapped) {
+                break;
+            }
+        }
+    }
+
+    public void SS(int[] nums) {
+        int n = nums.Length;
+        for(int i=0; i<n-1; i++) {
+            int minIndex = i;
+            for(int j=i+1; j<n; j++) {
+                if(nums[minIndex]>nums[j]) {
+                    minIndex = j;
+                }
+            }
+            Swap(nums, i,minIndex);
+        }
+    }
+
+    public void IS(int[] nums) {
+        int n = nums.Length;
+        for(int i=1; i<n; i++) {
+            int temp = nums[i];
+            int j = i-1;
+            while(j>=0) {
+                if(nums[j] > temp) {
+                    //shift
+                    nums[j+1] = nums[j];
+                    j--;
+                } else {
+                    break;
+                }                
+            }
+            nums[j+1] = temp;
+        }
+    }
+
+    public int Partition(int[] nums, int start, int end) {
+        int pivot = nums[start];
+        int count = 0;
+        for(int index=start+1; index<=end; index++) {
+            if(nums[index] <= pivot) {
+                count++;
+            }
+        }
+        int pivotIndex = start+count;
+        Swap(nums, pivotIndex, start);
+        int i = start;
+        int j = end;
+        while(i < pivotIndex && j > pivotIndex) {
+            while(nums[i] <= pivot) {
+                i++;
+            } 
+            while(nums[j] > pivot) {
+                j--;
+            }
+            if(i<pivotIndex && j>pivotIndex) {
+                Swap(nums, i,j);
+                i++;
+                j--;
+            }
+
+        }
+        return pivotIndex;
+    }
+
+    public void QS(int[] nums, int start, int end) {
+        if(start>=end) {
+            return;
+        }
+        int p = Partition(nums, start, end);
+        QS(nums, start, p-1);
+        QS(nums, p+1, end);
+    }
+
+    public void Merge(int[] nums, int start, int end) {
+        int mid = start+(end-start)/2;
+        int len1 = mid-start+1;
+        int len2 = end-mid;
+        int[] nums1 = new int[len1];
+        int[] nums2 = new int[len2];
+
+        int mainArrayIndex = start;
+        for(int i=0; i<len1; i++) {
+            nums1[i] = nums[mainArrayIndex++];
+        }
+
+        mainArrayIndex = mid+1;
+        for(int i=0; i<len2; i++) {
+            nums2[i] = nums[mainArrayIndex++];
+        }
+
+        mainArrayIndex=start;
+        int index1=0;
+        int index2=0;
+        while(index1<len1 && index2<len2) {
+            if(nums2[index2]>nums1[index1]) {
+                nums[mainArrayIndex++] = nums1[index1++];
+            } else {
+                nums[mainArrayIndex++] = nums2[index2++];
+            }
+        }
+        while(index1<len1) {
+            nums[mainArrayIndex++] = nums1[index1++];
+        }
+        while(index2<len2) {
+            nums[mainArrayIndex++] = nums2[index2++];
+        }
+    }
+
+    public void MS(int[] nums, int start, int end) {
+        if(start>=end) {
+            return;
+        }
+        int mid = start+(end-start)/2;
+        MS(nums, start, mid);
+        MS(nums, mid+1, end);
+        Merge(nums, start, end);
+    }
+
+    public void DNF(int[] nums) {
+        int low = 0;
+        int mid = 0;
+        int high = nums.Length-1;
+        while(mid<=high) {
+            if(nums[mid] == 0) {
+                Swap(nums, mid, low);
+                low++;
+                mid++;
+            } else if(nums[mid] == 1) {
+                mid++;
+            } else if(nums[mid] == 2) {
+                Swap(nums, mid, high);
+                high--;
+            }
+        }
+    }
+    
+    public void SortColors(int[] nums) {
+        //BS(nums);
+        //SS(nums);
+        //IS(nums);
+        // QS(nums, 0 , nums.Length-1);     
+        // MS(nums, 0 , nums.Length-1);   
+        DNF(nums);
+    }
+}
