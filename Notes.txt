@@ -627,6 +627,9 @@ Next Permutation
 ================
        i i+1
 eg:- 123 54100
+         \
+      /   \ 
+            \ 
      54321
 1. Find index such that nums[index]<nums[index+1]. Slope decreased from increasing slope starting from end index.eg:-index=2
 2. If no index found, then just reverse eg 12345
