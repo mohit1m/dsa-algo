@@ -623,6 +623,17 @@ For matching pattern,
 3. If j==pattern.Length, we retrun i - pattern.Length
 4. Else return -1;
 This optimizes time complexity from O(m*n) to O(m+n)
+Next Permutation
+================
+       i i+1
+eg:- 123 54100
+     54321
+1. Find index such that nums[index]<nums[index+1]. Slope decreased from increasing slope starting from end index.eg:-index=2
+2. If no index found, then just reverse eg 12345
+3. Find the next no greater than 3 starting from end eg:-4 and swap.
+4. Reverse the no starting from index+1 to n-1;
+USE Array.Reverse(array, int startIndex, int length) to reverse the array.
+
 
 
 
