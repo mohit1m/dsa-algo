@@ -1,0 +1,70 @@
+/* 
+Usually we take neggs and k floors. Here we aare given k eggs and n floors
+https://leetcode.com/problems/super-egg-drop/ 
+*/
+public class Solution {
+    public int Solve(int eggs, int floors, int[,] dp ) {
+        if(floors == 0 || floors == 1) {
+            return floors;
+        }
+        if(eggs == 1) {
+            return floors;
+        }
+        if(dp[eggs, floors]!=-1) {
+            return dp[eggs, floors];
+        }
+        int result = int.MaxValue;
+        for(int x=1; x<=floors; x++) {
+
+            //Breaks
+            int opt1 = Solve(eggs-1, x-1, dp);
+            //Does not break
+            int opt2 = Solve(eggs, floors-x, dp);
+            result =  Math.Min(result, 1+ Math.Max(opt1, opt2));             
+        }
+        return dp[eggs, floors] =  result;
+
+
+    }
+    public int SuperEggDrop(int k, int n) {
+        int eggs = k;
+        int floors = n;
+        int[,] dp = new int[eggs+1, floors+1];
+        for(int i=0;i<=eggs; i++) {
+            for(int j=0; j<=floors; j++) {
+                dp[i,j] =-1;
+            }
+        }
+       // return Solve(k, n, dp);
+        return SolveOpt(k,n);       
+    }
+
+    public int SolveOpt(int eggs, int floors) {
+        int[,] dp = new int[eggs+1, floors+1];
+        for(int i=0; i<=eggs; i++) {
+            for(int j=0; j<=floors; j++) {
+                if(j == 0 || j == 1) {
+                   dp[i,j] = j;
+                }
+                if(i == 1) {
+                    dp[i,j] = j;
+                }
+            }
+        }
+       
+        for(int i=2; i<=eggs; i++) {
+          for(int j=2; j<=floors; j++) {  
+                int result = int.MaxValue;             
+                for(int x=1; x<=j; x++) {
+                    //Breaks
+                    int opt1 = dp[i-1, x-1];
+                    //Does not break
+                    int opt2 = dp[i, j-x];
+                    result =  Math.Min(result, 1+ Math.Max(opt1, opt2));                               
+                }
+                dp[i, j] = result;                
+          }
+        }
+        return dp[eggs, floors];
+    }
+}
