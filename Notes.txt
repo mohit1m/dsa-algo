@@ -653,3 +653,11 @@ mid           high
 3) arr[mid] ==2
   swap(arr[mid],arr[high]);
    high--;
+Egg Drop Problem - (floors => n, eggs => k)
+===========================================
+1. If (floors == 0 || floors==1) return floors
+2. If eggs==1 return floors as we will have to try for all floors
+3. Start from 1st floor x=1;x<=floors;x++
+4. Initialize result = Min.MaxValue
+5. If it breaks opt1 = Solve(x-1, k-1), if not opt2 = Solve(floors-x, k);
+6. result = 1 + Math.Min(result, Math.Max(opt1,opt2));
