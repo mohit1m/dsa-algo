@@ -1,0 +1,82 @@
+public class Solution {
+    public void SwapIfGreater(int[] nums1, int[] nums2, int left, int right) {
+        if(nums1[left] > nums2[right]) {
+            int temp = nums1[left];        
+            nums1[left] = nums2[right];
+            nums2[right] = temp;
+        }
+    }
+
+    public void ArrangeArray(int[] nums1, int[] nums2, int m, int n) {
+        if(nums1.Length == 1 && nums1[0]!=0 || nums2.Length==0) {
+            return;
+        }
+
+        for(int i=0;i<m; i++) {
+            nums1[i] = nums1[i+m];
+        }
+        int j = 0;
+        for(int i=m; i<m+n; i++) {
+            nums1[i] = nums2[j];
+            j++;
+        }
+    }
+
+    public void Merge1(int[] nums1, int m, int[] nums2, int n) {
+        int left = m-1;
+        int right = 0;
+        while(left>=0 && right<n) {
+            if(nums1[left]>nums2[right]) {
+                int temp = nums1[left];
+                nums1[left] = nums2[right];
+                nums2[right] = temp;
+            } else {
+                break;
+            }
+
+            left--;
+            right++;
+        }
+        Array.Sort(nums1);
+        Array.Sort(nums2);        
+        ArrangeArray(nums1, nums2, m , n);
+    }
+
+    public void Merge(int[] nums1, int m, int[] nums2, int n) {
+        // Gap method
+       int len = m+n;
+       int gap = len/2 + len%2;
+ 
+        while(gap > 0) {
+          int left = 0;
+          int right = left + gap;
+          while(right < len) {
+          // left on left and right on right
+            if(left<m && right>=m) {
+              SwapIfGreater(nums1, nums2, left, right - m); 
+            }
+                // Both on right
+            else if(left>=m ) {
+              SwapIfGreater(nums2, nums2, left - m, right - m); 
+            }
+            else {
+              SwapIfGreater(nums1, nums1, left, right);     
+            }
+            left++;
+            right++;                
+          }
+
+          if(gap == 1) {
+              break;
+           }
+           gap = gap/2+ gap%2;
+        }
+
+        //Extra logic
+        int j = 0;
+        for(int i=m; i<m+n; i++) {
+            nums1[i] = nums2[j];
+            j++;
+        }
+    }
+}
