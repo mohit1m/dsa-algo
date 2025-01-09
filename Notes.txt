@@ -661,3 +661,14 @@ Egg Drop Problem - (floors => n, eggs => k)
 4. Initialize result = Min.MaxValue
 5. If it breaks opt1 = Solve(x-1, k-1), if not opt2 = Solve(floors-x, k);
 6. result = 1 + Math.Min(result, Math.Max(opt1,opt2));
+Merge sorted array without extra space
+======================================
+1. Set i to last index of 1st arr and j to first index of 2nd array
+2. Start while loop if i>=0 and j<n Compare and swap if not sorted. Break in else condition
+Gap analysis
+1. Add len = m+n and gap=len/2+len%2;. While gap>0, left =0; right= left+gap;
+i) If on left and right side, SwapLargest(num1, num2, left, right-m);
+ii) If both on right SwapLargest(num2, num2, left-m, right-m); else SwapLargest(num1, num1, left, right);
+left++, right++;
+2. If gap==1 break;
+
