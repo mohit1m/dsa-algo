@@ -1,0 +1,70 @@
+/*
+https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array
+*/
+public class Solution {
+    public class Trie { 
+        public class TrieNode {
+          public TrieNode[] trieNode;     
+          
+          public TrieNode() {
+            trieNode = new TrieNode[2];
+          }
+
+          public bool Contains(int bit) {
+            return trieNode[bit]!=null;
+          }
+
+          public TrieNode Get(int bit) {
+            return trieNode[bit];
+          }
+          public void Put(int bit, TrieNode node) {
+            trieNode[bit] = node;
+          }
+        }
+
+        TrieNode root;
+
+        public Trie() {
+          root = new TrieNode();
+        }
+
+        public void Insert(int num) {
+            TrieNode current = root;
+            for(int i=31; i>=0; i--) {
+                int bit = (num>>i) & 1;
+                if(!current.Contains(bit)) {
+                    current.Put(bit, new TrieNode());
+                }
+                current = current.Get(bit);
+            }
+        }
+
+        public int FindMaxXOR(int num) {
+            int maxXOR = 0;
+            TrieNode current = root;
+            for(int i=31; i>=0; i--) {
+              int bit = (num>>i) & 1;
+              int complementBit = 1-bit;
+              if(current.Contains(complementBit)) {
+                maxXOR = maxXOR | (1<<i);
+                current = current.Get(complementBit);
+              } else if(current.Contains(bit)){
+                current = current.Get(bit);
+              }
+            }
+            return maxXOR;
+        }
+    }
+
+    public int FindMaximumXOR(int[] nums) {
+        Trie trie = new Trie();
+        foreach(var num in nums) {
+            trie.Insert(num);
+        }
+        int max = 0;
+        foreach(var num in nums) {
+            max = Math.Max(max, trie.FindMaxXOR(num));
+        }
+        return max;        
+    }
+}
