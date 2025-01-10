@@ -1,0 +1,96 @@
+/*
+https://leetcode.com/problems/maximum-xor-with-an-element-from-array/
+*/
+public class Solution {
+    public class Trie { 
+        public class TrieNode {
+          public TrieNode[] trieNode;     
+          
+          public TrieNode() {
+            trieNode = new TrieNode[2];
+          }
+
+          public bool Contains(int bit) {
+            return trieNode[bit]!=null;
+          }
+
+          public TrieNode Get(int bit) {
+            return trieNode[bit];
+          }
+          public void Put(int bit, TrieNode node) {
+            trieNode[bit] = node;
+          }
+        }
+
+        TrieNode root;
+
+        public Trie() {
+          root = new TrieNode();
+        }
+
+        public void Insert(int num) {
+            TrieNode current = root;
+            for(int i=31; i>=0; i--) {
+                int bit = (num>>i) & 1;
+                if(!current.Contains(bit)) {
+                    current.Put(bit, new TrieNode());
+                }
+                current = current.Get(bit);
+            }
+        }
+
+        public int FindMaxXOR(int num) {
+            int maxXOR = 0;
+            TrieNode current = root;
+            for(int i=31; i>=0; i--) {
+              int bit = (num>>i) & 1;
+              int complementBit = 1-bit;
+              if(current.Contains(complementBit)) {
+                maxXOR = maxXOR | (1<<i);
+                current = current.Get(complementBit);
+              } else if(current.Contains(bit)){
+                current = current.Get(bit);
+              }
+            }
+            return maxXOR;
+        }
+    }
+
+    public int[] MaximizeXor(int[] nums, int[][] queries)  {       
+       int k = queries.Length;
+       int[][] copyQueries = new int[k][];
+       Array.Copy(queries, copyQueries, queries.Length);
+       int[] ans  = new int[k];
+
+       Array.Sort(copyQueries, (a,b) => a[1].CompareTo(b[1]));
+       Array.Sort(nums);
+       Dictionary<(int, int), int> hashMap = new();         
+
+       int index = 0;
+       Trie trie = new Trie();
+       foreach(var q in copyQueries) {
+         int xi = q[0];
+         int mi = q[1];
+
+         int n = nums.Length;
+        
+         while(index<n && nums[index]<=mi) {
+            trie.Insert(nums[index]);
+            index++;
+         }
+
+         if(index == 0) {
+            hashMap[(xi , mi)] = -1;
+         } else {
+            hashMap[(xi , mi)] = trie.FindMaxXOR(xi);
+         }        
+       }
+        int i = 0;
+         foreach(var q in queries) {
+            ans[i] = hashMap[(q[0], q[1])];
+            i++;
+         }
+       return ans;
+    }
+}
+
