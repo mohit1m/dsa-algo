@@ -671,4 +671,17 @@ i) If on left and right side, SwapLargest(num1, num2, left, right-m);
 ii) If both on right SwapLargest(num2, num2, left-m, right-m); else SwapLargest(num1, num1, left, right);
 left++, right++;
 2. If gap==1 break;
+Max xor between numbers of an array
+====================================
+1. Add all no to trie
+2. Traverse through each no and find max xor
+i) Find bit as int bit = (n>>i)&1. Find bit complement as 1-bit and find in trie and move to that need.
+If not found move to current bit
+Max xor for queries
+===================
+1. Sort the numbers and quereies based on the constraint
+2. Add no till the constraint to trie and find max by passing the number to be Xored with
+3. Save the result in hashMap and use it for answer
+Remember:- For 2D array iniatialization, use length of rows, int[][] copyQueries = new int[n][]
+Array.Copy expects 3 arguments with length as last param.
 
