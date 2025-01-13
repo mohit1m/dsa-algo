@@ -1,0 +1,70 @@
+/* https://leetcode.com/problems/reverse-pairs/ */
+public class Solution {
+        public long CountReversePairs(int[] nums, int start, int mid, int end) {
+       // start mid mid+1 end
+        long count = 0;
+        int right = mid+1;
+        for(int left=start; left<=mid; left++) {            
+            while(right<=end && nums[left] > 2L*nums[right]) {
+                right++;
+            }
+            // count += right-(mid+1)+1 - 1;
+            count += right-(mid+1);
+        }
+        return count;
+    }
+
+    public void Merge(int[] nums, int start, int end) {
+        int mid = start+(end-start)/2;
+        int len1 = mid-start+1;
+        int len2 = end-mid;
+        int[] nums1 = new int[len1];
+        int[] nums2 = new int[len2];
+
+        int mainArrayIndex = start;
+        for(int i=0; i<len1; i++) {
+            nums1[i] = nums[mainArrayIndex++];
+        }
+
+        mainArrayIndex = mid+1;
+        for(int i=0; i<len2; i++) {
+            nums2[i] = nums[mainArrayIndex++];
+        }
+
+        mainArrayIndex=start;
+        int index1=0;
+        int index2=0;
+    
+        while(index1<len1 && index2<len2) {
+            if(nums1[index1]>nums2[index2]) {
+                nums[mainArrayIndex++] = nums2[index2++];
+            } else {
+                nums[mainArrayIndex++] = nums1[index1++];              
+            }
+        }
+        while(index1<len1) {
+            nums[mainArrayIndex++] = nums1[index1++];
+        }
+        while(index2<len2) {
+            nums[mainArrayIndex++] = nums2[index2++];
+        }
+    }
+
+    public long MS(int[] nums, int start, int end) {
+        if(start>=end) {
+            return 0;
+        }
+        int mid = start+(end-start)/2;
+        long count = MS(nums, start, mid);
+        count += MS(nums, mid+1, end);
+        count += CountReversePairs(nums, start, mid, end);
+        Merge(nums, start, end);
+        return count;
+    }
+    
+    public int ReversePairs(int[] nums) {
+        return (int)MS(nums, 0, nums.Length-1);
+    }
+
+}
+        
