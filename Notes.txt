@@ -713,3 +713,12 @@ Set hashMap[0] = 1;
 1. We find x = xR^k. If x in hashMap then add count as hashMap[x].
 2. Add current xor to hashMap. 
 3. Return count
+MCM
+===
+i-1  i      j
+10 | 20 || 30 40
+        k=1
+Solve(arr, 0, arr.Length-1)
+Base Condition: if(i==j) return 0;
+Math.Min(min, Solve(arr, i, k) + Solve(arr, k+1, j) + arr[i-1]*arr[j]*arr[k];
+
