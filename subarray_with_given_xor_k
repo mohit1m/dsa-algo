@@ -1,0 +1,23 @@
+/* https://www.interviewbit.com/problems/subarray-with-given-xor */
+class Solution {
+    public int solve(List<int> A, int B) {
+        int xor = 0;
+        Dictionary<int, int> hashMap = new();
+        hashMap[xor] = 1;
+        int count = 0;
+        for(int i=0; i<A.Count; i++) {
+            xor ^= A[i];
+            int x = B ^ xor;
+            if(hashMap.ContainsKey(x)) {
+                count += hashMap[x];
+            }
+            if(hashMap.ContainsKey(xor)) {
+                hashMap[xor]++; 
+            }
+            else {
+               hashMap[xor] = 1;  
+            }
+        }
+        return count;
+    }
+}
