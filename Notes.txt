@@ -698,3 +698,10 @@ Repeated No
 4. if (rightMostSetBit & A[i])!=0 xor with set of ones elses zeroes
 5. Do the same for (rightMostSetBit & i)!=0  with set of ones elses zeroes
 6. Find count tom match ones. If count is 2 retirn zeroes and ones & vice-versa.
+Single No
+=========
+1. We can use hashMap and find freq=1
+2. We can also find 1<<i & A[i] for 32 bits and increment the count if it is not 0.
+If count%3==0 , we can add res |= 1<<i;
+3. We can also sort and return A[i] if A[i-1] == A[i] else return A[A.Length-1];
+4. We can also use ones = (ones^A[i]) & ~twos;   twos = (twos^A[i]) & ~ones; and return ones
