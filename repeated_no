@@ -1,0 +1,41 @@
+/* https://www.interviewbit.com/problems/repeat-and-missing-number-array */ 
+class Solution {
+    public List<int> repeatedNumber(List<int> A) {
+        int xor = 0;
+        for(int i=1; i<=A.Count; i++) {
+            xor ^= A[i-1]^i;
+        }
+        
+        int rightMostSetBit = xor & ~(xor-1);
+        int ones = 0;
+        int zero = 0;
+        for(int i=0; i<A.Count; i++) {
+            if((A[i] & rightMostSetBit) != 0) {
+                ones = ones ^ A[i];
+            } else {
+                zero = zero ^ A[i];
+            }
+        }
+        
+        for(int i=1; i<=A.Count; i++) {
+            if((i & rightMostSetBit) != 0) {
+                ones = ones ^ i;
+            } else {
+                zero = zero ^ i;
+            }
+        }
+        
+        int count = 0;
+        for(int i=0; i<A.Count; i++) {
+            if(A[i] == ones) {
+                count++;
+            }
+        }
+        
+        if(count == 2) {
+            return new List<int>() { ones, zero };
+        } else {
+            return new List<int>() { zero, ones };
+        }
+    }
+}
