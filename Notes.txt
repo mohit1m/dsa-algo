@@ -684,4 +684,9 @@ Max xor for queries
 3. Save the result in hashMap and use it for answer
 Remember:- For 2D array iniatialization, use length of rows, int[][] copyQueries = new int[n][]
 Array.Copy expects 3 arguments with length as last param.
-
+Reverse Pairs Array Merge Sort
+==============================
+start     mid      mid+1      end
+Just before merge write a method
+where j=mid+1, i=start;i<=end;i++  and if nums[i] > 2L* nums[j] j++;
+count += j-(mid+1)
