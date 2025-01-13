@@ -705,3 +705,11 @@ Single No
 If count%3==0 , we can add res |= 1<<i;
 3. We can also sort and return A[i] if A[i-1] == A[i] else return A[A.Length-1];
 4. We can also use ones = (ones^A[i]) & ~twos;   twos = (twos^A[i]) & ~ones; and return ones
+Subarray with XOR k
+===================
+Set hashMap[0] = 1;
+------------------------- -k--
+--- x--------  --------XR
+1. We find x = xR^k. If x in hashMap then add count as hashMap[x].
+2. Add current xor to hashMap. 
+3. Return count
