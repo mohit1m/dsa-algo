@@ -1,0 +1,38 @@
+/* https://www.geeksforgeeks.org/problems/flattening-a-linked-list/1 */
+class Solution {
+    public Node Merge(Node list1, Node list2) {
+        Node dummy = new Node(-1);
+        Node mergedList = dummy;
+        while(list1!=null && list2!=null) {
+            if(list1.data < list2.data) {
+                mergedList.bottom = new Node(list1.data);
+                mergedList = mergedList.bottom;
+                list1 = list1.bottom;
+            } else {
+                mergedList.bottom = new Node(list2.data);
+                mergedList = mergedList.bottom;
+                list2 = list2.bottom;
+            }
+        }
+        
+        if(list1!=null) {
+            mergedList.bottom = list1;
+        }
+        if(list2!=null) {
+            mergedList.bottom = list2;
+        }
+        return dummy.bottom;
+    }
+    
+    // Function to flatten a linked list
+    Node flatten(Node root) {
+        // code here
+        if(root == null || root.next == null) {
+            return root;
+        }
+        
+        root.next = flatten(root.next);
+        root = Merge(root, root.next);
+        return root;
+    }
+}
