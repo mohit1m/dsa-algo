@@ -721,4 +721,10 @@ i-1  i      j
 Solve(arr, 0, arr.Length-1)
 Base Condition: if(i==j) return 0;
 Math.Min(min, Solve(arr, i, k) + Solve(arr, k+1, j) + arr[i-1]*arr[j]*arr[k];
+Flatten a Linked List
+======================
+1. If root is null or root.next is null return root
+2. Set root.next = Flatten(root.next);
+3. root = Merge(root, root.next) and return root;
+
 
