@@ -1,0 +1,24 @@
+/* https://leetcode.com/problems/permutation-sequence */
+public class Solution {
+    public string GetPermutation(int n, int k) {
+        List<int> nums = new List<int>();
+        k--;
+        int fact = 1;
+        for(int i=1;i<n;i++) {
+            fact = fact*i;
+            nums.Add(i);
+        }
+        nums.Add(n);
+        StringBuilder result = new StringBuilder();
+
+        while(true) {
+            result.Append(nums[k/fact]);
+            nums.RemoveAt(k/fact);
+            if(nums.Count == 0) {
+                return result.ToString();
+            }
+            k = k%fact;
+            fact = fact/nums.Count;
+        }        
+    }
+}
