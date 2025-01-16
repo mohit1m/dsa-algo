@@ -726,5 +726,12 @@ Flatten a Linked List
 1. If root is null or root.next is null return root
 2. Set root.next = Flatten(root.next);
 3. root = Merge(root, root.next) and return root;
-
-
+Kth permutation
+================
+1 23 32 -> 2 combinations each = Factorial of remaining nos. Once we fix 1st we need to determine k%fact in remaining combination
+2 13 31
+3 12 21
+1. Decrement k for 0 based indexing.Find factorial of all no except last. Add all nums to list.
+2. Add num to stringBuilder at k using nums[k/fact].Remove the no at k/fact;
+3. If nums Count is 0 return string
+4. Set k=k%fact and fact=fact/nums.Count;
