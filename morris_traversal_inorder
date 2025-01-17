@@ -1,0 +1,29 @@
+/* https://leetcode.com/problems/binary-tree-inorder-traversal */
+public class Solution {
+    public IList<int> InorderTraversal(TreeNode root) {
+        IList<int> inOrder = new List<int>();
+
+        TreeNode current = root;
+        while(current!=null) {
+            if(current.left==null) {
+                inOrder.Add(current.val);
+                current = current.right;
+            }
+            else {
+                TreeNode prev = current.left;
+                while(prev.right!=null && prev.right!=current) {
+                    prev = prev.right;
+                }
+                if(prev.right == null) {
+                    prev.right = current;
+                    current = current.left;
+                } else {
+                    prev.right = null;
+                    inOrder.Add(current.val);
+                    current = current.right;
+                }
+            }
+        }
+        return inOrder;     
+    }
+}
