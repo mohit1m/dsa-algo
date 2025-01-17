@@ -735,3 +735,9 @@ Kth permutation
 2. Add num to stringBuilder at k using nums[k/fact].Remove the no at k/fact;
 3. If nums Count is 0 return string
 4. Set k=k%fact and fact=fact/nums.Count;
+Morris Traversal - InOrder
+==========================
+1. Set current to root. If no left subtree, print it
+2. If left subtree, find right most child and create a link to current and move current to left.
+3. If right most tree already has link, set it to null and move current to right.
+For Preorder,  just add the value when link is set
