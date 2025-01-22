@@ -761,4 +761,8 @@ Another approach
 2. Get the righmost node of left subtree while(prev.right!=null) prev=prev.right
 3. Set prev =current.current , current. right = curren.left and current.left=null
 4. For outside loop set current = current.right;
-
+Flood fill algorithm
+====================
+If image[sr][sc] = color return image
+Keep track of previousColor in recursive call and return if image[sr][sc]!=prevColor
+Set image[sr][sc] = color and pass prevColor to recursive call.
