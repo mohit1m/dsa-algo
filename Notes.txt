@@ -741,3 +741,16 @@ Morris Traversal - InOrder
 2. If left subtree, find right most child and create a link to current and move current to left.
 3. If right most tree already has link, set it to null and move current to right.
 For Preorder,  just add the value when link is set
+Flatten binary tree to linked list
+==================================
+1. Set global prev=null
+2. Flateen the right side, then left
+3. Set root.right=prev, and root.left=null  and prev = root.
+to set the rightmost node of left subtree to the first node of right flattened subtree
+Another approach
+=================
+1. If there is a left node,setp rev = current.left
+2. Get the righmost node of left subtree while(prev.right!=null) prev=prev.right
+3. Set prev =current.current , current. right = curren.left and current.left=null
+4. For outside loop set current = current.right;
+
