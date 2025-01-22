@@ -573,6 +573,14 @@ Majority element
 1. If not set, set it to current num and set count to 1
 2. Increment the count if match. If not decrement the count
 3. Use if else condition only
+Rotate array by k elements
+===========================
+// Reverse the first d elements
+reverse(arr, 0, k - 1);
+// Reverse the remaining n-d elements
+reverse(arr, k, n - 1);
+// Reverse the entire array
+reverse(arr, 0, n - 1);
 Intersecting chords
 ===================
 Catalon's no
