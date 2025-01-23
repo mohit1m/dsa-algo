@@ -766,3 +766,9 @@ Flood fill algorithm
 If image[sr][sc] = color return image
 Keep track of previousColor in recursive call and return if image[sr][sc]!=prevColor
 Set image[sr][sc] = color and pass prevColor to recursive call.
+Boundary Traversal
+===================
+1. We add the root
+2. We add root.left leftview without leaves
+3. We traverse leaves
+4. We add root.lerightft without leaves in reverse order so we keep addition condition at the end
