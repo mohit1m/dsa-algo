@@ -341,7 +341,9 @@ Getting the rightmost set digit
 ================================
 Either x & -x    or we can use 
 x & ~(x - 1) 
-
+Clearing the rightmost set bit
+==============================
+x&(x-1)
 For array odd, we can use (arr.Length & 1) == 1 condition
 Use CompareTo instead of a-b with sorting.
 Min and max Heaps
