@@ -13,10 +13,10 @@ public class Solution {
             return;
         }
         visited.Add((row, col));
-        DFS(heights, rows, cols, row -1, col, visited, -1);
-        DFS(heights, rows, cols, row+1 , col, visited, -1);
-        DFS(heights, rows, cols, row, col+1, visited, -1);
-        DFS(heights, rows, cols, row, col-1, visited, -1);
+        DFS(heights, rows, cols, row -1, col, visited, heights[row][col]);
+        DFS(heights, rows, cols, row+1 , col, visited, heights[row][col]);
+        DFS(heights, rows, cols, row, col+1, visited, heights[row][col]);
+        DFS(heights, rows, cols, row, col-1, visited, heights[row][col]);
     }
 
     public IList<IList<int>> PacificAtlantic(int[][] heights) {
@@ -26,13 +26,13 @@ public class Solution {
         HashSet<(int,int)> pacificVisited = new();
         HashSet<(int,int)> atlanticVisited = new();
         for(int i=0; i<cols; i++) {
-            DFS(heights, rows, cols, 0, i, pacificVisited, heights[0][i]);
-            DFS(heights, rows, cols, rows-1, i, atlanticVisited, heights[rows-1][i]);
-        }
+            DFS(heights, rows, cols, 0, i, pacificVisited, -1);
+            DFS(heights, rows, cols, rows-1, i, atlanticVisited, -1);
+}
 
         for(int i=0; i<rows; i++) {
-            DFS(heights, rows, cols, i, 0, pacificVisited, heights[i][0]);
-            DFS(heights, rows, cols, i, cols-1, atlanticVisited, heights[i][cols-1]);
+            DFS(heights, rows, cols, i, 0, pacificVisited, -1);
+            DFS(heights, rows, cols, i, cols-1, atlanticVisited, -1);
         }
 
         for(int i=0; i<rows; i++) {
